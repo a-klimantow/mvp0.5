@@ -8,7 +8,6 @@ import {
   UserSettingPage,
   CompanyPage
 } from "pages"
-//test
 import { AppContext } from "contex"
 
 export default () => {
