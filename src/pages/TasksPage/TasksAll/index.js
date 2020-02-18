@@ -5,9 +5,9 @@ import styled, { use } from "reshadow/macro"
 import { method } from "services/api"
 import { paper, tabs } from "styles"
 import { Select as AntSelect, Input } from "antd"
-import { TasksAllListItem } from "./TasksAllListItem"
+import { TasksList } from "./TaskList"
 
-import { Icon, List } from "components"
+import { Icon } from "components"
 
 const { Option: AntOption } = AntSelect
 
@@ -21,18 +21,15 @@ const sortSelectItems = [
 ]
 
 export const TasksAll = ({ location, history }) => {
-  const [loading, setLoading] = useState(false)
   const [state, setState] = useState({})
   const { executingTasksCount, observingTasksCount, items = [] } = state
   const { hash, pathname } = location
 
   useEffect(() => {
     if (hash) {
-      setLoading(true)
       setState(state => ({ ...state, items: [] }))
       method.get(`Tasks?GroupType=${hash.slice(1)}`).then(res => {
         setState(res)
-        setLoading(false)
       })
     }
   }, [hash])
@@ -43,7 +40,7 @@ export const TasksAll = ({ location, history }) => {
       display: grid;
       grid-template-columns: 1fr 1fr;
       align-items: center;
-      
+
       & > div {
         justify-self: end;
       }
@@ -61,6 +58,14 @@ export const TasksAll = ({ location, history }) => {
     Icon {
       margin-bottom: -4px;
       margin-right: 8px;
+    }
+
+    checked_group {
+      display: flex;
+      justify-self: start;
+      & > :first-child {
+        margin-right: 24px;
+      }
     }
   `(
     <>
@@ -104,17 +109,7 @@ export const TasksAll = ({ location, history }) => {
             </AntSelect>
           </div>
         </filter>
-        <List
-          loading={loading}
-          data={items}
-          renderItem={task => (
-            <TasksAllListItem
-              key={task.id}
-              onClick={() => history.push("/tasks/" + task.id)}
-              {...task}
-            />
-          )}
-        />
+        <TasksList data={items} hash={location.hash} />
       </paper>
     </>
   )
