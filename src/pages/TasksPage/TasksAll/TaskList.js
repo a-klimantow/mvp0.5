@@ -5,6 +5,7 @@ import styled, { css } from "reshadow/macro"
 import { Button, Modal } from "antd"
 import { TasksAllListItem } from "./TasksAllListItem"
 import { Checkbox, Icon, Radiobtn } from "components"
+import { Empty } from "components/Empty"
 const users = ["Иванов", "Петров", "Сидоров"]
 
 export const TasksList = ({ styles, data = [], hash }) => {
@@ -66,7 +67,7 @@ export const TasksList = ({ styles, data = [], hash }) => {
     title: "Назначение задачи"
   }
 
-  if (!data.length) return null
+  if (!data.length) return <Empty />
 
   return styled(styles)(
     <div>
