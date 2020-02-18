@@ -10,6 +10,7 @@ import {
 } from "pages"
 import { AppContext } from "contex"
 
+console.log("master")
 export default () => {
   const [state, dispatch] = useReducer(() => {}, {})
 
