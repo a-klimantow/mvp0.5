@@ -1,7 +1,7 @@
-import React from "react"
-import styled, { css } from "reshadow/macro"
+import React from 'react'
+import styled, { css } from 'reshadow/macro'
 
-import { Input } from "components"
+import { Input } from 'components'
 
 export const Login = ({ styles }) => {
   return styled(styles)(
@@ -11,9 +11,18 @@ export const Login = ({ styles }) => {
         <Input
           id="email"
           label="Логин"
-          onChange={e => console.log(e.target.id)}
+          getValue={(value, name) => console.log(value, name)}
+          errMsg="error"
+          required
+          type="email"
         />
-        <Input type="password" label="Пароль" id="password" required={true} />
+        <Input
+          type="password"
+          label="Пароль"
+          id="password"
+          errMsg="Поле должно быть заполненно"
+          required
+        />
         <button type="submit">click</button>
       </form>
     </main>
