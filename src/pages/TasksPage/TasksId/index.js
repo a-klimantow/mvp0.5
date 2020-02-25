@@ -190,7 +190,7 @@ export const TasksId = ({ match, history }) => {
             </paper>
           )}
 
-          {type === " IndividualDeviceCheck" && <Owner />}
+          {type === "IndividualDeviceCheck" && <Owner />}
           {/* info block */}
           <paper>
             <h3>Информация о задаче</h3>
@@ -207,7 +207,7 @@ export const TasksId = ({ match, history }) => {
                 />
               )}
             />
-            {device.model ? (
+            {device && device.model ? (
               <title_device
                 as="h3"
                 onClick={() =>
@@ -221,11 +221,13 @@ export const TasksId = ({ match, history }) => {
               </title_device>
             ) : null}
 
-            <List
-              loading={loading}
-              data={[device]}
-              renderItem={(item, i) => <DeviceListItem key={i} {...item} />}
-            />
+            {device && (
+              <List
+                loading={loading}
+                data={[device]}
+                renderItem={(item, i) => <DeviceListItem key={i} {...item} />}
+              />
+            )}
           </paper>
         </div>
         <Stages
