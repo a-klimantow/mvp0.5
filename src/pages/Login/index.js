@@ -14,9 +14,10 @@ export const Login = ({ styles }) => {
       >
         <field>
           <label htmlFor="email">Email</label>
-          <Input name="email" required />
+          <Input name="email" type="password" />
         </field>
         <button type="submit">click</button>
+        <button type="reset">reset</button>
       </form>
     </main>
   )
