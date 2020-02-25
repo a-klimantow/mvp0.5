@@ -9,7 +9,7 @@ import {
   CompanyPage
 } from "pages"
 import { AppContext } from "contex"
-console.log("staging")
+
 export default () => {
   const [state, dispatch] = useReducer(() => {}, {})
 

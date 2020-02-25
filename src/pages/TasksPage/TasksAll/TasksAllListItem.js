@@ -55,10 +55,10 @@ const tasksItemStyle = css`
 
   rowtop {
     display: grid;
-    grid-template-columns: auto 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
     align-items: center;
     grid-gap: 16px;
-    & *:nth-child(3) {
+    & *:nth-child(2) {
       text-align: right;
     }
   }
@@ -91,9 +91,9 @@ export const TasksAllListItem = ({
     <listitem as="li" onClick={() => push("/tasks/" + id)}>
       {timeline}
       <rowtop>
-        {!closingTime && (
+        {/* {!closingTime && (
           <Checkbox onChange={toggleCheck} checked={checked} stopPropagation />
-        )}
+        )} */}
         <h4>{currentStage ? currentStage.name : name}</h4>
         <span>{!closingTime && name}</span>
       </rowtop>

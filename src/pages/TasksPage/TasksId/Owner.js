@@ -18,10 +18,12 @@ export const Owner = () => {
     }
   `(
     <paper>
-      <h3>Статус собственника</h3>
+      <h3>Статус квартиры</h3>
       <row>
         <AntSelect defaultValue="1">
           <Option key="1">Подает показания</Option>
+          <Option key="2">Должник</Option>
+          <Option key="3">На паузе</Option>
         </AntSelect>
         <Button>Изменить статус</Button>
       </row>

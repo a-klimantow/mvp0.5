@@ -71,7 +71,7 @@ export const TasksList = ({ styles, data = [], hash }) => {
 
   return styled(styles)(
     <div>
-      {hash !== "#Archived" && (
+      {/* {hash !== "#Archived" && (
         <top>
           <Checkbox
             text="Все задачи"
@@ -85,7 +85,7 @@ export const TasksList = ({ styles, data = [], hash }) => {
             </Button>
           )}
         </top>
-      )}
+      )} */}
       <ul>
         {tasks.map(item => (
           <TasksAllListItem

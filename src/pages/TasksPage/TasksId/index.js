@@ -112,6 +112,12 @@ export const TasksId = ({ match, history }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pushData])
 
+  useEffect(() => {
+    method
+      .get("/Apartments/ApartmentStatus")
+      .then(res => console.log("res", res))
+  }, [])
+
   const updateState = data => {
     setState(state => ({ ...state, ...data }))
   }
