@@ -2,42 +2,28 @@ import React from "react"
 import styled, { css } from "reshadow/macro"
 import t from "prop-types"
 
-const bigSize = css`
-  button {
-    height: 40px;
-    font-size: 16px;
-    padding: 0 24px;
-  }
-`
 const normalSize = css`
-  button {
+  content {
+    padding: 0 16px;
     height: 32px;
     font-size: 14px;
-    padding: 0 16px;
   }
 `
-
-const normalType = css`
-  button {
-    border-color: var(--color-frame);
-  }
-  button:not(:disabled):not(:active):hover,
-  button:focus {
-    border-color: var(--color-primary);
-    color: var(--color-primary);
+const bigSize = css`
+  content {
+    padding: 0 24px;
+    height: 40px;
+    font-size: 16px;
   }
 `
-
 const primaryType = css`
-  button {
-    color: #fff;
-    border-color: var(--color-primary);
+  content {
+    color: var(--color-white);
     background-color: var(--color-primary);
-  }
-
-  button:not(:disabled):not(:active):hover,
-  button:focus {
     border-color: var(--color-primary);
+  }
+  button:hover content,
+  button:focus content {
     color: var(--color-white);
   }
 `
@@ -45,19 +31,18 @@ const primaryType = css`
 export const Button = ({
   children,
   type = "normal",
-  size = "normal",
+  size = null,
   htmlType = "button",
   ...props
 }) => {
   const sizeStyle = size === "big" ? bigSize : normalSize
-  const typeStyle = type === "primary" ? primaryType : normalType
-
+  const typeStyle = type === "primary" ? primaryType : null
   return styled(
     sizeStyle,
     typeStyle
   )(
     <button type={htmlType} {...props}>
-      {children}
+      <content>{children}</content>
     </button>
   )
 }

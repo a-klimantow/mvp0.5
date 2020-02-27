@@ -33,14 +33,19 @@ export const Login = ({ styles }) => {
             required
           />
         </field>
-        <Button size="big" type="primary">c</Button>
-        <Button type="primary">c</Button>
+        <Button size="big" htmlType="submit">
+          c
+        </Button>
+        <Button size="big" type="primary">
+          c
+        </Button>
+        {/* <Button type="primary">c</Button>
         <Button disabled size="big">
           c
         </Button>
         <button type="reset" data-type="primary">
           reset
-        </button>
+        </button> */}
       </form>
     </main>
   )
