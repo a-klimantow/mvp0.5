@@ -1,7 +1,7 @@
 import React from "react"
 import styled, { css } from "reshadow/macro"
 
-import { Input } from "components"
+import { MyInput, Button } from "components"
 
 export const Login = ({ styles }) => {
   return styled(styles)(
@@ -11,13 +11,36 @@ export const Login = ({ styles }) => {
         onInvalid={e => {
           console.log(e.target.name)
         }}
+        onSubmit={e => e.preventDefault()}
       >
         <field>
           <label htmlFor="email">Email</label>
-          <Input name="email" type="password" />
+          <MyInput
+            name="email"
+            id="email"
+            size="big"
+            onChange={e => console.log(e.target.value)}
+            required
+          />
         </field>
-        <button type="submit">click</button>
-        <button type="reset">reset</button>
+        <field>
+          <label htmlFor="password">Email</label>
+          <MyInput
+            name="password"
+            id="password"
+            size="big"
+            onChange={e => console.log(e.target.value)}
+            required
+          />
+        </field>
+        <Button size="big" type="primary">c</Button>
+        <Button type="primary">c</Button>
+        <Button disabled size="big">
+          c
+        </Button>
+        <button type="reset" data-type="primary">
+          reset
+        </button>
       </form>
     </main>
   )
@@ -42,11 +65,6 @@ Login.defaultProps = {
       & > * {
         margin-bottom: 24px;
       }
-    }
-
-    label {
-      display: block;
-      margin-bottom: 8px;
     }
   `
 }
