@@ -1,6 +1,7 @@
 import React from "react"
 import styled, { css } from "reshadow/macro"
 import t from "prop-types"
+import "./button.css"
 
 const normalSize = css`
   content {
@@ -35,13 +36,14 @@ export const Button = ({
   htmlType = "button",
   ...props
 }) => {
+  const ref = React.useRef()
   const sizeStyle = size === "big" ? bigSize : normalSize
   const typeStyle = type === "primary" ? primaryType : null
   return styled(
     sizeStyle,
     typeStyle
   )(
-    <button type={htmlType} {...props}>
+    <button type={htmlType} ref={ref} {...props}>
       <content>{children}</content>
     </button>
   )

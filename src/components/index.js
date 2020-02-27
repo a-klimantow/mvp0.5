@@ -1,2 +1,2 @@
-export * from "./MyInput"
+export * from "./Input"
 export * from "./Button"
