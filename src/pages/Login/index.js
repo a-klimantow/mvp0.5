@@ -1,22 +1,39 @@
 import React from "react"
 import styled, { css } from "reshadow/macro"
+import { label } from "components/styles"
 
-import { Input, Button } from "components"
+import { Input, Button, Select } from "components"
 
 export const Login = ({ styles }) => {
-  const [status, setStatus] = React.useState("error")
-  return styled(styles)`
-    button > div {
-      padding: 8px;
-    }
-  `(
+  const handleSubmit = e => {
+    e.preventDefault()
+    console.log()
+  }
+  return styled(
+    styles,
+    label
+  )(
     <main>
       <h1>Вход в систему</h1>
-      <form>
-        <label>Email</label>
-        <form_field>
-          <Input />
-        </form_field>
+      <form onSubmit={handleSubmit}>
+        <Input
+          label="test"
+          id="email"
+          name="email"
+          size="big"
+          onChange={e => {
+            console.log(e.target.value)
+          }}
+        />
+        <Input id="password" name="password" size="big" label="hello" required />
+
+        <Button type="primary" htmlType="submit" size="big">
+          Вход в систему
+        </Button>
+        <div>
+          <Select />
+          <Button>click</Button>
+        </div>
       </form>
     </main>
   )
@@ -25,22 +42,17 @@ export const Login = ({ styles }) => {
 Login.defaultProps = {
   styles: css`
     main {
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: start;
-      align-items: center;
     }
-
     h1 {
+      text-align: center;
+      color: var(--color-title);
     }
 
     form {
       width: 320px;
-
-      & > * {
-        margin-bottom: 24px;
-      }
+      margin: 0 auto;
+      display: grid;
+      grid-gap: 24px;
     }
   `
 }

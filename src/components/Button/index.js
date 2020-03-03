@@ -1,56 +1,23 @@
 import React from "react"
-import styled, { css } from "reshadow/macro"
-import t from "prop-types"
-import "./button.css"
-
-const normalSize = css`
-  content {
-    padding: 0 16px;
-    height: 32px;
-    font-size: 14px;
-  }
-`
-const bigSize = css`
-  content {
-    padding: 0 24px;
-    height: 40px;
-    font-size: 16px;
-  }
-`
-const primaryType = css`
-  content {
-    color: var(--color-white);
-    background-color: var(--color-primary);
-    border-color: var(--color-primary);
-  }
-  button:hover content,
-  button:focus content {
-    color: var(--color-white);
-  }
-`
+import styled from "reshadow/macro"
+import * as btn from "./styles"
 
 export const Button = ({
   children,
-  type = "normal",
-  size = null,
   htmlType = "button",
+  size = "normal",
+  type = "normal",
   ...props
 }) => {
-  const ref = React.useRef()
-  const sizeStyle = size === "big" ? bigSize : normalSize
-  const typeStyle = type === "primary" ? primaryType : null
+  const sizeStyle = size === "normal" ? btn.sizeNormal : btn.sizeBig
+  const typeStyle = type === "primary" && btn.typePrimary
   return styled(
+    btn.defaultStyle,
     sizeStyle,
     typeStyle
   )(
-    <button type={htmlType} ref={ref} {...props}>
+    <button type={htmlType} {...props}>
       <content>{children}</content>
     </button>
   )
-}
-
-Button.propTypes = {
-  type: t.oneOf(["primary", "normal"]),
-  htmlType: t.oneOf(["submit", "reset", "button"]),
-  size: t.oneOf(["big", "normal"])
 }
