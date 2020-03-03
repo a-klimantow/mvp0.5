@@ -26,19 +26,20 @@ const getIcon = resource => {
   }
 }
 
-export const Device = ({ model, serialNumber, resource }) =>
-  styled`
-    wrap {
-      display: flex;
-      align-items: center;
-    }
-    Icon {
-      margin-right: 8px;
-    }
-    span {
-      color: rgba(39, 47, 90, 0.45);
-      margin-left: 4px;
-    }
+export const Device = ({ model, serialNumber, resource }) => {
+  if (!model) return null
+  return styled`
+  wrap {
+    display: flex;
+    align-items: center;
+  }
+  Icon {
+    margin-right: 8px;
+  }
+  span {
+    color: rgba(39, 47, 90, 0.45);
+    margin-left: 4px;
+  }
   `(
     <wrap>
       <Icon {...getIcon(resource)} />
@@ -46,3 +47,4 @@ export const Device = ({ model, serialNumber, resource }) =>
       <span>({serialNumber})</span>
     </wrap>
   )
+}
