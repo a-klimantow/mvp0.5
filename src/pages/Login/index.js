@@ -2,7 +2,7 @@ import React from "react"
 import styled, { css } from "reshadow/macro"
 import { label } from "components/styles"
 
-import { Input, Button, Select } from "components"
+import { Input, Button, Select, Input_1 } from "components"
 
 export const Login = ({ styles }) => {
   const handleSubmit = e => {
@@ -15,7 +15,7 @@ export const Login = ({ styles }) => {
   )(
     <main>
       <h1>Вход в систему</h1>
-      <form onSubmit={handleSubmit}>
+      {/* <form onSubmit={handleSubmit}>
         <Input
           label="test"
           id="email"
@@ -34,6 +34,17 @@ export const Login = ({ styles }) => {
           <Select />
           <Button>click</Button>
         </div>
+      </form> */}
+      <form
+        onSubmit={e => {
+          e.preventDefault()
+          console.log(e.target)
+        }}
+      >
+        <Input_1 />
+        <Input_1 />
+        <Input_1 />
+        <Button htmlType="submit">click</Button>
       </form>
     </main>
   )
@@ -53,6 +64,9 @@ Login.defaultProps = {
       margin: 0 auto;
       display: grid;
       grid-gap: 24px;
+    }
+    input_box:hover {
+      border: 1px solid red;
     }
   `
 }
