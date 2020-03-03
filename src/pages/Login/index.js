@@ -41,7 +41,7 @@ export const Login = ({ styles }) => {
           console.log(e.target)
         }}
       >
-        <Input_1 />
+        <Input_1 htmlType="password" size="big" />
         <Input_1 />
         <Input_1 />
         <Button htmlType="submit">click</Button>

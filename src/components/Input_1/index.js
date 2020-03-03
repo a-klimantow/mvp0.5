@@ -3,82 +3,50 @@ import styled, { css, use } from "reshadow/macro"
 
 import inputStyle, { bigSize } from "./style"
 
-export const Input_1 = ({ styles, size = "", ...props }) => {
+export const Input_1 = ({
+  styles,
+  size = "big",
+  htmlType = "text",
+  ...props
+}) => {
   const [showError, setShowError] = useState(false)
+  const [touched, setTouched] = useState(false)
+  const [customType, setCustomType] = useState("password")
+  const isPasswordType = htmlType === "password"
   const handleInvalid = e => {
-    e.preventDefault()
-    setShowError(true)
+    // e.preventDefault()
+    if (touched) {
+      setShowError(true)
+      console.log(e)
+    }
+  }
+
+  const toggleShowPassword = e => {
+    customType === "password"
+      ? setCustomType("text")
+      : setCustomType("password")
   }
 
   return styled(
     inputStyle,
     size === "big" && bigSize
   )(
-    <input_wrap
-      onClick={e => console.log(e.target.dataset.button)}
-    >
-      <button data-button="true">i</button>
+    <input_wrap>
+      {isPasswordType && (
+        <button type="button" onClick={toggleShowPassword}>
+          i
+        </button>
+      )}
       <input
         type="text"
         onInvalid={handleInvalid}
         data-status={"valid"}
         required
+        // eslint-disable-next-line react/jsx-no-duplicate-props
+        type={isPasswordType ? customType : htmlType}
+        {...props}
       />
       <span>error</span>
     </input_wrap>
   )
-}
-
-Input_1.defaultProps = {
-  styles: css`
-    input_wrap {
-      /* border: 1px solid; */
-      position: relative;
-      height: 32px;
-      display: flex;
-      align-items: center;
-
-      &[|showError] span {
-        bottom: -16px;
-      }
-    }
-
-    input {
-      appearance: none;
-      outline: none;
-      position: absolute;
-      top: 0;
-      left: 0;
-      height: 100%;
-      width: 100%;
-      border: 1px solid;
-      border-radius: 4px;
-      &:hover {
-        border-color: red;
-      }
-      &:focus {
-        border-color: red;
-      }
-      &[data-status="valid"] {
-        border-color: green;
-      }
-    }
-    button {
-      position: absolute;
-      z-index: 10;
-      right: 12px;
-      &:hover + input,
-      &:focus + input {
-        border-color: red;
-      }
-    }
-
-    span {
-      position: absolute;
-      bottom: 0;
-      padding: 0;
-      overfrow: hidden;
-      transition: bottom 0.2s;
-    }
-  `
 }
