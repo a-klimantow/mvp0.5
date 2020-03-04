@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { Button, Input } from "antd"
 
+import { Loader } from "components"
 import { ChooseExecutorAndNotify } from "./ChooseExecutorAndNotify"
 import { UploadDocument } from "./UploadDocument"
 import { Switch } from "./Switch"
@@ -37,7 +38,7 @@ export const Panel = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pushData])
 
-  if (loading) return "...loading"
+  if (loading) return <Loader />
   if (!currentStage) return null
   if (userStatus === "Observer")
     return (
