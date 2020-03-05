@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom"
 
 import { useTimeline, useTimer } from "hooks"
 import { formatedDate } from "services/date"
-import { Icon, Device, Checkbox } from "components"
+import { Icon, Device } from "components"
 
 const tasksItemStyle = css`
   listitem {

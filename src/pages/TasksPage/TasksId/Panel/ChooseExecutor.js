@@ -1,6 +1,6 @@
 import React, { useState } from "react"
 import styled from "reshadow/macro"
-import { useParams } from "react-router-dom"
+// import { useParams } from "react-router-dom"
 import { Button } from "antd"
 
 import { useSelect } from "hooks"
@@ -8,7 +8,7 @@ import { useSelect } from "hooks"
 export const ChooseExecutor = ({ push }) => {
   const [nextPerpetratorId, setNextPerpetratorId] = useState(null)
 
-  const { taskId } = useParams()
+  // const { taskId } = useParams()
 
   const { select: executorSelect } = useSelect({
     url: "ManagingFirmUsers",
