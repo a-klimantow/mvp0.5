@@ -1,14 +1,25 @@
+@import "../assets/fonts/fonts.css";
 @import "./variables.css";
 
 body {
   margin: 0;
-  font-family: sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  font-family: "PTRootUI", sans-serif;
+  color: var(--color-title);
 }
 
 *,
 *::before,
 *::after {
   box-sizing: border-box;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+  transition: color 0.2s ease-in-out;
+}
+
+a:hover {
+  color: var(--color-primary);
 }

@@ -3,6 +3,7 @@
   --color-title: rgba(39, 47, 90, 1);
   --color-body: rgba(39, 47, 90, 0.8);
   --color-caption: rgba(39, 47, 90, 0.6);
+  --color-pressed: rgba(39, 47, 90, 1);
   --color-disable: rgba(39, 47, 90, 0.32);
   --color-frame: rgb(220, 222, 228);
   --color-bg: rgb(243, 245, 246);
