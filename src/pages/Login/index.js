@@ -2,6 +2,7 @@ import React from "react"
 import styled, { css } from "reshadow/macro"
 import { label } from "components/styles"
 
+import { ReactComponent as IconAlarm } from "assets/alarm.svg"
 import { Input, Button, Select, Input_1 } from "components"
 
 export const Login = ({ styles }) => {
@@ -46,6 +47,7 @@ export const Login = ({ styles }) => {
         <Input_1 />
         <Button htmlType="submit">click</Button>
       </form>
+      <IconAlarm />
     </main>
   )
 }
@@ -68,5 +70,6 @@ Login.defaultProps = {
     input_box:hover {
       border: 1px solid red;
     }
+
   `
 }
