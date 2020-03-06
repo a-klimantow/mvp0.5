@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react"
 import { Button, Input } from "antd"
 
+import { Loader } from "components"
 import { ChooseExecutorAndNotify } from "./ChooseExecutorAndNotify"
 import { UploadDocument } from "./UploadDocument"
 import { Switch } from "./Switch"
 import { ChooseExecutorAndSwitch } from "./ChooseExecutorAndSwitch"
+import { ChooseExecutor } from "./ChooseExecutor"
 import { method } from "services/api"
 
 export const Panel = ({
@@ -19,6 +21,7 @@ export const Panel = ({
 
   useEffect(() => setLoading(loadingPage), [loadingPage])
 
+  console.log("user status", userStatus)
   useEffect(() => {
     let mount = true
     if (pushData) {
@@ -35,7 +38,7 @@ export const Panel = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pushData])
 
-  if (loading) return "...loading"
+  if (loading) return <Loader />
   if (!currentStage) return null
   if (userStatus === "Observer")
     return (
@@ -56,6 +59,8 @@ export const Panel = ({
       return <Switch push={setPushData} />
     case "UploadDocument":
       return <UploadDocument push={setPushData} />
+    case "ChooseExecutor":
+      return <ChooseExecutor push={setPushData} />
     case "Completion":
       return (
         <Button

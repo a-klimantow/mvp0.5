@@ -83,6 +83,7 @@ export const LoginPage = ({ history }) => {
             size="large"
             value={email}
             onChange={e => setEmail(e.target.value)}
+
           />
         </label>
         <label>
@@ -90,6 +91,7 @@ export const LoginPage = ({ history }) => {
           <Input.Password
             size="large"
             value={password}
+
             onChange={e => setPassword(e.target.value)}
           />
         </label>

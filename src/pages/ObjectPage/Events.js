@@ -115,7 +115,8 @@ const EvetListItem = ({
           {id}
         </span>
       </row>
-      {showField && (
+      {/* add device controll from emty */}
+      {showField && device && (
         <row>
           <Icon {...getIconProps(device.resource)} />
           {device.model}

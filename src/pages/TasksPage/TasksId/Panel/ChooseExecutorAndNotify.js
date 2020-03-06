@@ -9,7 +9,7 @@ export const ChooseExecutorAndNotify = ({ push }) => {
   const [contractorsIds, setContractorsId] = useState([])
 
   const { select: executorSelect } = useSelect({
-    url: "ManagingFirmUsers",
+    url: "ManagingFirmUsers?Permissions=TasksExecute",
     name: "Исполнитель",
     placeholder: "Выбeрите исполнителя",
     taskCount: true,

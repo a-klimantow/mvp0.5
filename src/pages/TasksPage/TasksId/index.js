@@ -16,6 +16,7 @@ import { CommentCreator } from "./CommentCreator"
 import { Panel } from "./Panel"
 import { Stages } from "./Stages"
 import { Documents } from "./Documents"
+import { Owner } from "./Owner"
 
 const getCurrentPage = (props = {}) => {
   if (props.closingTime) return "Архив"
@@ -70,6 +71,7 @@ export const TasksId = ({ match, history }) => {
     pageUrl: `Tasks/${match.params.taskId}`
   })
 
+  console.log("taskId", state)
   const {
     creationTime,
     expectedCompletionTime,
@@ -82,7 +84,8 @@ export const TasksId = ({ match, history }) => {
     userOperatingStatus,
     comments = [],
     documents = [],
-    device = {}
+    device = {},
+    type
   } = state
 
   const timeline = useTimeline({
@@ -108,6 +111,12 @@ export const TasksId = ({ match, history }) => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pushData])
+
+  useEffect(() => {
+    method
+      .get("/Apartments/ApartmentStatus")
+      .then(res => console.log("res", res))
+  }, [])
 
   const updateState = data => {
     setState(state => ({ ...state, ...data }))
@@ -181,6 +190,7 @@ export const TasksId = ({ match, history }) => {
             </paper>
           )}
 
+          {type === "IndividualDeviceCheck" && <Owner />}
           {/* info block */}
           <paper>
             <h3>Информация о задаче</h3>
@@ -191,13 +201,17 @@ export const TasksId = ({ match, history }) => {
                 <InfoListItem
                   key={item.id}
                   onClick={() =>
-                    history.push("/objects/" + item.housingStockId)
+                    history.push(
+                      state.type === "IndividualDeviceCheck"
+                        ? "/objects/" + item.housingStockId + "/appartment/1"
+                        : "/objects/" + item.housingStockId
+                    )
                   }
                   {...item}
                 />
               )}
             />
-            {device.model ? (
+            {device && device.model ? (
               <title_device
                 as="h3"
                 onClick={() =>
@@ -211,11 +225,13 @@ export const TasksId = ({ match, history }) => {
               </title_device>
             ) : null}
 
-            <List
-              loading={loading}
-              data={[device]}
-              renderItem={(item, i) => <DeviceListItem key={i} {...item} />}
-            />
+            {device && (
+              <List
+                loading={loading}
+                data={[device]}
+                renderItem={(item, i) => <DeviceListItem key={i} {...item} />}
+              />
+            )}
           </paper>
         </div>
         <Stages
