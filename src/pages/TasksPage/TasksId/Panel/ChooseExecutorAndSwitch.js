@@ -12,7 +12,7 @@ export const ChooseExecutorAndSwitch = ({ push }) => {
   const { taskId } = useParams()
 
   const { select: executorSelect } = useSelect({
-    url: "ManagingFirmUsers",
+    url: "ManagingFirmUsers?Permissions=TasksExecute",
     name: "Исполнитель",
     placeholder: "Выберите исполнителя",
     taskCount: true,

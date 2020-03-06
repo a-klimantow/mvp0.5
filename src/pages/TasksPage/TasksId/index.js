@@ -71,7 +71,7 @@ export const TasksId = ({ match, history }) => {
     pageUrl: `Tasks/${match.params.taskId}`
   })
 
-  console.log(state)
+  console.log("taskId", state)
   const {
     creationTime,
     expectedCompletionTime,
@@ -201,7 +201,11 @@ export const TasksId = ({ match, history }) => {
                 <InfoListItem
                   key={item.id}
                   onClick={() =>
-                    history.push("/objects/" + item.housingStockId)
+                    history.push(
+                      state.type === "IndividualDeviceCheck"
+                        ? "/objects/" + item.housingStockId + "/appartment/1"
+                        : "/objects/" + item.housingStockId
+                    )
                   }
                   {...item}
                 />
