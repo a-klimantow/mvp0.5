@@ -14,7 +14,7 @@ const menuItems = [
   { name: "Объекты", url: "objects", icon: <ObjectIcon /> },
   { name: "Собственники", url: "owners", icon: <KeyIcon /> },
   { name: "Настройки", url: "settings", icon: <SettingIcon /> },
-  { name: "Показания счетчиков", url: "statistic", icon: <DocIcon /> }
+  { name: "Ввод показаний", url: "statistic", icon: <DocIcon /> }
 ]
 
 export const AppMenu = ({ styles }) => {
@@ -32,6 +32,7 @@ export const AppMenu = ({ styles }) => {
   const user = styled(styles)(
     <li>
       <a
+        title="username@mail.ru"
         href="/user"
         data-url="user"
         {...use({ active: "user" === currentUrl })}
@@ -73,6 +74,7 @@ AppMenu.defaultProps = {
       display: grid;
       grid-gap: 16px;
       margin-top: 24px;
+      font-size: 14px;
     }
 
     a {
