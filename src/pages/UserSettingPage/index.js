@@ -3,6 +3,7 @@ import styled from "reshadow/macro"
 
 import { method } from "services/api"
 import { paper } from "styles"
+import { Loader } from "components"
 
 export const UserSettingPage = () => {
   const [state, setState] = useState(null)
@@ -74,7 +75,7 @@ export const UserSettingPage = () => {
             </li>
           </ul>
         ) : (
-          "loading"
+          <Loader />
         )}
       </paper>
     </>
