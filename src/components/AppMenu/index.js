@@ -40,6 +40,9 @@ export const AppMenu = ({ styles }) => {
         <user_email>Username@yandex.ru</user_email>
         <uk_name>УК "Лесная поляна"</uk_name>
       </a>
+      <logout as="a" href="/logout" data-url="login">
+        Выход из системы
+      </logout>
     </li>
   )
 
@@ -76,9 +79,13 @@ AppMenu.defaultProps = {
       font-weight: 500;
       display: grid;
       grid-template-columns: auto 1fr;
-      grid-gap: 12px;
+      grid-gap: 10px;
       padding: 8px 16px;
       position: relative;
+
+      & > * {
+        pointer-events: none;
+      }
 
       &::before {
         content: "";
@@ -109,6 +116,14 @@ AppMenu.defaultProps = {
       grid-column: 2;
       font-size: 12px;
       color: var(--color-caption);
+    }
+
+    logout {
+      display: flex;
+      align-items: center;
+      min-height: 32px;
+      padding-left: 42px;
+      font-size: 12px;
     }
   `
 }

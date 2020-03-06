@@ -2,11 +2,10 @@ import React from "react"
 import { Route, Switch } from "react-router-dom"
 import styled, { css } from "reshadow/macro"
 
-import { Logo, UserMenu, AppMenu } from "components"
+import { Logo, AppMenu } from "components"
 import { TaskAll, TaskId } from "pages"
 
 export const AppLayout = ({ styles }) => {
-  
   return styled(styles)(
     <layout_app>
       <aside>
@@ -15,9 +14,10 @@ export const AppLayout = ({ styles }) => {
       </aside>
       <main>
         <Switch>
-          <Route path="/tasks/:taskId" component={TaskId} />
           <Route path="/tasks" component={TaskAll} />
+          <Route path="/task/:taskId" component={TaskId} />
           <Route path="/objects" render={() => "object"} />
+          <Route path="*" render={() => "not found"} />
         </Switch>
       </main>
     </layout_app>
@@ -42,12 +42,9 @@ AppLayout.defaultProps = {
       flex-grow: 1;
       overflow-y: scroll;
       padding: 16px 64px;
-      gisplay: grid;
-      grid-gap: 24px;
-    }
-
-    h1 {
-      color: red;
+      display: grid;
+      grid-gap: 16px;
+      align-content: start;
     }
   `
 }
