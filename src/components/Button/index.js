@@ -2,6 +2,8 @@ import React from "react"
 import styled from "reshadow/macro"
 import * as btn from "./styles"
 
+
+
 export const Button = ({
   children,
   htmlType = "button",
@@ -9,7 +11,8 @@ export const Button = ({
   type = "normal",
   ...props
 }) => {
-  const sizeStyle = size === "normal" ? btn.sizeNormal : btn.sizeBig
+  const sizeStyle =
+    size === "normal" ? btn.sizeNormal : size === "big" ? btn.sizeBig : null
   const typeStyle = type === "primary" && btn.typePrimary
   return styled(
     btn.defaultStyle,

@@ -5,6 +5,7 @@
   --color-caption: rgba(39, 47, 90, 0.6);
   --color-pressed: rgba(39, 47, 90, 1);
   --color-disable: rgba(39, 47, 90, 0.32);
+  --color-disable-input: rgba(39, 47, 90, 0.04);
   --color-frame: rgb(220, 222, 228);
   --color-bg: rgb(243, 245, 246);
   --color-white: rgb(255, 255, 255);
@@ -12,6 +13,7 @@
   --color-secondary: rgba(24, 158, 233, 0.16);
   --color-error: rgb(252, 82, 91);
   --color-success: rgb(23, 180, 90);
+  --color-warning: rgb(226, 177, 4);
 
   --color-cold: rgb(122, 175, 255);
   --color-hot: rgb(255, 140, 104);

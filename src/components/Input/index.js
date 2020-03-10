@@ -1,53 +1,54 @@
-import React, { Fragment } from "react"
+import React, { useState } from "react"
 import styled, { use } from "reshadow/macro"
 import * as inpt from "./styles"
 
+import {ReactCompoent as OffIcon} from 'assets/icons/off.svg'
+
 export const Input = ({
-  size = "normal",
-  errorMsg = "",
-  label = true,
-  onChange = () => {},
+  label = "",
+  size = null,
+  type = "text",
+  onChange,
+  errMessage = "",
   ...props
 }) => {
-  const [showErr, setShowErr] = React.useState(false)
+  const [invalid, setInvalid] = useState(false)
+  const [inputType, setInputType] = useState(type)
+  const isPass = type === "password"
+  const Wrap = label ? "div" : React.Fragment
 
-  const sizeStyle = size === "normal" ? inpt.sizeNormal : inpt.sizeBig
-
-  const Wrapper = label ? Label : Fragment
-
-  const handleOnInvalid = e => {
+  const invalidHandler = e => {
     e.preventDefault()
-    setShowErr(true)
+    setInvalid(true)
   }
 
-  const handleChange = e => {
-    if (setShowErr) setShowErr(false)
+  const chageHandler = e => {
+    invalid && setInvalid(false)
     onChange(e)
   }
 
-  return styled(
-    inpt.defaultStle,
-    sizeStyle
-  )(
-    <Wrapper>
-      <label_text>{label}</label_text>
+  const toggleShowPass = () => {
+    if(inputType === 'text') setInputType('password')
+    else setInputType('text')
+  }
+
+  return styled(inpt.defaultStyle)(
+    <Wrap>
+      {label && <label htmlFor={props.name}>{label}</label>}
       <input_box>
         <input
-          onChange={handleChange}
-          onInvalidCapture={handleOnInvalid}
+          type={isPass ? inputType : type}
+          id={props.name}
+          onInvalid={invalidHandler}
+          onChange={chageHandler}
+          {...use({ invalid, size })}
           {...props}
         />
-        <input_frame {...use({ showErr })} />
-        {props.required && (
-          <input_error_msg {...use({ showErr })}>
-            {errorMsg || "Поле должно быть заполненно"}
-          </input_error_msg>
-        )}
+        <error_msg>
+          {errMessage ||
+            `Поле ${label.toLocaleLowerCase()} должно быть заполнено`}
+        </error_msg>
       </input_box>
-    </Wrapper>
+    </Wrap>
   )
-}
-
-const Label = ({ children }) => {
-  return <label>{children}</label>
 }

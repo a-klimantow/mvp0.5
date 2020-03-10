@@ -30,6 +30,8 @@ export const defaultStyle = css`
   content {
     border: 1px solid var(--color-frame);
     border-radius: var(--border-radius);
+    padding: 0 8px;
+    height: 32px;
     display: flex;
     align-items: center;
     position: relative;
@@ -97,6 +99,8 @@ export const sizeBig = css`
     font-size: 16px;
   }
 `
+
+
 
 export const typePrimary = css`
   content {
