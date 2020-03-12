@@ -27,13 +27,19 @@ export const Notification = ({ styles }) => {
   const { globalStore, setGlobalStore } = useGlobalStore()
   const { notifications } = globalStore
 
-  const updataNotification = notifications => {
-    setGlobalStore(store => ({ ...store, notifications }))
+  const updataNotification = arr => {
+    setGlobalStore(store => ({ ...store, notifications: arr }))
   }
 
+  console.log(notifications)
+
   useEffect(() => {
-    setInterval(() => updataNotification(notifications), 1000)
-  })
+    if (notifications.length) {
+
+      setTimeout(() => updataNotification(notifications.splice(1)), 2000)
+    }
+  }, [notifications])
+
 
   return styled(styles)``(
     <notification_list as="ul">
