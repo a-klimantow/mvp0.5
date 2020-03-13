@@ -23,7 +23,7 @@ export const Tabs = ({ styles, tabs = [] }) => {
         <tab
           as="a"
           key={tab.name}
-          href={location.pathname + tab.url}
+          href={path + "/" + tab.url}
           onClick={e => handleClick(e, tab.url)}
           {...use({ active: isActiveTab(tab.url) })}
         >

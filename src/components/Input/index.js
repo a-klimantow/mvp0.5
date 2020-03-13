@@ -1,8 +1,7 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from "react"
 import styled, { use } from "reshadow/macro"
 import * as inpt from "./styles"
-
-import {ReactCompoent as OffIcon} from 'assets/icons/off.svg'
 
 export const Input = ({
   label = "",
@@ -27,10 +26,6 @@ export const Input = ({
     onChange(e)
   }
 
-  const toggleShowPass = () => {
-    if(inputType === 'text') setInputType('password')
-    else setInputType('text')
-  }
 
   return styled(inpt.defaultStyle)(
     <Wrap>

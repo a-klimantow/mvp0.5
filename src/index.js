@@ -1,6 +1,6 @@
 import React from "react"
 import ReactDOM from "react-dom"
-import "reset-css/reset.css"
+// import "reset-css/reset.css"
 import "./css/index.css"
 import App from "./App"
 import * as serviceWorker from "./serviceWorker"

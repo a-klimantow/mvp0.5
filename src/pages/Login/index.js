@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react"
 import styled, { css } from "reshadow/macro"
 import axios from "axios"
-import { useRequest } from "hooks"
+import { useRequest, useNotification } from "hooks"
 
 import { ReactComponent as Icon } from "assets/icons/filtr.svg"
 
@@ -13,7 +13,7 @@ export const Login = ({ styles, history }) => {
   const [loading, setLoading] = useState(false)
   const [data, setData] = useState({ email: "", password: "" })
   const [auth, setAuth] = useState(false)
-
+  const ntf = useNotification()
   useEffect(() => {
     if (auth) {
       setLoading(true)
@@ -34,14 +34,21 @@ export const Login = ({ styles, history }) => {
             "roles",
             JSON.stringify(res.data.successResponse.roles)
           )
+          ntf.create({ title: "Поздравляю вы на платформе", type: "success" })
           history.push("/tasks")
         })
         .catch(e => {
+          const msg = e.response.data.errorResponse.message
           setLoading(false)
           setAuth(false)
-          setData({ email: "", password: "" })
+          // setData({ email: "", password: "" })
+          ntf.create({
+            title: msg,
+            type: "error"
+          })
         })
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [auth])
 
   const handleChange = e => {
@@ -61,30 +68,33 @@ export const Login = ({ styles, history }) => {
       grid-gap: 24px;
     }
   `(
-    <form onSubmit={handleSubmit}>
-      <Input
-        type="text"
-        label="Email"
-        name="email"
-        value={data.email}
-        onChange={handleChange}
-        required
-        size="big"
-      />
-      <Input
-        type="password"
-        name="password"
-        label="test"
-        value={data.password}
-        onChange={handleChange}
-        required
-        placeholder="test"
-        size="big"
-      />
-      <Button htmlType="submit" size="big" disabled={loading}>
-        <Icon />
-      </Button>
-      {loading && "loading..."}
-    </form>
+    <>
+      <form onSubmit={handleSubmit} className="test">
+        <Input
+          type="text"
+          label="Email"
+          name="email"
+          value={data.email}
+          onChange={handleChange}
+          required
+          size="big"
+        />
+        <Input
+          type="password"
+          name="password"
+          label="test"
+          value={data.password}
+          onChange={handleChange}
+          required
+          placeholder="test"
+          size="big"
+        />
+        <Button htmlType="submit" size="big" disabled={loading}>
+          <Icon />
+        </Button>
+        {loading && "loading..."}
+      </form>
+      <button onClick={() => ntf.create()}>click</button>
+    </>
   )
 }
