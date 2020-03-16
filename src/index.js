@@ -4,6 +4,9 @@ import ReactDOM from "react-dom"
 import "./css/index.css"
 import App from "./App"
 import * as serviceWorker from "./serviceWorker"
+import { ntf } from "services/notification/notification"
+
+ntf.add({ title: "helo" })
 
 ReactDOM.render(<App />, document.getElementById("root"))
 

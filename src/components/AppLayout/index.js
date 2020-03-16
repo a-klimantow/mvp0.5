@@ -1,9 +1,9 @@
 import React from "react"
-import { Route, Switch } from "react-router-dom"
+import { Route, Switch, Redirect } from "react-router-dom"
 import styled, { css } from "reshadow/macro"
 
 import { Logo, AppMenu } from "components"
-import { TaskAll, TaskId } from "pages"
+import { TaskAll, TaskId, ObjectAll, ObjectId, DeviceId } from "pages"
 
 export const AppLayout = ({ styles }) => {
   return styled(styles)(
@@ -16,8 +16,10 @@ export const AppLayout = ({ styles }) => {
         <Switch>
           <Route path="/tasks" component={TaskAll} />
           <Route path="/task/:taskId" component={TaskId} />
-          <Route path="/objects" render={() => "object"} />
-          <Route path="*" render={() => "not found"} />
+          <Route path="/objects/:objectId/devices" component={DeviceId} />
+          <Route path="/objects/:objectId" component={ObjectId} />
+          <Route path="/objects" component={ObjectAll} />
+          <Redirect from="*" to="/404" />
         </Switch>
       </main>
     </layout_app>

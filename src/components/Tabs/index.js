@@ -3,31 +3,29 @@ import { useHistory, useRouteMatch } from "react-router-dom"
 import styled, { css, use } from "reshadow/macro"
 
 export const Tabs = ({ styles, tabs = [] }) => {
-  const { location, replace } = useHistory()
+  const {
+    location: { hash },
+    replace
+  } = useHistory()
   const { path } = useRouteMatch()
-
-  const isActiveTab = url => {
-    return location.pathname.split("/").includes(url)
-  }
-
-  isActiveTab()
 
   const handleClick = (e, url) => {
     e.preventDefault()
-    replace(path + "/" + url)
+    replace(path + url)
   }
 
   return styled(styles)(
     <tabs>
-      {tabs.map(tab => (
+      {tabs.map(({ name, url, meta }) => (
         <tab
           as="a"
-          key={tab.name}
-          href={path + "/" + tab.url}
-          onClick={e => handleClick(e, tab.url)}
-          {...use({ active: isActiveTab(tab.url) })}
+          key={name}
+          href={path + url}
+          onClick={e => handleClick(e, url)}
+          {...use({ active: hash === url })}
         >
-          {tab.name}
+          {name}
+          {meta && ` (${meta})`}
         </tab>
       ))}
     </tabs>
@@ -47,6 +45,7 @@ Tabs.defaultProps = {
       margin-right: 16px;
       font-weight: 600;
       position: relative;
+      color: var(--color-title);
 
       &::before {
         content: "";

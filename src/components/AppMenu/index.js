@@ -75,6 +75,7 @@ AppMenu.defaultProps = {
       grid-gap: 16px;
       margin-top: 24px;
       font-size: 14px;
+      color: var(--color-title);
     }
 
     a {

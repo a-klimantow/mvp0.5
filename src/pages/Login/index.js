@@ -1,63 +1,74 @@
-/* eslint-disable no-unused-vars */
-
-import React, { useState, useEffect } from "react"
+import React, { useReducer, useEffect } from "react"
 import styled, { css } from "reshadow/macro"
 import axios from "axios"
-import { useRequest, useNotification } from "hooks"
-
 import { ReactComponent as Icon } from "assets/icons/filtr.svg"
+import { Input, Button } from "components"
+import { useNotification } from "hooks"
 
-import { Input, Button, Select } from "components"
+const url = process.env.REACT_APP_URL + "/Auth/login"
+
+const initialState = {
+  email: "",
+  password: "",
+  startAuth: false
+}
+
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "INPUT_CHANGE":
+      const { name, value } = action.payload
+      return { ...state, [name]: value }
+    case "START_AUTH":
+      return { ...state, startAuth: true }
+    case "AUTH_FAIL":
+      return { ...state, startAuth: false }
+    default:
+      return state
+  }
+}
 
 export const Login = ({ styles, history }) => {
-  const [loading, setLoading] = useState(false)
-  const [data, setData] = useState({ email: "", password: "" })
-  const [auth, setAuth] = useState(false)
   const ntf = useNotification()
+  const [state, dispatch] = useReducer(reducer, initialState)
+  const { email, password, startAuth } = state
+
   useEffect(() => {
-    if (auth) {
-      setLoading(true)
+    if (startAuth) {
       axios
-        .post("https://transparent-staging.herokuapp.com/api/Auth/login", data)
-        .then(res => {
-          setLoading(false)
-          console.log(res.data.successResponse)
-          localStorage.setItem(
-            "token",
-            JSON.stringify(res.data.successResponse.token)
-          )
+        .post(url, { email, password })
+        .then(({ data: { successResponse } }) => {
+          localStorage.setItem("token", JSON.stringify(successResponse.token))
           localStorage.setItem(
             "refreshToken",
-            JSON.stringify(res.data.successResponse.refreshToken)
+            JSON.stringify(successResponse.refreshToken)
           )
-          localStorage.setItem(
-            "roles",
-            JSON.stringify(res.data.successResponse.roles)
-          )
-          ntf.create({ title: "Поздравляю вы на платформе", type: "success" })
+          localStorage.setItem("roles", JSON.stringify(successResponse.roles))
+          ntf.create({
+            type: "success",
+            title: "Вы зашли на платформу, УРА!!! Блеять"
+          })
           history.push("/tasks")
         })
-        .catch(e => {
-          const msg = e.response.data.errorResponse.message
-          setLoading(false)
-          setAuth(false)
-          // setData({ email: "", password: "" })
+        .catch(() => {
+          dispatch({ type: "AUTH_FAIL" })
           ntf.create({
-            title: msg,
-            type: "error"
+            type: "error",
+            title: "Неправильно введен логин или пароль"
           })
         })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [auth])
+  }, [startAuth])
 
   const handleChange = e => {
-    setData({ ...data, [e.target.name]: e.target.value })
+    const name = e.target.name
+    const value = e.target.value
+    dispatch({ type: "INPUT_CHANGE", payload: { name, value } })
   }
 
   const handleSubmit = e => {
     e.preventDefault()
-    setAuth(true)
+    dispatch({ type: "START_AUTH" })
   }
 
   return styled`
@@ -71,10 +82,9 @@ export const Login = ({ styles, history }) => {
     <>
       <form onSubmit={handleSubmit} className="test">
         <Input
-          type="text"
-          label="Email"
+          label="Логин"
           name="email"
-          value={data.email}
+          value={email}
           onChange={handleChange}
           required
           size="big"
@@ -82,19 +92,19 @@ export const Login = ({ styles, history }) => {
         <Input
           type="password"
           name="password"
-          label="test"
-          value={data.password}
+          label="Пароль"
+          value={password}
           onChange={handleChange}
           required
           placeholder="test"
           size="big"
         />
-        <Button htmlType="submit" size="big" disabled={loading}>
+        <Button htmlType="submit" size="big" disabled={startAuth}>
           <Icon />
         </Button>
-        {loading && "loading..."}
+        {startAuth && "loading..."}
       </form>
-      <button onClick={() => ntf.create()}>click</button>
+      <button onClick={() => {}}>click</button>
     </>
   )
 }

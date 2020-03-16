@@ -1,10 +1,11 @@
 @import "../assets/fonts/fonts.css";
 @import "./variables.css";
+@import "./notification.css";
 
 body {
   margin: 0;
   font-family: "PTRootUI", sans-serif;
-  color: var(--color-title);
+  color: var(--color-body);
 }
 
 *,
@@ -18,6 +19,7 @@ h2,
 h3,
 h4 {
   margin: 0;
+  color: var(--color-title);
 }
 
 h1 {
@@ -85,22 +87,24 @@ button {
 }
 
 .todo-enter {
-  color: blue;
+  transform: translateY(-100%);
   opacity: 0;
 }
 .todo-enter-active {
-  color: red;
+  transform: translateY(0);
   opacity: 1;
-  transition-property: opacity, color;
+  transition-property: opacity, transform;
   transition-timing-function: ease-in;
+  transition-duration: 5000ms;
 }
 .todo-exit {
-
-  right: 0;
+  transform: translateX(0);
   opacity: 1;
 }
 .todo-exit-active {
-  right: -100%;
+  transform: translateX(-100%);
   opacity: 0;
-  transition: opacity 300ms ease-in, right 300ms ease-in;
+  transition-property: opacity, transform;
+  transition-timing-function: ease-in;
+  transition-duration: 5000ms;
 }

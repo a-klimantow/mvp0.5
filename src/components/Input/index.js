@@ -6,7 +6,7 @@ import * as inpt from "./styles"
 export const Input = ({
   label = "",
   size = null,
-  type = "text",
+  type = "email",
   onChange,
   errMessage = "",
   ...props
@@ -18,6 +18,7 @@ export const Input = ({
 
   const invalidHandler = e => {
     e.preventDefault()
+    console.log(e.target.validationMessage)
     setInvalid(true)
   }
 
@@ -25,7 +26,6 @@ export const Input = ({
     invalid && setInvalid(false)
     onChange(e)
   }
-
 
   return styled(inpt.defaultStyle)(
     <Wrap>

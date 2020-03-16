@@ -8,7 +8,6 @@ const container = document.getElementById("notification")
 
 export const Notifications = ({ children }) => {
   const [nodes, setNodes] = useState([])
-  const [count, setCount] = useState(0)
 
   useEffect(() => () => clearTimeout(removeNtf))
 
@@ -16,7 +15,7 @@ export const Notifications = ({ children }) => {
     if (nodes.length) {
       setNodes(state => [...state.slice(0, nodes.length - 1)])
     }
-  }, 2000)
+  }, 3000)
 
   const create = (config = {}) => {
     const newNtf = {
@@ -27,7 +26,6 @@ export const Notifications = ({ children }) => {
       ...config
     }
     setNodes([newNtf, ...nodes])
-    setCount(count + 1)
   }
 
   const deleteNtf = id => {
