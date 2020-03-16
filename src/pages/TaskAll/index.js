@@ -1,7 +1,6 @@
 import React, { useEffect, useReducer } from "react"
 import { Redirect } from "react-router-dom"
 import { request } from "services/api"
-import { useNotification } from "hooks"
 import { Tabs, List } from "components"
 import { TaskItem } from "./TaskItem"
 
@@ -37,7 +36,6 @@ const reduser = (state, action) => {
 export const TaskAll = ({ location }) => {
   const { hash, pathname } = location
   const isCurrenTab = tabs.some(tab => tab.url === hash)
-  const ntf = useNotification()
 
   const [state, dispatch] = useReducer(reduser, initialState)
 
@@ -51,7 +49,6 @@ export const TaskAll = ({ location }) => {
         .then(data => dispatch({ type: "FETCH_SUCCESS", payload: data }))
         .catch(e => {
           dispatch({ type: "FETCH_FAIL" })
-          ntf.create({ type: "error", title: "Vse blyat upalo" })
         })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

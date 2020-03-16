@@ -6,6 +6,7 @@ import { Logo, AppMenu } from "components"
 import { TaskAll, TaskId, ObjectAll, ObjectId, DeviceId } from "pages"
 
 export const AppLayout = ({ styles }) => {
+  if (!localStorage.getItem("token")) return <Redirect to="/login" />
   return styled(styles)(
     <layout_app>
       <aside>

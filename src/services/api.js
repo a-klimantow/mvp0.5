@@ -29,6 +29,9 @@ request.interceptors.response.use(
 const refresh = () => {
   const token = JSON.parse(localStorage.getItem("token"))
   const refreshToken = JSON.parse(localStorage.getItem("refreshToken"))
+  if (!localStorage.getItem("token")) {
+    window.location.replace("/login")
+  }
   return request
     .post("/Auth/refreshToken", { token, refreshToken })
     .then(res => {
@@ -37,7 +40,6 @@ const refresh = () => {
       localStorage.setItem("refreshToken", JSON.stringify(refreshToken))
     })
     .catch(() => {
-      console.log("clear ls")
       localStorage.clear()
     })
 }

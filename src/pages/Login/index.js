@@ -43,15 +43,11 @@ export const Login = ({ styles, history }) => {
             JSON.stringify(successResponse.refreshToken)
           )
           localStorage.setItem("roles", JSON.stringify(successResponse.roles))
-          ntf.create({
-            type: "success",
-            title: "Вы зашли на платформу, УРА!!! Блеять"
-          })
           history.push("/tasks")
         })
         .catch(() => {
           dispatch({ type: "AUTH_FAIL" })
-          ntf.create({
+          ntf.add({
             type: "error",
             title: "Неправильно введен логин или пароль"
           })
@@ -104,7 +100,7 @@ export const Login = ({ styles, history }) => {
         </Button>
         {startAuth && "loading..."}
       </form>
-      <button onClick={() => {}}>click</button>
+      <button onClick={() => ntf.add({ title: "test" })}>click</button>
     </>
   )
 }

@@ -7,15 +7,14 @@ import { GlobalStore } from "store/GlobalStore"
 function App() {
   return (
     <GlobalStore>
-      <Notifications>
-        <BrowserRouter>
-          <Switch>
-            <Route path="/login" component={Login} />
-            <Route path="/404" component={NotFound} />
-            <Route path="/" component={AppLayout} />
-          </Switch>
-        </BrowserRouter>
-      </Notifications>
+      <Notifications />
+      <BrowserRouter>
+        <Switch>
+          <Route path="/login" component={Login} />
+          <Route path="/404" component={NotFound} />
+          <Route path="/" component={AppLayout} />
+        </Switch>
+      </BrowserRouter>
     </GlobalStore>
   )
 }
