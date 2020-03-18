@@ -1,6 +1,6 @@
 @import "../assets/fonts/fonts.css";
 @import "./variables.css";
-
+/* @import "./label.css"; */
 body {
   margin: 0;
   font-family: "PTRootUI", sans-serif;
@@ -66,6 +66,15 @@ button {
   cursor: pointer;
 }
 
+label {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 14px;
+  margin-bottom: 8px;
+  display: block;
+  color: var(--color-caption);
+}
+
 .ntf-enter {
   top: -100%;
   opacity: 0;
@@ -83,27 +92,4 @@ button {
   right: -100%;
   opacity: 0;
   transition: opacity 300ms ease-in, right 300ms ease-in;
-}
-
-.todo-enter {
-  transform: translateY(-100%);
-  opacity: 0;
-}
-.todo-enter-active {
-  transform: translateY(0);
-  opacity: 1;
-  transition-property: opacity, transform;
-  transition-timing-function: ease-in;
-  transition-duration: 5000ms;
-}
-.todo-exit {
-  transform: translateX(0);
-  opacity: 1;
-}
-.todo-exit-active {
-  transform: translateX(-100%);
-  opacity: 0;
-  transition-property: opacity, transform;
-  transition-timing-function: ease-in;
-  transition-duration: 5000ms;
 }

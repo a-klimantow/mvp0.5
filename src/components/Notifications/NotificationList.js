@@ -33,6 +33,7 @@ NotificationList.defaultProps = {
       display: grid;
       grid-gap: 8px;
       justify-items: end;
+      z-index: 1000;
     }
   `
 }

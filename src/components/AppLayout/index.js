@@ -6,7 +6,10 @@ import { Logo, AppMenu } from "components"
 import { TaskAll, TaskId, ObjectAll, ObjectId, DeviceId } from "pages"
 
 export const AppLayout = ({ styles }) => {
-  if (!localStorage.getItem("token")) return <Redirect to="/login" />
+  if (!localStorage.getItem("token")) {
+    return <Redirect to="/login" />
+  }
+
   return styled(styles)(
     <layout_app>
       <aside>
@@ -20,6 +23,7 @@ export const AppLayout = ({ styles }) => {
           <Route path="/objects/:objectId/devices" component={DeviceId} />
           <Route path="/objects/:objectId" component={ObjectId} />
           <Route path="/objects" component={ObjectAll} />
+          <Redirect from="/" to="/tasks" exact/>
           <Redirect from="*" to="/404" />
         </Switch>
       </main>
