@@ -1,5 +1,5 @@
 export * from "./useGlobalStore"
-export * from "./useRequest"
+export * from "./useFetch"
 export * from "./useNotificaton"
 export * from "./useDevice"
 export * from "./useTimeLine"

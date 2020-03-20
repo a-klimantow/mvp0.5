@@ -23,7 +23,7 @@ export const AppLayout = ({ styles }) => {
           <Route path="/objects/:objectId/devices" component={DeviceId} />
           <Route path="/objects/:objectId" component={ObjectId} />
           <Route path="/objects" component={ObjectAll} />
-          <Redirect from="/" to="/tasks" exact/>
+          <Redirect from="/" to="/tasks" exact />
           <Redirect from="*" to="/404" />
         </Switch>
       </main>

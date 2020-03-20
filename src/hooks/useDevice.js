@@ -20,7 +20,7 @@ const getIcon = resource => {
 export const useDevice = device => {
   if (!device) return null
 
-  const { serialNumber, model, type, resource } = device
+  const { serialNumber, model, resource } = device
   const icon = getIcon(resource)
   return (
     <span>

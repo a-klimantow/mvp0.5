@@ -2,7 +2,6 @@ import React, { useReducer, useEffect } from "react"
 
 import { request } from "services/api"
 
-import { useNotification } from "hooks"
 import { List } from "components"
 import { ObjectItem } from "./ObjectItem"
 

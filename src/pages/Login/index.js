@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import styled, { css } from "reshadow/macro"
+import styled from "reshadow/macro"
 import axios from "axios"
 import { ReactComponent as Icon } from "assets/icons/filtr.svg"
 import { Button } from "components"

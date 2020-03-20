@@ -1,72 +1,37 @@
-import React, { useEffect, useReducer } from "react"
-import { Redirect } from "react-router-dom"
-import { request } from "services/api"
-import { Tabs, List } from "components"
-import { TaskItem } from "./TaskItem"
+/* eslint-disable no-unused-vars */
+import React, { useState } from "react"
+import { Redirect, Route, Switch } from "react-router-dom"
+
+import { useFetch } from "hooks"
+import { Tabs } from "components"
+import { TaskAllList } from "./TaskAllList"
 
 const tabs = [
-  { name: "К исполнению", url: "#executing" },
-  { name: "Наблюдаемые", url: "#observing" },
-  { name: "Архивные", url: "#archived" }
+  { name: "К исполнению", url: "/executing" },
+  { name: "Наблюдаемые", url: "/observing" },
+  { name: "Архивные", url: "/archived" }
 ]
 
-const initialState = {
-  items: [],
-  loading: false
-}
-
-const getQuery = hash => {
-  return hash.slice(1, 2).toUpperCase() + hash.slice(2)
-}
-
-const reduser = (state, action) => {
-  switch (action.type) {
-    case "LOADING_START":
-      return { ...state, loading: true, items: [] }
-    case "FETCH_SUCCESS":
-      const { items } = action.payload
-      return { ...state, loading: false, items }
-    case "FETCH_FAIL":
-      return { ...state, loading: false }
-    default:
-      return state
-  }
-}
-
-export const TaskAll = ({ location }) => {
-  const { hash, pathname } = location
-  const isCurrenTab = tabs.some(tab => tab.url === hash)
-
-  const [state, dispatch] = useReducer(reduser, initialState)
-
-  getQuery(hash)
-
-  useEffect(() => {
-    if (hash && isCurrenTab) {
-      dispatch({ type: "LOADING_START" })
-      request
-        .get(`Tasks?GroupType=${getQuery(hash)}`)
-        .then(data => dispatch({ type: "FETCH_SUCCESS", payload: data }))
-        .catch(e => {
-          dispatch({ type: "FETCH_FAIL" })
-        })
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hash])
-
-  if (!hash || !isCurrenTab) {
-    return <Redirect to={pathname + tabs[0].url} />
-  }
-
+export const TaskAll = ({ match }) => {
+  const [url, setUrl] = useState("")
+  const { data, loading } = useFetch({ url })
   return (
     <>
       <h1>Задачи</h1>
       <Tabs tabs={tabs} />
-      <List loading={state.loading}>
-        {state.items.map((item, i) => (
-          <TaskItem key={item.id} {...item} />
-        ))}
-      </List>
+      <Switch>
+        <Route
+          path={`${match.path}/:tab`}
+          render={() => (
+            <TaskAllList
+              loading={loading}
+              tasks={data && data.items}
+              setUrl={setUrl}
+            />
+          )}
+        />
+        <Redirect from={match.path + "/"} to={match.path + tabs[0].url} exact />
+      </Switch>
     </>
   )
 }

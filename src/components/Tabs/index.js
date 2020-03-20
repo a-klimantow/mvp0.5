@@ -3,15 +3,18 @@ import { useHistory, useRouteMatch } from "react-router-dom"
 import styled, { css, use } from "reshadow/macro"
 
 export const Tabs = ({ styles, tabs = [] }) => {
-  const {
-    location: { hash },
-    replace
-  } = useHistory()
+  const { replace, location } = useHistory()
   const { path } = useRouteMatch()
 
+  const isActive = url => {
+    const { pathname } = location
+    return pathname.includes(url)
+  }
+
+  isActive()
   const handleClick = (e, url) => {
     e.preventDefault()
-    replace(path + url)
+    replace(`${path}${url}`)
   }
 
   return styled(styles)(
@@ -20,9 +23,9 @@ export const Tabs = ({ styles, tabs = [] }) => {
         <tab
           as="a"
           key={name}
-          href={path + url}
+          href={`${path}${url}`}
           onClick={e => handleClick(e, url)}
-          {...use({ active: hash === url })}
+          {...use({ active: isActive(url) })}
         >
           {name}
           {meta && ` (${meta})`}
