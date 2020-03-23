@@ -1,7 +1,0 @@
-export * from "./Login"
-export * from "./TaskAll"
-export * from "./TaskId"
-export * from "./NotFound"
-export * from "./ObjectAll"
-export * from "./ObjectId"
-export * from "./DeviceId"
