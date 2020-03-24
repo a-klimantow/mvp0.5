@@ -1,38 +1,31 @@
 Button example
 
 ```jsx padded
-  <Button>normal</Button>
-  <Button type="primary">primary</Button>
-  <Button isDisabled={true}>disabled</Button>
+  <Button text="normal"/>
+  <Button type="primary" text="primary"/>
+  <Button isDisabled={true} text="disabled"/>
 ```
 
 big size
 
 ```jsx padded
-<Button size="big">big size</Button>
-<Button size="big" type="primary">big size</Button>
-<Button size="big" isDisabled={true}>big size</Button>
+<Button size="big" text="big size"/>
+<Button size="big" type="primary" text="big size" />
+<Button size="big" isDisabled={true} text="big size"/>
 ```
 
 with icon
 
 ```jsx padded
-import { ReactComponent as Icon } from "assets/icons/del.svg"
-;<div>
-  <Button iconOnce={true}>
-    <svg
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      fill="currentColor"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        fill-rule="evenodd"
-        clip-rule="evenodd"
-        d="M6 2.5C6 2.22386 6.22386 2 6.5 2H10.5C10.7761 2 11 2.22386 11 2.5V3H6V2.5ZM5 3V2.5C5 1.67157 5.67157 1 6.5 1H10.5C11.3284 1 12 1.67157 12 2.5V3H15V4H2V3H5ZM4 12.5V5H5V12.5C5 12.7761 5.22386 13 5.5 13H11.5C11.7761 13 12 12.7761 12 12.5V5H13V12.5C13 13.3284 12.3284 14 11.5 14H5.5C4.67157 14 4 13.3284 4 12.5ZM7 11V6.5H8V11H7ZM9 6.5V11H10V6.5H9Z"
-      />
-    </svg>
-  </Button>
-</div>
+<Button icon="filtr" text="with icon" />
+<Button icon="map" text="with icon" type="primary"/>
+<Button icon="map" text="with icon" size="big" type="primary"/>
+<Button icon="map" text="with icon" type="primary" isDisabled={true} />
+```
+
+single icon
+
+```jsx padded
+<Button icon="del" />
+<Button icon="del" size="big" />
 ```

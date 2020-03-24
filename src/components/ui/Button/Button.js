@@ -15,7 +15,7 @@ const setPadding = (text, icon, size) => {
 
 export function Button({
   text = "",
-  type = "primary",
+  type = "",
   htmlType = "button",
   isDisabled = false,
   size = "",

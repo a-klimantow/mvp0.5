@@ -5,9 +5,9 @@ export const styles = css`
     cursor: pointer;
     outline: none;
     font: inherit;
-    font-size: var(--font-size);
     font-weight: bold;
-    line-height: 1;
+    font-size: var(--font-size);
+    line-height: 16px;
     color: var(--color-press);
     border: none;
     background: none;
@@ -16,6 +16,10 @@ export const styles = css`
     margin: 2px;
     border-radius: 4px;
     box-sizing: border-box;
+    display: inline-flex;
+    & * {
+      box-sizing: border-box;
+    }
 
     &::before {
       content: "";
@@ -35,7 +39,7 @@ export const styles = css`
       border-radius: inherit;
       border: 1px solid var(--color-frame);
       padding: var(--padding);
-      min-height: 0;
+      height: var(--height);
       display: flex;
       align-items: center;
       justify-content: var(--justify);

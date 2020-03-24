@@ -7,7 +7,8 @@ export function App() {
   return styled()(
     <div style={{ display: "" }}>
       <Icon fill="red" icon="task" />
-      <Button />
+      <Button text="test" />
+      <Button text="test" size="big" />
     </div>
   )
 }
