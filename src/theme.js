@@ -7,7 +7,7 @@ export default {
     warning: "#FF8A1F",
     title: "#272F5A",
     body: "rgba(39, 47, 90, 0.8)",
-    caption: "rgba(39, 47, 90, 0.6),",
+    caption: "rgba(39, 47, 90, 0.6)",
     disabled: "rgba(39, 47, 90, 0.32)",
     frame: "#DCDEE4",
     background: "#F3F5F6",
