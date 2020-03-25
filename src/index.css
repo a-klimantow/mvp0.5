@@ -1,0 +1,34 @@
+@import "assets/fonts/fonts.css";
+
+:root {
+  --main-color: rgb(39, 47, 90);
+
+  --body-color: rgba(39, 47, 90, 0.8);
+  --caption-color: rgba(39, 47, 90, 0.6);
+  --disable-color: rgba(39, 47, 90, 0.32);
+  --disable-bg-color: rgba(39, 47, 90, 0.04);
+  --frame-color: rgb(220, 222, 228);
+  --bg-color: rgb(243, 245, 246);
+
+  --primary: rgb(24, 158, 233);
+  --secondary: rgba(24, 158, 233, 0.16);
+  --error: rgb(252, 82, 91);
+  --success: rgb(23, 180, 90);
+  --warning: rgb(255, 138, 31);
+
+  --hot-water: rgb(255, 140, 104);
+  --cold-water: rgb(121, 175, 255);
+  --electro: rgb(226, 177, 4);
+
+  --border-radus: 4px;
+}
+
+body {
+  margin: 0;
+  font-family: "PTRootUIWeb", sans-serif;
+  color: var(--main-color);
+}
+
+* {
+  box-sizing: border-box;
+}
