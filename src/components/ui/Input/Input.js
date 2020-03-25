@@ -24,6 +24,12 @@ export const Input = ({
     ? color.success
     : color.primary
 
+  const colorFrame = isError
+    ? color.error
+    : isSuccess
+    ? color.success
+    : color.frame
+
   const colorInputText = isError ? color.error : color.body
   const colorSpanText = isError ? "inherit" : color.caption
   const boxShadow = isError
@@ -35,7 +41,7 @@ export const Input = ({
   return styled(styles)`
     input_wrap {
       --disabled: ${color.disabled};
-      --color-frame: ${color.frame};
+      --color-frame: ${colorFrame};
       --color-text: ${colorInputText};
       --color-hover: ${borderColor};
       --text-color: ${colorSpanText};
@@ -56,7 +62,7 @@ export const Input = ({
 
 Input.propTypes = {
   size: T.oneOf(["big"]),
-  status: T.oneOf(["success", "error"]),
+  status: T.oneOf(["success", "error", "default"]),
   msg: T.string,
   icon: T.string,
   onIconClick: T.func

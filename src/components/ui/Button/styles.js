@@ -36,6 +36,7 @@ export const styles = css`
     }
 
     & > content {
+      width: 100%;
       border-radius: inherit;
       border: 1px solid var(--color-frame);
       padding: var(--padding);

@@ -33,6 +33,7 @@ export function Button({
       --color-press: ${theme.color.title};
       --font-size: ${fontSize};
       --height: ${height};
+      --justify: ${text && icon ? "space-between" : "center"};
       --padding: ${setPadding(text, icon, size)};
     }
   `(

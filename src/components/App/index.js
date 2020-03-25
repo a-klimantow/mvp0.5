@@ -1,15 +1,14 @@
 import React from "react"
-import styled from "reshadow/macro"
-
-import { Button, Icon, Input } from "components/ui"
+import { Route, Switch, Redirect } from "react-router-dom"
+import { Login } from "components/pages"
 
 export function App() {
-  return styled()(
-    <div style={{ display: "" }}>
-      <Icon fill="red" icon="task" />
-      <Button text="test" />
-      <Button text="test" size="big" />
-      <Input />
-    </div>
+  return (
+    <Switch>
+      <Route path="/login/" component={Login} />
+      <Route path="/404/" render={() => <div>404</div>} />
+      <Route path="/app/" render={() => <div>home</div>} />
+      <Redirect from="*" to="/app" />
+    </Switch>
   )
 }
