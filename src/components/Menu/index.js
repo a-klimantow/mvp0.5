@@ -5,6 +5,7 @@ import styled, { use } from "reshadow/macro"
 import logo from "assets/svg/logo.svg"
 import { menu, navlink } from "./styles"
 import { Icon } from "components"
+import { useAuth } from "hooks"
 
 const menuItems = [
   { name: "Задачи", icon: "task", to: "tasks" },
@@ -15,13 +16,14 @@ const menuItems = [
 
 export function Menu() {
   const { push } = useHistory()
+  const { logout } = useAuth("logout")
   const routeTo = e => {
     const url = e.target.dataset.url
     if (url) {
       e.preventDefault()
       switch (url) {
         case "/logout":
-          push("/login")
+          logout()
           break
         default:
           push("/app/" + url)

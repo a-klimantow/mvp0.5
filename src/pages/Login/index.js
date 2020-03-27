@@ -2,22 +2,28 @@ import React from "react"
 import styled from "reshadow/macro"
 
 import { login_page } from "./styles"
-import { useInput, useButton } from "hooks"
+import { useInput, useButton, useAuth } from "hooks"
 
 export function Login() {
+  const { login, loading } = useAuth("login")
+
   const button = useButton({ htmlType: "submit" })
-  const email = useInput({ name: "email" })
+  const email = useInput({ name: "email", size: "big", readOnly: loading })
   const password = useInput({
     name: "password",
-    placeholder: "hello",
     type: "password",
-    size: "big"
+    size: "big",
+    readOnly: loading
   })
+  const handleSubmit = e => {
+    e.preventDefault()
+    login({ ...email.data, ...password.data })
+  }
 
   return styled(login_page)(
     <login_page>
       <h1>Вход в систему</h1>
-      <form onSubmit={e => e.preventDefault()}>
+      <form onSubmit={handleSubmit}>
         <form_field>
           <label htmlFor="email">Электронная почта</label>
           {email.input}
@@ -28,6 +34,7 @@ export function Login() {
         </form_field>
         {button}
       </form>
+      {loading && "loading..."}
     </login_page>
   )
 }

@@ -10,9 +10,7 @@ export function Tabs({ tabs }) {
 
   if (!tabs) return null
   if (!hash) return <Redirect to={{ pathname, hash: tabs[0].hash }} />
-  if (hash && !tabs.some(tab => tab.hash === hash)) {
-    return <Redirect to="404" />
-  }
+  if (hash && !tabs.some(tab => tab.hash === hash)) return <Redirect to="/404" />
   return styled(styles)(
     <tabs>
       {tabs.map(({ active, ...tab }) => (

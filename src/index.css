@@ -32,3 +32,20 @@ body {
 * {
   box-sizing: border-box;
 }
+
+[data-hover] {
+  transition: color 200ms ease;
+}
+
+h1 {
+  font-weight: 300;
+  font-size: 32px;
+  line-height: 48px;
+  margin: 0;
+}
+
+h4 {
+  font-size: 16px;
+  line-height: 32px;
+  margin: 0;
+}

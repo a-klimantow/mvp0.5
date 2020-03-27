@@ -4,7 +4,13 @@ import styled, { use } from "reshadow/macro"
 import { Icon } from "components"
 import { label as labelStyle, input } from "./styles"
 
-export function useInput({ label = "", type = "text", size = "", ...config }) {
+export function useInput({
+  label = "",
+  type = "text",
+  size = "",
+  readOnly = false,
+  ...config
+}) {
   const [state, dispatch] = useReducer(reducer, {
     type,
     valid: false,
@@ -43,6 +49,7 @@ export function useInput({ label = "", type = "text", size = "", ...config }) {
           onChange={({ target }) =>
             dispatch({ type: "CHANGE_VALUE", payload: target.value })
           }
+          readOnly={readOnly}
           {...use({ valid, invalid, size })}
           {...config}
         />
