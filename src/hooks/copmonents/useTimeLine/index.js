@@ -2,7 +2,6 @@ import React from "react"
 import styled from "reshadow/macro"
 
 import date from "services/date"
-import getPersent from "services/persent"
 import styles from "./styles"
 
 export const useTimeLine = ({
@@ -11,28 +10,37 @@ export const useTimeLine = ({
   closingTime
 } = {}) => {
   const persent = getPersent(creationTime, expectedCompletionTime)
-
   const [deadline] = date.transform(expectedCompletionTime)
+  const localeDate = new Date(expectedCompletionTime).toLocaleDateString()
 
   return styled(styles)`
     progress::before {
       width: ${persent + "%"};
       background-color: ${persent > 80
-        ? "var(--color-error)"
+        ? "var(--error)"
         : persent > 50
-        ? "var(--color-warning)"
-        : "var(--color-success)"};
+        ? "var(--warning)"
+        : "var(--success)"};
     }
   `(
     <timeline>
       <progress as="div" />
       <time>
-        {expectedCompletionTime
-          ? `${deadline} (до ${new Date(
-              expectedCompletionTime
-            ).toLocaleDateString()})`
-          : null}
+        {expectedCompletionTime ? `${deadline} (до ${localeDate})` : null}
       </time>
     </timeline>
   )
+}
+
+function getPersent(start, finish) {
+  if (!start || !finish) return 0
+
+  const startDate = new Date(start)
+  const finishDate = new Date(finish)
+  const currentDate = Date.now()
+
+  const persent =
+    Math.abs(currentDate - startDate / (finishDate - startDate)) * 100
+
+  return persent > 100 ? 100 : persent
 }

@@ -1,77 +1,82 @@
-import React, { useContext } from "react"
+import React from "react"
+import { useHistory } from "react-router-dom"
 import styled from "reshadow/macro"
-// eslint-disable-next-line
-import { Tabs, Icon, App } from "components"
-import page, { task, row } from "./styles"
-import { useTimeLine } from "hooks"
-import { AppStore } from "context"
 
-export const TaskAll = () => {
+import { Tabs } from "components"
+import { tasksPage, task } from "./styles"
+import { useTimeLine, useIconSpan, useDevice, useStageTimer } from "hooks"
+
+import { useGetAllTasks } from "hooks/pages"
+
+export const TaskAll = ({ location: { hash } }) => {
+  const { items, loading } = useGetAllTasks(hash)
+
   const tabs = [
-    { name: "К исполнинию", hash: "#executing", total: "1" },
-    { name: "Наблюдаемые", hash: "#observing", total: "3" },
+    { name: "К исполнинию", hash: "#executing", total: "" },
+    { name: "Наблюдаемые", hash: "#observing", total: "" },
     { name: "Архивные", hash: "#archived" }
   ]
-  return styled(page)(
+  return styled(tasksPage)(
     <>
       <h1>Задачи</h1>
       <Tabs tabs={tabs} />
       <list as="ul">
-        <TaskItem />
-        <TaskItem />
-        <TaskItem />
-        <TaskItem />
+        {items && items.map(item => <TaskItem key={item.id} {...item} />)}
       </list>
+      {loading && "Загрузка..."}
     </>
   )
 }
 
-const TaskItem = () => {
-  const timeline = useTimeLine()
-
-  const titles = styled(task)(
-    <titles data-hover>
-      <h4>name</h4>
-      <subtitle as="span">surname</subtitle>
-    </titles>
+const TaskItem = ({
+  id,
+  name,
+  currentStage,
+  address,
+  device,
+  creationTime,
+  expectedCompletionTime
+}) => {
+  const { push } = useHistory()
+  const timeline = useTimeLine({ creationTime, expectedCompletionTime })
+  const stageTimer = useStageTimer(currentStage)
+  const addr = useIconSpan("map", address)
+  const number = useIconSpan("number", id, "caption")
+  const data = useIconSpan(
+    "calendar",
+    new Date(creationTime).toLocaleString(),
+    "caption"
   )
-
-  const bottomRow = styled(row)(
-    <row>
-      <span>
-        <icon as="Icon" icon="map" />
-        улица
-      </span>
-      <span>
-        <icon as="Icon" icon="map" />
-        some
-      </span>
-      <span_r>
-        <icon as="Icon" icon="number" />
-        some
-      </span_r>
-      <span_r>
-        <icon as="Icon" icon="calendar" />
-        some
-      </span_r>
-    </row>
-  )
-
-  const timer = styled(row)(
-    <row>
-      <span>
-        <icon as="Icon" icon="timer" />
-        timer
-      </span>
-    </row>
-  )
+  const deviceComp = useDevice(device)
 
   return styled(task)(
-    <task>
-      {titles}
+    <task
+      as="li"
+      onClick={() =>
+        push("/app/task/" + id, {
+          name,
+          currentStage,
+          expectedCompletionTime,
+          creationTime
+        })
+      }
+    >
+      <row>
+        <h4>{currentStage ? currentStage.name : name}</h4>
+        <subtitle as="span">{currentStage && name}</subtitle>
+      </row>
       {timeline}
-      {timer}
-      {bottomRow}
+      {stageTimer}
+      <row>
+        <column>
+          {deviceComp}
+          {addr}
+        </column>
+        <column>
+          {number}
+          {data}
+        </column>
+      </row>
     </task>
   )
 }

@@ -1,6 +1,6 @@
 import { css } from "reshadow"
 
-export default css`
+export const tasksPage = css`
   list {
     margin: 0;
     padding: 0;
@@ -11,60 +11,32 @@ export default css`
     display: grid;
     grid-gap: 16px;
   }
-
-  h4 {
-    font-size: 16px;
-    line-height: 32px;
-    margin: 0;
-  }
 `
 
 export const task = css`
   task {
     cursor: pointer;
+    display: grid;
+    grid-gap: 4px;
   }
 
-  task:hover [data-hover] {
+  h4 {
+    color: var(--main-color);
+  }
+
+  task:hover h4 {
     color: var(--primary);
   }
 
-  titles {
+  row {
     display: flex;
     align-items: center;
     justify-content: space-between;
   }
 
-  span {
-    display: inherit;
-    margin-right: 16px;
-  }
-
-  icon {
-    margin-right: 8px;
-  }
-`
-
-export const titles = css``
-
-export const row = css`
-  row {
+  column {
     display: grid;
-    grid-template-columns: auto 1fr 1fr auto;
     grid-gap: 16px;
-    align-items: center;
-    margin-top: 8px;
-  }
-  span,
-  span_r {
-    display: inline-flex;
-  }
-
-  span_r {
-    justify-self: end;
-    color: var(--caption-color);
-  }
-
-  icon {
-    margin-right: 8px;
+    grid-auto-flow: column;
   }
 `

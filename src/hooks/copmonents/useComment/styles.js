@@ -1,19 +1,15 @@
 import { css } from "reshadow/macro"
 
-export const app_layout = css`
-  app_layout {
-    height: 100vh;
-    display: grid;
-    grid-template-columns: 208px 1fr;
+export default css`
+  comments {
+    border: 1px solid red;
   }
 
-  content {
-    overflow-y: scroll;
-    padding: 16px 64px;
-    margin-bottom: 16px;
-    display: grid;
-    grid-gap: 16px;
-    align-content: start;
+  textarea {
+    width: 100%;
+    resize: vertical;
+    min-height: 30px;
+    max-height: 100px;
 
     &::-webkit-scrollbar-track {
       box-shadow: inset 0 0 1px rgba(0, 0, 0, 0.3);

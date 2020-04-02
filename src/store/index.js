@@ -1,25 +1,24 @@
-import React, { useReducer } from "react"
-import { AppStore } from "context"
+import React, { useReducer, useEffect } from "react"
+
+import { AppStoreContext } from "context"
+import { useFetch } from "hooks"
 
 const initialStore = {
-  page: null
+  users: []
 }
 
 export function AppStoreProvider({ children }) {
   const [store, dispatch] = useReducer(reducer, initialStore)
 
   return (
-    <AppStore.Provider value={{ store, dispatch }}>
+    <AppStoreContext.Provider value={{ store, dispatch }}>
       {children}
-    </AppStore.Provider>
+    </AppStoreContext.Provider>
   )
 }
 
 function reducer(store, action) {
   switch (action.type) {
-    case "":
-      return { ...store }
-
     default:
       console.error("undefinde action in global store")
       return store

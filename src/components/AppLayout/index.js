@@ -4,7 +4,7 @@ import styled from "reshadow/macro"
 
 import { app_layout } from "./styles"
 import { Menu } from "components"
-import { TaskAll, TaskId } from "pages"
+import { TaskAll, TaskId, Dev } from "pages"
 
 export function AppLayout({ match }) {
   if (!localStorage.getItem("token")) {
@@ -25,10 +25,7 @@ export function AppLayout({ match }) {
             path={`${match.path}owners/`}
             render={() => <div>Собственники</div>}
           />
-          <Route
-            path={`${match.path}settings/`}
-            render={() => <div>Настройки</div>}
-          />
+          <Route path={`${match.path}settings/`} component={Dev} />
           <Redirect from={match.path} to={`${match.path}tasks/`} exact />
           <Redirect from="*" to="/404" />
         </Switch>

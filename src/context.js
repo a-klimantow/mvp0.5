@@ -1,3 +1,5 @@
 import { createContext } from "react"
 
-export const AppStore = createContext()
+export const AppStoreContext = createContext()
+export const NotificationContext = createContext()
+export const TaskIdContext = createContext()

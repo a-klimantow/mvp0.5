@@ -2,9 +2,16 @@ import { useState, useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import axios from "axios"
 
-const baseUrl = process.env.REACT_APP_URL
+import { useNotifications } from "hooks"
+const baseURL = process.env.REACT_APP_URL + "/Auth"
+
+const auth = axios.create({
+  baseURL,
+  method: "post"
+})
 
 export function useAuth(url) {
+  const ntf = useNotifications()
   const { push } = useHistory()
   const [data, setData] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -13,14 +20,23 @@ export function useAuth(url) {
       setLoading(true)
       switch (url) {
         case "login":
-          axios
-            .post(baseUrl + "/Auth/" + url, data)
+          auth(url, { data })
             .then(successLogin)
-            .then(() => push("/app/tasks"))
-            .catch(() => setLoading(false))
+            .then(() => {
+              ntf.add({ type: "success", title: "success title" })
+              push("/app/tasks")
+            })
+            .catch(() => {
+              setLoading(false)
+              ntf.add({
+                type: "error",
+                title: "Неправильно введен логин или пароль"
+              })
+            })
           break
         case "logout":
-          axios.post(baseUrl + "/Auth/" + url, data).finally(() => {
+          auth(url, { data }).finally(() => {
+            ntf.add({type: 'info', title: "Вы вышли"})
             localStorage.clear()
             push("/login")
           })

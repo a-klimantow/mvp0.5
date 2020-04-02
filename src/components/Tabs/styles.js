@@ -18,8 +18,10 @@ export const tab = css`
     position: relative;
     cursor: pointer;
     text-decoration: none;
-    text-transform: capitalize;
     color: inherit;
+  }
+  a::first-letter {
+    text-transform: capitalize;
   }
 
   a,

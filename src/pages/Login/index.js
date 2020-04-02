@@ -1,20 +1,39 @@
 import React from "react"
-import styled from "reshadow/macro"
+import styled, { css } from "reshadow/macro"
 
 import { login_page } from "./styles"
-import { useInput, useButton, useAuth } from "hooks"
+import { useButton, useAuth } from "hooks"
+import { useInput } from "hooks/logica/useInput"
+import img from "assets/svg/login_page.svg"
+
+const label = () => css`
+  label {
+    color: inherit;
+  }
+`
 
 export function Login() {
   const { login, loading } = useAuth("login")
-
   const button = useButton({ htmlType: "submit" })
-  const email = useInput({ name: "email", size: "big", readOnly: loading })
+  const email = useInput({
+    name: "email",
+    big: true,
+    placeholder: "Введите логин",
+    label: "Логин",
+    styles: label(),
+    loading
+  })
+
   const password = useInput({
     name: "password",
-    type: "password",
-    size: "big",
-    readOnly: loading
+    big: true,
+    placeholder: "хххххххххх",
+    label: "Пароль",
+    isPass: true,
+    styles: label(),
+    loading
   })
+
   const handleSubmit = e => {
     e.preventDefault()
     login({ ...email.data, ...password.data })
@@ -22,19 +41,17 @@ export function Login() {
 
   return styled(login_page)(
     <login_page>
-      <h1>Вход в систему</h1>
-      <form onSubmit={handleSubmit}>
-        <form_field>
-          <label htmlFor="email">Электронная почта</label>
+      <div>
+        <img src={img} alt="img" />
+      </div>
+      <div>
+        <h1>Вход в систему</h1>
+        <form onSubmit={handleSubmit}>
           {email.input}
-        </form_field>
-        <form_field>
-          <label htmlFor="password">Пароль</label>
           {password.input}
-        </form_field>
-        {button}
-      </form>
-      {loading && "loading..."}
+          {button}
+        </form>
+      </div>
     </login_page>
   )
 }

@@ -1,3 +1,5 @@
+// const options = {}
+
 export default {
   transform: date => {
     const time = new Date(date) - Date.now()
@@ -17,5 +19,5 @@ export default {
     }
 
     return [timeString, isExpired]
-  },
+  }
 }
