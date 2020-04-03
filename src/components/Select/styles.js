@@ -1,166 +1,167 @@
 import { css } from "reshadow/macro"
-export const icon =
-  "M3.49994 6.5C3.2238 6.22386 3.2238 5.77614 3.49994 5.5C3.77608 5.22386 4.2238 5.22386 4.49994 5.5L7.99994 9L11.4999 5.5C11.7761 5.22386 12.2238 5.22386 12.4999 5.5C12.7761 5.77614 12.7761 6.22386 12.4999 6.5L7.99994 11L3.49994 6.5Z"
 
-export const select = css`
+export const container = css`
   container {
-    outline: none;
-    position: relative;
-    display: grid;
-    grid-gap: 8px;
-    cursor: pointer;
+    --height: 32px;
+    --font: 14px;
+    --padding: 0 8px 0 16px;
+    --rotate-svg: rotate(0deg);
+    --border-frame: var(--frame-color);
+    --shadow-frame: 0 0 3px transparent;
+    --animation-func: ease-in-out;
+    --animation-time: 300ms;
+    --height-selected-list: 0;
+    --margin-before: 8px;
 
-    &[|showList] svg {
-      transform: rotate(180deg);
+    outline: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    position: relative;
+    color: var(--body-color);
+
+    &:focus-within {
+      --border-frame: var(--primary);
+      --shadow-frame: 0 0 3px var(--primary);
     }
 
-    &[|showList] select_list {
-      max-height: 200px;
-      box-shadow: 0px 8px 16px rgba(78, 93, 146, 0.08),
+    &[|isBig] {
+      --margin-before: 16px;
+      --height: 48px;
+      --font: 16px;
+      --padding: 0 16px 0 24px;
+    }
+
+    &[|showList] {
+      --rotate-svg: rotate(180deg);
+      --border-frame: var(--primary);
+      --shadow-frame: 0 0 3px var(--primary);
+      --height-selected-list: 200px;
+      --shadow-selected-list: 0px 8px 16px rgba(78, 93, 146, 0.08),
         0px 4px 4px rgba(78, 93, 146, 0.16);
     }
-
-    &:focus {
-      border: 1px solid red;
-    }
-
-    &:focus field {
-      border-color: var(--primary);
-      box-shadow: 0 0 3px var(--primary);
-      color: var(--primary);
-    }
-  }
-
-  svg,
-  field,
-  select_list {
-    transition-duration: 300ms;
-    transition-timing-function: ease-in-out;
   }
 
   svg {
     fill: currentColor;
-    transition-property: transform;
-    /* transition-delay: 100ms; */
-  }
-  label {
-    font-size: 14px;
-    color: var(--caption-color);
-  }
-
-  input {
-    outline: none;
-    border: none;
-    padding: 0;
-    font: inherit;
-    background: inherit;
-    flex-grow: 1;
-    color: inherit;
-    cursor: inherit;
-    pointer-events: none;
-  }
-
-  input::placeholder {
-    color: var(--disable-color);
-  }
-
-  field {
-    outline: none;
-    border: 1px solid var(--frame-color);
-    border-radius: 4px;
-    display: flex;
-    align-items: center;
-    height: 32px;
-    padding: 0 16px;
-    transition-property: border-color, color, box-shadow;
-
-    color: var(--body-color);
-    font-size: 14px;
-
-    &[|big] {
-      font-size: 16px;
-      height: 48px;
-    }
-
-    &:hover {
-      border-color: var(--primary);
-      color: var(--primary);
-    }
-    &:focus-within {
-      border-color: var(--primary);
-      box-shadow: 0 0 3px var(--primary);
-      color: var(--primary);
-    }
-  }
-  /* select list */
-
-  select_list {
-    position: absolute;
-    min-width: 100%;
-    top: 100%;
-    left: 0;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-    border-radius: 4px;
-    overflow-y: scroll;
-    max-height: 0;
-    transition-property: max-height, box-shadow;
-    color: attr(data-color);
-    margin-top: 2px;
-    background-color: #fff;
-    color: var(--body-color);
-    font: inherit;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
-
-  select_list:focus + field {
-    border-color: red;
+    transform: var(--rotate-svg);
+    transition: transform var(--animation-time) var(--animation-func);
   }
 `
-export const option = css`
-  option {
-    outline: none;
-    display: flex;
+
+export const frame = css`
+  select_frame {
+    border: 1px solid var(--border-frame);
+    font-size: var(--font);
+    min-height: var(--height);
+    padding: var(--padding);
+    box-shadow: var(--shadow-frame);
+    box-sizing: border-box;
+    border-radius: 4px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-gap: 16px;
     align-items: center;
-    height: 32px;
-    position: relative;
-    padding: 0 16px;
-    background-color: transparent;
-    transition-property: background-color, color;
-    transition-timing-function: ease-in-out;
-    transition-duration: 100ms;
-
-    &[|big] {
-      height: 48px;
-    }
-
-    & > *:not(:last-child) {
-      margin-right: 8px;
+    transition-property: border-color, box-shadow;
+    transition-timing-function: var(--animation-func);
+    transition-duration: var(--animation-time);
+    &:hover {
+      border-color: var(--primary);
     }
   }
 
-  option:not(:last-child)::before {
-    content: "";
-    display: block;
-    height: 1px;
+  field_grid {
+    display: flex;
+    flex-wrap: wrap;
+  }
+`
+
+export const placeholder = css`
+  placeholder {
+    color: var(--disable-color);
+  }
+`
+
+export const select_list = css`
+  ul {
+    outline: none;
+    margin-top: 2px;
+    padding: 0;
+    list-style: none;
+    box-shadow: var(--shadow-selected-list);
+    max-height: var(--height-selected-list);
+    border-radius: 4px;
+    overflow-y: scroll;
+    background-color: #fff;
+    transition-property: max-height, box-shadow;
+    transition-duration: 200ms, 300ms;
+    transition-delay: 300ms;
+    transition-timing-function: var(--animation-func);
     position: absolute;
-    left: 8px;
-    right: 8px;
-    bottom: -1px;
-    background-color: var(--frame-color);
+    min-width: 100%;
+    z-index: 100;
+    position: relative;
+  }
+  ul::-webkit-scrollbar {
+    display: none;
   }
 
-  option:hover,
-  option:focus,
-  option[|active] {
-    background-color: var(--primary);
-    color: #fff;
+  li {
+    outline: none;
+    padding: var(--padding);
+    height: var(--height);
+    font-size: var(--font);
+    display: grid;
+    grid-auto-flow: column;
+    align-items: center;
+    justify-content: start;
+    grid-gap: 4px;
+    color: var(--body-color);
+    position: relative;
+
+    &:hover,
+    &:focus,
+    &[|selected] {
+      background-color: var(--primary);
+      color: #fff;
+    }
+
+    &:not(:last-child)::before {
+      content: "";
+      position: absolute;
+      display: block;
+      bottom: 0;
+      left: var(--margin-before);
+      right: var(--margin-before);
+      height: 1px;
+      background-color: var(--frame-color);
+    }
   }
+
+  empty {
+    height: var(--height);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+`
+export const span = css`
+  span {
+    display: inline-flex;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 600;
+    line-height: 16px;
+    color: #fff;
+    background-color: var(--main-color);
+    min-height: 24px;
+    padding: 0 8px;
+    border-radius: 2px;
+    margin: 2px 2px 2px 0;
+  }
+
   svg {
+    margin-left: 12px;
     fill: currentColor;
+    pointer-events: none;
   }
 `

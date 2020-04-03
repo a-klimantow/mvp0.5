@@ -5,11 +5,11 @@ import { Select } from "components"
 export const Dev = () =>
   styled()`
     div {
-      min-width: 50vw;
+      width: 50vw;
       margin: 0 auto;
     }
   `(
     <div>
-      <Select getSelectedId={e => console.log(e)} />
+      <Select label="label text" getSelectData={e => console.log(e)} />
     </div>
   )
