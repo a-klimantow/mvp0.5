@@ -33,6 +33,18 @@ body {
   box-sizing: border-box;
 }
 
+*::-webkit-scrollbar {
+  display: var(--scrollbar);
+  width: 4px;
+  border-radius: 4px;
+  background-color: var(--secondary);
+}
+
+*::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: var(--primary);
+}
+
 [data-hover] {
   transition: color 200ms ease;
 }
