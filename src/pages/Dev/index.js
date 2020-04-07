@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "reshadow/macro"
-import { Select, Select3 } from "components"
+import { Select, Select3, Button } from "components"
 
 export const Dev = () =>
   styled()`
@@ -10,16 +10,16 @@ export const Dev = () =>
     }
   `(
     <div>
-      <Select label="label text" getSelectData={(e) => console.log(e)} />
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
       <div>
-        <Select3 />
+        <Button icon="username2" />
       </div>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <br></br>
+      <div>button</div>
     </div>
   )

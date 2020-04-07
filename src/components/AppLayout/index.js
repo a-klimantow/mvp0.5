@@ -4,7 +4,7 @@ import styled from "reshadow/macro"
 
 import { app_layout } from "./styles"
 import { Menu } from "components"
-import { TaskAll, TaskId, Dev } from "pages"
+import { TaskAll, TaskId, Dev, Objects } from "pages"
 
 export function AppLayout({ match }) {
   if (!localStorage.getItem("token")) {
@@ -17,10 +17,7 @@ export function AppLayout({ match }) {
         <Switch>
           <Route path={`${match.path}tasks/`} component={TaskAll} />
           <Route path={`${match.path}task/:taskId`} component={TaskId} />
-          <Route
-            path={`${match.path}objects/`}
-            render={() => <h1>Объекты</h1>}
-          />
+          <Route path={`${match.path}objects/`} component={Objects} />
           <Route
             path={`${match.path}owners/`}
             render={() => <div>Собственники</div>}
