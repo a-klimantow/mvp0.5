@@ -2,8 +2,9 @@ import React from "react"
 import styled, { css } from "reshadow/macro"
 import t from "prop-types"
 
-import { titles } from "styles"
+import { Button } from "components"
 import { alarm } from "assets/icons.json"
+import { titles } from "styles"
 
 const icon = (
   <svg fill="var(--error)">
@@ -73,7 +74,7 @@ const ObjectListItem = ({ city, street, number, numberOfTasks, id }) => {
       <span>{/* district */}</span>
       <span>{city}</span>
       <span>{/* flats */}</span>
-      <button>:</button>
+      <Button icon="menu" />
     </object_item>
   )
 }

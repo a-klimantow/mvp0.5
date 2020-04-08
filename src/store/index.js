@@ -1,10 +1,9 @@
-import React, { useReducer, useEffect } from "react"
+import React, { useReducer } from "react"
 
 import { AppStoreContext } from "context"
-import { useFetch } from "hooks"
 
 const initialStore = {
-  users: []
+  users: [],
 }
 
 export function AppStoreProvider({ children }) {

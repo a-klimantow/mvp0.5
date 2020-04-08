@@ -9,26 +9,27 @@ export function useGetAllTasks(hash) {
 
   useEffect(() => {
     if (hash) {
-      setState(state => ({ ...state, loading: true, items: null }))
+      setState((state) => ({ ...state, loading: true, items: null }))
       api
         .get("/Tasks", {
           params: { GroupType: formatHash(hash) },
-          cancelToken: source.token
+          cancelToken: source.token,
         })
         .then(({ data }) => {
-          setState(state => ({ ...data.successResponse, loading: false }))
+          setState((state) => ({ ...data.successResponse, loading: false }))
         })
-        .catch(e => {
+        .catch((e) => {
           if (api.isCancel(e)) {
             console.log("Request canceled", e.message)
           } else {
-            setState(state => ({ ...state, loading: false }))
+            setState((state) => ({ ...state, loading: false }))
             ntf.add({ type: "error", title: "Что то пошло не так" })
           }
         })
     }
 
     return () => source.cancel()
+    // eslint-disable-next-line
   }, [hash])
 
   return { ...state }

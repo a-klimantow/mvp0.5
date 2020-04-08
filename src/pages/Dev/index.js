@@ -1,6 +1,8 @@
 import React from "react"
 import styled from "reshadow/macro"
-import { Select, Select3, Button } from "components"
+// eslint-disable-next-line
+import { Stages } from "components"
+import stages from "./fake"
 
 export const Dev = () =>
   styled()`
@@ -10,9 +12,6 @@ export const Dev = () =>
     }
   `(
     <div>
-      <div>
-        <Button icon="username2" />
-      </div>
       <br></br>
       <br></br>
       <br></br>
@@ -20,6 +19,6 @@ export const Dev = () =>
       <br></br>
       <br></br>
       <br></br>
-      <div>button</div>
+      <Stages stages={stages} />
     </div>
   )

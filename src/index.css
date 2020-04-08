@@ -21,8 +21,8 @@
   --electro: rgb(226, 177, 4);
 
   --border-radus: 4px;
+  /* --c: rgb(243, 245, 246); */
 }
-
 body {
   margin: 0;
   font-family: "PTRootUIWeb", sans-serif;

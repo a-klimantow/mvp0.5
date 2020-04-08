@@ -2,9 +2,10 @@ import React from "react"
 import styled, { css } from "reshadow/macro"
 
 import { login_page } from "./styles"
-import { useButton, useAuth } from "hooks"
+import { useAuth } from "hooks"
 import { useInput } from "hooks/logica/useInput"
 import img from "assets/svg/login_page.svg"
+import { Button } from "components"
 
 const label = () => css`
   label {
@@ -14,14 +15,13 @@ const label = () => css`
 
 export function Login() {
   const { login, loading } = useAuth("login")
-  const button = useButton({ htmlType: "submit" })
   const email = useInput({
     name: "email",
     big: true,
     placeholder: "Введите логин",
     label: "Логин",
     styles: label(),
-    loading
+    loading,
   })
 
   const password = useInput({
@@ -31,10 +31,10 @@ export function Login() {
     label: "Пароль",
     isPass: true,
     styles: label(),
-    loading
+    loading,
   })
 
-  const handleSubmit = e => {
+  const handleSubmit = (e) => {
     e.preventDefault()
     login({ ...email.data, ...password.data })
   }
@@ -49,7 +49,7 @@ export function Login() {
         <form onSubmit={handleSubmit}>
           {email.input}
           {password.input}
-          {button}
+          <Button big text="Вход в систему" kind="primary" />
         </form>
       </div>
     </login_page>

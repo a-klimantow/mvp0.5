@@ -2,147 +2,88 @@ import React, { useReducer, useEffect } from "react"
 import styled, { use } from "reshadow/macro"
 import t from "prop-types"
 
-import reducer from "./reducer"
-import * as styles from "./styles"
+import { SelectContext } from "./contex"
+import SelectField from "./SelectField"
+import SelectList from "./SelectList"
+import { container } from "./styles"
 
-const icon =
-  "M3.49994 6.5C3.2238 6.22386 3.2238 5.77614 3.49994 5.5C3.77608 5.22386 4.2238 5.22386 4.49994 5.5L7.99994 9L11.4999 5.5C11.7761 5.22386 12.2238 5.22386 12.4999 5.5C12.7761 5.77614 12.7761 6.22386 12.4999 6.5L7.99994 11L3.49994 6.5Z"
-
-const optionsMock = [
-  { id: "hello", name: "hello1", icon },
-  { id: "wordk", name: "hello2" },
-  { id: "fucj", name: "hello3" },
-  { id: "4", name: "hello4" }
-  // { id: 5, name: "hello5" },
-  // { id: 5, name: "hello5" },
-  // { id: 5, name: "hello5" },
-  // { id: 5, name: "hello5" },
-  // { id: 5, name: "hello5" },
-  // { id: 5, name: "hello5" },
-  // { id: 5, name: "hello5" },
-  // { id: 5, name: "hello5" }
-]
-
-const initialState = {
-  showList: false,
-  optionsSelected: null,
-  multiple: false
-}
-
-export function Select({
-  placeholder,
-  isBig,
-  defaultName = null,
+export const Select = ({
+  big = false,
   options = null,
-  search = false,
-  isMultiple = true,
-  getSelectData = () => {}
-}) {
+  placeholder = "",
+  multiple = false,
+  getSelectData = () => {},
+  formatData = null,
+}) => {
   const [state, dispatch] = useReducer(reducer, {
-    ...initialState,
-    isBig,
-    options,
-    search,
-    multiple: isMultiple
+    openList: false,
+    checked: [],
+    options: options || [],
+    placeholder: placeholder || "placeholder",
+    multiple,
   })
-  const field = getField(state, dispatch)
-  const selectList = getSelectList(state, dispatch)
-  const { showList, optionsSelected, multiple } = state
+  const { checked } = state
 
   useEffect(() => {
-    if (multiple) {
-      optionsSelected && getSelectData(optionsSelected)
-    } else {
-      optionsSelected && getSelectData(optionsSelected[0].id)
+    if (checked.length !== 0) {
+      return getSelectData(
+        formatData ? checked.map((item) => formatData(item)) : checked
+      )
     }
-  }, [optionsSelected, multiple])
+    getSelectData(null)
 
-  const onFienlClick = e => {
-    const removeId = e.target.dataset.remove
-    if (removeId) {
-      dispatch({ type: "remove_id", payload: removeId })
-      return
+    // eslint-disable-next-line
+  }, [checked])
+
+  useEffect(() => {
+    if (options) {
+      dispatch({ type: "add_options", payload: options })
     }
-    dispatch({ type: "toggle_show_list" })
-  }
-  const showPlaceholder = !optionsSelected || !optionsSelected.length
+  }, [options])
 
-  return styled(
-    styles.container,
-    styles.frame,
-    styles.placeholder
-  )(
-    <container tabIndex="0" {...use({ showList, isBig })}>
-      <select_frame onClick={onFienlClick}>
-        <field_grid>
-          {showPlaceholder && <placeholder>{placeholder}</placeholder>}
-          {field}
-        </field_grid>
-        <svg>
-          <path as="path" d={icon} />
-        </svg>
-      </select_frame>
-      {selectList}
-    </container>
+  return styled(container)(
+    <SelectContext.Provider value={{ state, dispatch }}>
+      <container {...use({ big, open: state.openList })}>
+        <SelectField />
+        <SelectList />
+      </container>
+    </SelectContext.Provider>
   )
-}
-
-function getField(state) {
-  const { optionsSelected, multiple } = state
-  if (!multiple) {
-    return optionsSelected && optionsSelected.map(({ name }) => name)
-  }
-  return (
-    optionsSelected &&
-    optionsSelected.map(item => <Tag key={item.id} {...item} />)
-  )
-}
-
-function getSelectList(state, dispatch) {
-  const { options } = state
-  return styled(styles.select_list)(
-    <ul
-      onBlur={() => dispatch({ type: "toggle_show_list" })}
-      onFocus={() => dispatch({ type: "open_list" })}
-      onClick={e =>
-        e.target.id && dispatch({ type: "selected", payload: e.target.id })
-      }
-    >
-      {!options.length && <empty as="li">нет данных</empty>}
-      {options &&
-        options.map(({ id, name, icon, selected }) => (
-          <li key={id} id={id} tabIndex="0" {...use({ selected })}>
-            {icon && (
-              <svg fill="currentColor">
-                <path as="path" d={icon} />
-              </svg>
-            )}
-            {name}
-          </li>
-        ))}
-    </ul>
-  )
-}
-
-Select.defaultProps = {
-  placeholder: "placeholder text",
-  isBig: true,
-  options: optionsMock,
-  multiple: false
 }
 
 Select.propTypes = {
+  big: t.bool,
+  multiple: t.bool,
   placeholder: t.string.isRequired,
-  multiple: t.bool
+  getSelectData: t.func.isRequired,
+  options: t.arrayOf(
+    t.shape({
+      id: t.oneOfType([t.string, t.number]),
+      name: t.string,
+    })
+  ),
 }
 
-const Tag = ({ name, id }) => {
-  return styled(styles.span)(
-    <span data-remove={id}>
-      {name}
-      <svg>
-        <path as="path" d={icon} />
-      </svg>
-    </span>
-  )
+function reducer(state, action) {
+  const { checked } = state
+  switch (action.type) {
+    case "add_options":
+      return { ...state, options: action.payload }
+    case "toggle_show_list":
+      return { ...state, openList: !state.openList }
+    case "open_list":
+      return { ...state, openList: true }
+    case "add_checked":
+      const newId = action.payload
+      if (state.multiple) {
+        return { ...state, checked: [...new Set([...checked, newId])] }
+      }
+      return { ...state, checked: [newId], openList: false }
+    case "remove_checked":
+      const removeId = action.payload
+      return { ...state, checked: checked.filter((item) => item !== removeId) }
+    default:
+      console.error("type action select")
+      return state
+  }
 }

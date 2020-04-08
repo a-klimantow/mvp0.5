@@ -3,7 +3,7 @@ import { css } from "reshadow/macro"
 export const login_page = css`
   login_page {
     height: 100vh;
-    background-color: var(--main-color);
+    background-color: #12193d;
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-content: center;

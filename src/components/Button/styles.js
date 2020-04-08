@@ -6,7 +6,6 @@ export default css`
     outline: none;
     cursor: pointer;
     font: inherit;
-    /* width: 100%; */
     font-size: 14px;
     line-height: 16px;
     font-weight: bold;
@@ -15,20 +14,20 @@ export default css`
     border-radius: 4px;
     background: transparent;
     padding: 0;
-    color: var(--color, var(--main-color));
-    transition-property: color;
-    transition-duration: 200ms;
+    color: var(--main-color);
+    transition-property: color, transform, border-color, background-color;
+    transition-duration: 50ms, 150ms;
     transition-delay: 50ms;
-    transition-timing-function: ease-out;
+    transition-timing-function: linear;
   }
-
+  
   button::before,
   content {
     transition: inherit;
     border-radius: inherit;
     border: inherit;
   }
-
+  
   content {
     border-color: var(--border-color);
     background-color: var(--background, inherit);
@@ -37,12 +36,11 @@ export default css`
     position: inherit;
     top: 0;
     left: 0;
-    transition-property: top, left, border-color, background-color;
     display: grid;
     grid-gap: 16px;
     grid-auto-flow: column;
   }
-
+  
   svg {
     align-self: center;
     fill: currentColor;
@@ -65,20 +63,19 @@ export default css`
 
   button:not(:active, :disabled):hover,
   button:not(:active):focus {
-    --color: var(--primary);
     --border-color: var(--primary);
+    color: var(--primary);
     &::before {
       transform: translate(2px, 2px);
     }
     & > content {
-      top: -2px;
-      left: -2px;
+      transform: translate(-2px, -2px);
     }
   }
 
   button:not(:disabled):active,
-  button[|kind="primary"]:active {
-    --color: #fff;
+  button[|kind="primary"]:not(:disabled):active {
+    color: #fff;
     --background: var(--main-color);
     --border-color: var(--main-color);
   }
@@ -89,15 +86,16 @@ export default css`
     --background: var(--disable-bg-color);
   }
 
-  button[|kind="primary"] {
+  button:not(:disabled)[|kind="primary"] {
     --background: var(--primary);
-    --color: #fff;
     --border-color: var(--primary);
+    color: #fff;
     &:not(:active):hover,
     &:not(:active):focus {
       --color: #fff;
     }
   }
+
 
   button[|big] {
     --padding: 6px 22px;

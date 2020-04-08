@@ -10,8 +10,7 @@ export function Button({
   big = false,
   icon = "",
   text = "",
-  onClick = () => {},
-  disabled = false,
+  ...props
 }) {
   const btn = useRef()
 
@@ -22,10 +21,9 @@ export function Button({
   `(
     <button
       {...use({ kind, big, icon_once: !text })}
-      onClick={onClick}
-      disabled={disabled}
       ref={btn}
       onMouseLeave={() => btn.current.blur()}
+      {...props}
     >
       <content as="span">
         {text}
@@ -44,6 +42,4 @@ Button.propTypes = {
   big: t.bool,
   icon: t.oneOf([...Object.keys(icons)]),
   text: t.string,
-  onClick: t.func.isRequired,
-  disabled: t.bool,
 }
