@@ -9,7 +9,7 @@ export default ({ number, status, name, closingTime, perpetrator, type }) => {
   const time = new Date(closingTime).toLocaleString()
   return styled(stage)(
     <stage as="li" {...use({ status })}>
-      <icon>
+      <span>
         <circle as="span">
           {status === "Done" ? (
             <svg>
@@ -23,7 +23,7 @@ export default ({ number, status, name, closingTime, perpetrator, type }) => {
             number
           )}
         </circle>
-      </icon>
+      </span>
       <content>
         <name as="span">{name}</name>
         {status === "Done" && (

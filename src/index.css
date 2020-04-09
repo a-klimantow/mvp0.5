@@ -1,6 +1,7 @@
 @import "assets/fonts/fonts.css";
 
 :root {
+  --main: 39, 47, 90;
   --main-color: rgb(39, 47, 90);
 
   --body-color: rgba(39, 47, 90, 0.8);
@@ -26,7 +27,7 @@
 body {
   margin: 0;
   font-family: "PTRootUIWeb", sans-serif;
-  color: var(--main-color);
+  color: rgb(var(--main));
 }
 
 * {

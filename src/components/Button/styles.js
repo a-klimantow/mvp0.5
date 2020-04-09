@@ -82,7 +82,7 @@ export default css`
 
   button:disabled {
     cursor: not-allowed;
-    --color: var(--disable-color);
+    color: var(--disable-color);
     --background: var(--disable-bg-color);
   }
 

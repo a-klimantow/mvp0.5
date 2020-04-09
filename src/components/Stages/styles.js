@@ -2,7 +2,7 @@ import { css } from "reshadow/macro"
 
 export default css`
   stages {
-    max-width: 300px;
+    /* max-width: px; */
     padding: 8px;
     display: grid;
     grid-gap: 16px;
@@ -22,13 +22,13 @@ export const stage = css`
     --icon-line-bg: var(--icon-bg);
     --icon-border: transparent;
     --icon-color: var(--body-color);
-    --text: var(--body-caption);
+    --text: var(--caption-color);
     display: inherit;
     grid-template-columns: auto 1fr;
     grid-column-gap: 16px;
     min-height: 60px;
 
-    &:not(:last-child) > icon {
+    &:not(:last-child) > span {
       position: relative;
       display: inherit;
       justify-items: center;
@@ -44,16 +44,6 @@ export const stage = css`
       }
     }
 
-    & circle {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      border: 1px solid var(--icon-border);
-      border-radius: 50%;
-      background: var(--icon-bg);
-    }
     &[|status="Done"] {
       --icon-bg: #fff;
       --icon-color: var(--primary);
@@ -67,6 +57,17 @@ export const stage = css`
     }
   }
 
+  circle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border: 1px solid var(--icon-border);
+    font-size: 12px;
+    border-radius: 50%;
+    background: var(--icon-bg);
+  }
   content {
     display: grid;
     grid-template-columns: auto 1fr;
@@ -78,6 +79,10 @@ export const stage = css`
   name,
   Btn {
     grid-column: 1 / -1;
+  }
+
+  Btn {
+    justify-self: start;
   }
 
   user,

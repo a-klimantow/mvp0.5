@@ -29,6 +29,6 @@ function reducer(state, action) {
       return state
 
     default:
-      break
+      return state
   }
 }

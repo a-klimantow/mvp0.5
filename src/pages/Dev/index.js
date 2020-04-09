@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "reshadow/macro"
 // eslint-disable-next-line
-import { Stages } from "components"
+import { Stages, Comments } from "components"
 import stages from "./fake"
 
 export const Dev = () =>
@@ -12,6 +12,7 @@ export const Dev = () =>
     }
   `(
     <div>
+      <Comments />
       <br></br>
       <br></br>
       <br></br>
