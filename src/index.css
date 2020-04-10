@@ -1,40 +1,26 @@
 @import "assets/fonts/fonts.css";
 
 :root {
+  --frame: 220, 222, 228;
+  --bg: 243, 245, 246;
+
   --main: 39, 47, 90;
-  --main-color: rgb(39, 47, 90);
+  --primary: 24, 158, 233;
+  --error: 252, 82, 91;
+  --success: 23, 180, 90;
+  --warning: 255, 138, 31;
 
-  --body-color: rgba(39, 47, 90, 0.8);
-  --caption-color: rgba(39, 47, 90, 0.6);
-  --disable-color: rgba(39, 47, 90, 0.32);
-  --disable-bg-color: rgba(39, 47, 90, 0.04);
-  --frame-color: rgb(220, 222, 228);
-  --bg-color: rgb(243, 245, 246);
-
-  --primary: rgb(24, 158, 233);
-  --secondary: rgba(24, 158, 233, 0.16);
-  --error: rgb(252, 82, 91);
-  --success: rgb(23, 180, 90);
-  --warning: rgb(255, 138, 31);
-
-  --hot-water: rgb(255, 140, 104);
-  --cold-water: rgb(121, 175, 255);
-  --electro: rgb(226, 177, 4);
-
-  --border-radus: 4px;
-  /* --c: rgb(243, 245, 246); */
+  /* resourse */
+  --hot-water: 255, 140, 104;
+  --cold-water: 121, 175, 255;
+  --electro: 226, 177, 4;
 }
 body {
   margin: 0;
   font-family: "PTRootUIWeb", sans-serif;
-  color: rgb(var(--main));
 }
 
-* {
-  box-sizing: border-box;
-}
-
-*::-webkit-scrollbar {
+/* *::-webkit-scrollbar {
   display: var(--scrollbar);
   width: 4px;
   border-radius: 4px;
@@ -44,36 +30,7 @@ body {
 *::-webkit-scrollbar-thumb {
   border-radius: 4px;
   background-color: var(--primary);
-}
-
-[data-hover] {
-  transition: color 200ms ease;
-}
-
-h1,
-h2,
-h3,
-h4 {
-  color: var(--main-color);
-  margin: 0;
-}
-
-svg {
-  width: 16px;
-  height: 16px;
-}
-
-path {
-  fill-rule: evenodd;
-  clip-rule: evenodd;
-}
-
-ul,
-li {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
+} */
 
 .ntf-enter {
   top: -100%;

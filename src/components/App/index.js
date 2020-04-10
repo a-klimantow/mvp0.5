@@ -1,22 +1,29 @@
 import React from "react"
 import { Route, Switch, Redirect } from "react-router-dom"
 
-import { AppStoreProvider } from "store"
-import { AppLayout, Notification } from "components"
-import { Login } from "pages"
+import { Layout } from "components"
+import { Dev, TasksAll } from "pages"
 
-export function App() {
+export const App = () => {
   return (
-    <AppStoreProvider>
-      <Notification>
-        <Switch>
-          <Route path="/login/" component={Login} />
-          <Route path="/app/" component={AppLayout} />
-          <Route path="/404" render={() => <div>404</div>} />
-          <Redirect from="/" to="/app" exact />
-          <Redirect from="*" to="/404" />
-        </Switch>
-      </Notification>
-    </AppStoreProvider>
+    <Switch>
+      <Route path="/login/" render={() => "login"} />
+      <Route path="/404/" render={() => "404"} />
+      <Route path="/dev/" component={Dev} />
+      <Route path="/">
+        <Layout>
+          <Switch>
+            <Route path="/tasks/" component={TasksAll} />
+            <Route path="/task/:taksId" render={() => "tasks id"} />
+            <Route path="/objects/" render={() => "objects"} />
+            <Route path="/object/:id" render={() => "object id"} />
+            <Route path="/settings/" render={() => "settings"} />
+            <Route path="/owners/" render={() => "settings"} />
+            <Redirect from="/" to="/tasks/" exact />
+            <Redirect from="*" to="/404" />
+          </Switch>
+        </Layout>
+      </Route>
+    </Switch>
   )
 }

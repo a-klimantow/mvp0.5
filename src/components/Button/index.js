@@ -1,31 +1,26 @@
 import React, { useRef } from "react"
 import styled, { use } from "reshadow/macro"
-import icons from "assets/icons.json"
 import t from "prop-types"
 
-import styles from "./styles"
+import styles, { button } from "styles"
+import icons from "assets/icons.json"
 
-export function Button({
-  kind = "primar",
+export const Button = ({
+  text = null,
+  icon = null,
   big = false,
-  icon = "",
-  text = "",
+  primary = false,
   ...props
-}) {
+}) => {
   const btn = useRef()
-
-  return styled(styles)`
-    content {
-      justify-content: ${icon && text ? "space-between" : "center"};
-    }
-  `(
+  return styled(styles, button)(
     <button
-      {...use({ kind, big, icon_once: !text })}
       ref={btn}
       onMouseLeave={() => btn.current.blur()}
+      {...use({ big, only_icon: !text && icon, justify: text && icon, primary })}
       {...props}
     >
-      <content as="span">
+      <content>
         {text}
         {icon && (
           <svg viewBox="0 0 16 16">
@@ -38,8 +33,8 @@ export function Button({
 }
 
 Button.propTypes = {
-  kind: t.oneOf(["primary"]),
+  text: t.string,
   big: t.bool,
   icon: t.oneOf([...Object.keys(icons)]),
-  text: t.string,
+  primary: t.bool,
 }

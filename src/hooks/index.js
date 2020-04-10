@@ -1,2 +1,1 @@
-export * from "./copmonents"
-export * from "./logica"
+export * from "./useGET"

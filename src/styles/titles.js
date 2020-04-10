@@ -1,19 +1,21 @@
 import { css } from "reshadow/macro"
 
 export const titles = css`
-  title_page {
-    font-size: 30px;
-    font-weight: 300;
-    line-height: 38px;
+  title_page,
+  title_section,
+  title_item {
+    margin: 0;
+    color: rgb(var(--main));
   }
 
-  title_section {
-    font-size: 24px;
-    line-height: 32px;
-    font-weight: normal;
+  title_page {
+    font-weight: 300;
+    font-size: 32px;
+    line-height: 48px;
   }
+
   title_item {
     font-size: 16px;
-    line-height: 32px;
+    line-height: 2em;
   }
 `

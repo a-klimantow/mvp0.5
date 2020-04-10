@@ -1,45 +1,38 @@
 import React from "react"
-import { useLocation, Redirect } from "react-router-dom"
-import styled, { use } from "reshadow/macro"
+import { NavLink, useLocation, Redirect } from "react-router-dom"
+import styled from "reshadow/macro"
 import t from "prop-types"
 
-import styles, { tab } from "./styles"
+import { tabs, tab } from "styles"
 
-export function Tabs({ tabs }) {
-  const { hash, pathname } = useLocation()
+export const Tabs = ({ items = [] }) => {
+  const { pathname, hash } = useLocation()
 
-  if (!tabs) return null
-  if (!hash) return <Redirect to={{ pathname, hash: tabs[0].hash }} />
-  if (hash && !tabs.some(tab => tab.hash === hash)) return <Redirect to="/404" />
-  return styled(styles)(
+  if (!hash) return <Redirect to={{ pathname, hash: items[0].to }} />
+  if (!items.some((item) => hash === "#" + item.to)) {
+    return <Redirect to="/404" />
+  }
+  return styled(tabs, tab)(
     <tabs>
-      {tabs.map(({ active, ...tab }) => (
-        <Tab key={tab.name} active={hash === tab.hash} {...tab} />
+      {items.map(({ name, to }) => (
+        <NavLink
+          key={to}
+          to={{ pathname, hash: to }}
+          isActive={() => hash === "#" + to}
+          activeClassName={tab.active}
+        >
+          {name}
+        </NavLink>
       ))}
     </tabs>
   )
 }
 
 Tabs.propTypes = {
-  tabs: t.array.isRequired
-}
-
-const Tab = ({
-  name = "tab",
-  hash = "#active",
-  total = null,
-  active = false
-}) => {
-  return styled(tab)(
-    <a href={hash} data-hash={hash} {...use({ active })}>
-      {name} {total && `(${total})`}
-    </a>
-  )
-}
-
-Tab.propTypes = {
-  name: t.string.isRequired,
-  hash: t.string.isRequired,
-  total: t.string,
-  active: t.bool.isRequired
+  items: t.arrayOf(
+    t.shape({
+      name: t.string.isRequired,
+      to: t.string.isRequired,
+    })
+  ).isRequired,
 }
