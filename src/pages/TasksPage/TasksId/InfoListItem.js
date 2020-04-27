@@ -3,7 +3,13 @@ import styled, { use } from "reshadow/macro"
 
 import { formatedDate } from "services/date"
 
-export const InfoListItem = ({ address, id, creationTime, onClick }) =>
+export const InfoListItem = ({
+  address,
+  id,
+  creationTime,
+  onClick,
+  creationReason = "test",
+}) =>
   styled`
     li {
       border-bottom: 1px solid #d9d9d9;
@@ -22,8 +28,18 @@ export const InfoListItem = ({ address, id, creationTime, onClick }) =>
         color: #189EE9;
       }
     }
+
+    e {
+      color: #ED3B45;
+    }
   `(
     <>
+      {creationReason && (
+        <li>
+          <span>Тип неисправности</span>
+          <e as="span">{creationReason}</e>
+        </li>
+      )}
       <li {...use({ hover: true })} onClick={onClick}>
         <span>Адрес</span>
         <span>{address}</span>

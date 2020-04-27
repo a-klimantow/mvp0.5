@@ -68,7 +68,7 @@ export const TasksId = ({ match, history }) => {
   const [loading, setLoading] = useState(true)
 
   const [state, setState] = useState({
-    pageUrl: `Tasks/${match.params.taskId}`
+    pageUrl: `Tasks/${match.params.taskId}`,
   })
 
   console.log("taskId", state)
@@ -85,19 +85,19 @@ export const TasksId = ({ match, history }) => {
     comments = [],
     documents = [],
     device = {},
-    type
+    type,
   } = state
 
   const timeline = useTimeline({
     expectedCompletionTime,
     closingTime,
-    creationTime
+    creationTime,
   })
 
   const timer = useTimer({ currentStage })
 
   useEffect(() => {
-    method.get(pageUrl).then(res => {
+    method.get(pageUrl).then((res) => {
       updateState(res)
       setLoading(false)
     })
@@ -115,24 +115,19 @@ export const TasksId = ({ match, history }) => {
   useEffect(() => {
     method
       .get("/Apartments/ApartmentStatus")
-      .then(res => console.log("res", res))
+      .then((res) => console.log("res", res))
   }, [])
 
-  const updateState = data => {
-    setState(state => ({ ...state, ...data }))
+  const updateState = (data) => {
+    setState((state) => ({ ...state, ...data }))
   }
 
-  const deleteDocument = docId => {
-    const deletedList = documents.filter(item => item.id !== docId)
-    setState(state => ({ ...state, documents: deletedList }))
+  const deleteDocument = (docId) => {
+    const deletedList = documents.filter((item) => item.id !== docId)
+    setState((state) => ({ ...state, documents: deletedList }))
   }
 
-  return styled(
-    paper,
-    grid,
-    breadcrumbs,
-    taskIdStyles
-  )(
+  return styled(paper, grid, breadcrumbs, taskIdStyles)(
     <>
       {/* breadcrumbs */}
       <breadcrumbs>
@@ -170,7 +165,7 @@ export const TasksId = ({ match, history }) => {
                 loading={loading}
                 data={comments}
                 emptyText="Комментарий еще не добавлен"
-                renderItem={comment => (
+                renderItem={(comment) => (
                   <CommentListItem
                     key={comment.id}
                     update={updateState}
@@ -197,7 +192,7 @@ export const TasksId = ({ match, history }) => {
             <List
               loading={loading}
               data={[state]}
-              renderItem={item => (
+              renderItem={(item) => (
                 <InfoListItem
                   key={item.id}
                   onClick={() =>
