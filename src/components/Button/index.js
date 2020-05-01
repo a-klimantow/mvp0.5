@@ -12,13 +12,24 @@ export const Button = ({
   primary = false,
   ...props
 }) => {
-  const btn = useRef()
+  const ref = useRef()
+
+  const btnProps = {
+    ref,
+    type: "button",
+    onMouseLeave: () => ref.current.blur(),
+    ...props
+  }
+
   return styled(styles, button)(
     <button
-      ref={btn}
-      onMouseLeave={() => btn.current.blur()}
-      {...use({ big, only_icon: !text && icon, justify: text && icon, primary })}
-      {...props}
+      {...use({
+        big,
+        only_icon: !text && icon,
+        justify: text && icon,
+        primary
+      })}
+      {...btnProps}
     >
       <content>
         {text}
@@ -36,5 +47,5 @@ Button.propTypes = {
   text: t.string,
   big: t.bool,
   icon: t.oneOf([...Object.keys(icons)]),
-  primary: t.bool,
+  primary: t.bool
 }

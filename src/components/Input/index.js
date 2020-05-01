@@ -1,56 +1,68 @@
-import React, { useState } from "react"
+import React, { useRef } from "react"
 import styled, { use } from "reshadow/macro"
 import t from "prop-types"
 
-import { input_wrap, input, svg } from "styles"
-import { on, off, alarm } from "assets/icons.json"
+import { alarm, search as searchSvg } from "assets/icons.json"
+import { input, svg } from "styles"
 
 export const Input = ({
-  valid = false,
-  invalid = false,
-  loading = false,
-  big = false,
-  disabled = false,
-  type = "text",
-  ...props
+  big,
+  valid,
+  error,
+  disabled,
+  loading,
+  search,
+  btn = {},
+  ...inputRest
 }) => {
-  const [hiddenPass, setHiddenPass] = useState(type === "password")
-  return styled(input_wrap, input, svg)(
-    <input_wrap {...use({ valid, invalid, disabled, big })}>
-      <input
-        tabIndex={disabled ? "-1" : 0}
-        type={hiddenPass ? "password" : "text"}
-        readOnly={disabled}
-        {...props}
-      />
-      {invalid && (
+  const ref = useRef()
+
+  const { icon: btnIcon, ...btnProps } = btn
+
+  const inputProps = {
+    ref,
+    disabled,
+    readOnly: loading,
+    ...inputRest
+  }
+
+  return styled(input, svg)(
+    <input_wrap
+      onClick={() => ref.current.focus()}
+      {...use({ big, valid, error, disabled })}
+    >
+      <search as="span">
+        {search && (
+          <svg>
+            <path as="path" d={searchSvg} />
+          </svg>
+        )}
+      </search>
+      <input {...inputProps} />
+      {error && (
         <svg>
           <path as="path" d={alarm} />
         </svg>
       )}
-      {type === "password" && (
-        <btn as="svg" onClick={() => setHiddenPass(!hiddenPass)}>
-          <path as="path" d={hiddenPass ? on : off} />
-        </btn>
+      {btnIcon && (
+        <button type="button" tabIndex="-1" disabled={disabled} {...btnProps}>
+          <svg>
+            <path as="path" d={btnIcon} />
+          </svg>
+        </button>
       )}
-      <frame />
     </input_wrap>
   )
 }
 
-// Input.defaultProps = {
-//   valid: false,
-//   invalid: true,
-//   placeholder: "text",
-//   disabled: true,
-//   type: "password",
-//   big: true,
-// }
-
 Input.propTypes = {
+  big: t.bool,
   valid: t.bool,
-  invalid: t.bool,
+  error: t.bool,
   disabled: t.bool,
   loading: t.bool,
-  big: t.bool,
+  btn: t.shape({
+    icon: t.string.isRequired,
+    onClick: t.func.isRequired
+  })
 }

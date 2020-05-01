@@ -1,0 +1,10 @@
+button {
+  appearance: none;
+  border: none;
+  background: none;
+  font: inherit;
+  cursor: pointer;
+  padding: 0;
+  outline: 0;
+  place-self: center;
+}

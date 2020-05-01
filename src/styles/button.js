@@ -18,7 +18,6 @@ export const button = css`
     font-weight: 600;
     line-height: 1;
     padding: 0;
-    margin: 2px;
     border: none;
     background-color: transparent;
     border-radius: 4px;
@@ -45,11 +44,6 @@ export const button = css`
     &:not(:active):focus {
       --border-color: rgb(var(--primary));
       --color: rgb(var(--primary));
-
-      &[|primary] {
-        --color: #fff;
-      }
-
       & content {
         transform: translate(-2px, -2px);
       }
@@ -89,7 +83,7 @@ export const button = css`
       }
     }
 
-    &[|primary] {
+    &:not(:disabled, :active)[|primary] {
       --bg: rgb(var(--primary));
       --border-color: rgb(var(--primary));
       --color: #fff;

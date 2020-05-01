@@ -2,7 +2,7 @@
 
 :root {
   --frame: 220, 222, 228;
-  --bg: 243, 245, 246;
+  --bg: rgb(243, 245, 246);
 
   --main: 39, 47, 90;
   --primary: 24, 158, 233;
@@ -11,9 +11,9 @@
   --warning: 255, 138, 31;
 
   /* resourse */
-  --hot-water: 255, 140, 104;
-  --cold-water: 121, 175, 255;
-  --electro: 226, 177, 4;
+  --hot-water: rgb(255, 140, 104);
+  --cold-water: rgb(121, 175, 255);
+  --electro: rgb(226, 177, 4);
 }
 body {
   margin: 0;

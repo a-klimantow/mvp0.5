@@ -2,11 +2,12 @@ import React from "react"
 import { NavLink } from "react-router-dom"
 import styled from "reshadow/macro"
 
-import styles, { layout, navlink, svg, titles } from "styles"
+import styles, { layout, navlink, svg } from "styles"
+import { createIcon } from "styles/helper"
 import { task, object, key, setting, username2 } from "assets/icons.json"
 import logo from "assets/svg/logo.svg"
 const items = [
-  { name: "Задачи", icon: task, to: "/tasks" },
+  { name: "Задачи", icon: task, to: { pathname: "/tasks", hash: "executing" } },
   { name: "Объекты", icon: object, to: "/objects" },
   { name: "Собственники", icon: key, to: "/owners" },
   { name: "Настройки", icon: setting, to: "/settings" },
@@ -28,9 +29,7 @@ export const Layout = ({ children }) => {
           <ul>
             <li>
               <NavLink to="/user" activeClassName={navlink.active}>
-                <svg>
-                  <path as="path" d={username2} />
-                </svg>
+                {createIcon(username2)}
                 <user as="span">userame@yandex.ru</user>
                 <uk_name as="span">uk_name</uk_name>
               </NavLink>
@@ -43,9 +42,7 @@ export const Layout = ({ children }) => {
             {items.map(({ name, icon, to }) => (
               <li key={name}>
                 <NavLink to={to} activeClassName={navlink.active}>
-                  <svg>
-                    <path as="path" d={icon} />
-                  </svg>
+                  {createIcon(icon)}
                   {name}
                 </NavLink>
               </li>

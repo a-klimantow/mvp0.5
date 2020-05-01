@@ -12,6 +12,7 @@ export const filter = css`
       display: inherit;
       grid-auto-flow: inherit;
       align-items: inherit;
+      grid-template-columns: auto 200px;
       grid-gap: 8px;
     }
   }

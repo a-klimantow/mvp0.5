@@ -1,1 +1,1 @@
-export * from "./useGET"
+export * from "./useInput"

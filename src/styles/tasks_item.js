@@ -9,8 +9,21 @@ export const tasks_item = css`
     line-height: 16px;
     cursor: pointer;
 
+    & > * {
+      pointer-events: none;
+    }
+
     &:hover title_item {
       color: rgb(var(--primary));
+    }
+
+    & > *:nth-child(3) {
+      color: rgba(var(--main), 0.6);
+      justify-items: start;
+    }
+
+    & > *:last-child {
+      grid-template-columns: auto auto 1fr auto;
     }
   }
 
@@ -18,7 +31,8 @@ export const tasks_item = css`
   row,
   number,
   calendar,
-  address {
+  address,
+  device {
     display: inherit;
     grid-auto-flow: column;
     align-items: center;
@@ -28,23 +42,33 @@ export const tasks_item = css`
   row {
     grid-gap: 16px;
   }
+
   number,
   calendar,
   address {
     grid-gap: 8px;
-    justify-self: start;
+  }
+
+  number {
+    justify-self: end;
+  }
+
+  device_icon {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    & ~ span {
+      margin-left: 4px;
+    }
   }
 
   calendar,
-  number {
+  number,
+  device > span {
     color: rgba(var(--main), 0.6);
   }
 
   headers {
     grid-template-columns: 1fr auto;
-  }
-
-  row {
-    grid-auto-columns: auto 1fr auto auto;
   }
 `
