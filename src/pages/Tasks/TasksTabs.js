@@ -25,7 +25,7 @@ export const TasksTabs = ({ executingTasksCount, observingTasksCount }) => {
         to={{ pathname, search: "grouptype=archived" }}
         isActive={() => search.includes("archived")}
       >
-        Архивные
+        Архив
       </Tab>
     </tabs>
   )
