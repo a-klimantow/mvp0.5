@@ -1,40 +1,53 @@
-import React, { useState, useEffect } from "react"
-import { Input } from "antd"
-
-const labels = {
-  cellphone: "Контактный номер",
-  department: "Отдел",
-  email: "Адрес электронной почты (логин)",
-  firstName: "Имя",
-  lastName: "Фамилия",
-  middleName: "Отчество",
-  number: "Внутренний номер сотрудника",
-  position: "Должность",
-  companyName: "Название"
-}
+import React, { useState, useRef } from "react"
+import { Input } from "components"
 
 export const useInput = ({
-  name,
-  value = "",
-  inputProps = {},
-  label = null
+  name = "",
+  big = false,
+  password = false,
+  required = false,
+  loading = false,
 }) => {
-  const [inputValue, setInputValue] = useState("")
+  const [value, setValue] = useState("")
+  const [touched, setTouched] = useState(false)
+  const [error, setError] = useState(false)
+  // const [valid, setValid] = useState(false)
+  const input = useRef()
 
-  useEffect(() => setInputValue(value), [value])
+  const onClick = () => !touched && setTouched(true)
+  const onFocus = () => input.current.focus()
+  const onBlur = () => {
+    if (touched && !value) {
+      setError(true)
+    }
+  }
+
+  const onInvalid = (e) => {
+    e.preventDefault()
+    setError(true)
+  }
+
+  const onChange = (e) => {
+    error && setError(false)
+    setValue(e.target.value)
+  }
 
   return {
-    input: (
-      <label>
-        <span>{label || labels[name]}</span>
-        <Input
-          value={inputValue}
-          onChange={e => setInputValue(e.target.value)}
-          size="large"
-          {...inputProps}
-        />
-      </label>
+    comp: (
+      <Input
+        loading={loading}
+        required={required}
+        error={error}
+        ref={input}
+        value={value}
+        onInvalid={onInvalid}
+        onChange={onChange}
+        password={password}
+        big={big}
+        wrapper={{ onFocus, onClick, onBlur }}
+      />
     ),
-    get: () => ({ [name]: inputValue })
+    data: { [name]: value },
+    error,
   }
 }
