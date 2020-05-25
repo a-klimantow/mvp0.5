@@ -28,7 +28,7 @@ export const Menu = ({ styles }) => {
             <span>УК "Лесные озёра"</span>
           </NavLink>
           <logout as="a" href="/login">
-            <span>выход</span>
+            <span>Выход</span>
           </logout>
         </li>
         {menuItems.map(({ name, icon, to }) => (
