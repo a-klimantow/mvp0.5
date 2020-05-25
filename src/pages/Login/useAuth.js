@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom"
 export const useAuth = () => {
   const { replace } = useHistory()
   const [postData, setPostData] = useState(null)
-  const [laoding, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
   useEffect(() => {
     postData && auth(postData)
   }, [postData])
@@ -29,5 +29,5 @@ export const useAuth = () => {
     }
   }
 
-  return { submit: (data) => setPostData(data), laoding }
+  return { submit: (data) => setPostData(data), loading }
 }
