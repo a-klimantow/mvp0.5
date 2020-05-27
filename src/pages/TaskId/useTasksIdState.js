@@ -1,65 +1,71 @@
 import { useReducer, useEffect } from "react"
-import { useRouteMatch, useHistory } from "react-router-dom"
+import { useRouteMatch } from "react-router-dom"
+
 import axios from "services/ajax"
 
 export default () => {
-  const { replace, location } = useHistory()
   const { url } = useRouteMatch()
-  const [state, dispatch] = useReducer(reducer, {
-    loading: true,
-    postStageType: null,
+  const [{ config, ...state }, dispatch] = useReducer(reducer, {
+    url,
+    config: { method: "get", url },
+    loading: { initial: true },
   })
-  const source = axios.CancelToken.source()
-  const { postStageType } = state
 
   useEffect(() => {
-    getTasksId()
-    return () => source.cancel()
-  }, [])
+    config && getData()
+  }, [config])
 
-  useEffect(() => {
-    postStageType && postStage(postStageType)
-  }, [postStageType])
-
-  async function getTasksId() {
+  async function getData() {
     try {
-      const result = await axios(url)
+      const result = await axios(config)
       const { successResponse } = result.data
       dispatch({ type: "fetch_success", payload: successResponse })
     } catch (error) {
-      if ([422, 404].includes(error?.response.status)) replace("/404")
+      dispatch({ type: "fetch_error" })
     }
-  }
-
-  async function postStage(type) {
-    try {
-      const result = await axios.post(`${url}/${type}`, state.postData)
-      const { successResponse } = result.data
-      dispatch({ type: "fetch_success", payload: successResponse })
-    } catch (error) {}
   }
 
   return [state, dispatch]
 }
 
 function reducer(state, action) {
+  const { url, loading } = state
   switch (action.type) {
-    case "fetch_start":
-      return { ...state, loading: true }
     case "fetch_success":
       return {
         ...state,
         ...action.payload,
-        loading: false,
-        postStageType: null,
+        loading: {},
       }
+    case "fetch_error": {
+      return { ...state, loading: {} }
+    }
+    case "document_delete":
+      return {
+        ...state,
+        config: { method: "delete", url: url + "/documents/" + action.payload },
+        loading: { deleteDocument: action.payload },
+      }
+
     case "push_stage":
-      return { ...state, postData: action.payload, postStageType: "pushstage" }
+      return {
+        ...state,
+        config: {
+          method: "post",
+          url: url + "/pushstage",
+          data: action.payload,
+        },
+        loading: { pushStage: true },
+      }
     case "revert_stage":
       return {
         ...state,
-        postData: action.payload,
-        postStageType: "revertstage",
+        config: {
+          method: "post",
+          url: url + "/revertstage",
+          data: action.payload,
+        },
+        loading: { revertStage: true },
       }
     default:
       console.error(action.type)

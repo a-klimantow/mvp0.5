@@ -2,14 +2,17 @@ import React from "react"
 import styled, { css, use } from "reshadow/macro"
 import t from "prop-types"
 
+// eslint-disable-next-line
+import { Icon } from "components"
+
 export const Button = ({
   styles,
   children,
   big = false,
   icon = "",
   primary = false,
-  disabled = false,
   position = "",
+  loading = false,
   ...props
 }) => {
   const justify =
@@ -23,8 +26,13 @@ export const Button = ({
       justify-content: ${justify};
     }
   `(
-    <button disabled={disabled} {...use({ big, icon, primary })} {...props}>
-      <content>{children}</content>
+    <button {...use({ big, icon, primary, loading })} {...props}>
+      <content>
+        {children}
+        {loading && (
+          <loading as="Icon" icon="replacement" size={12} {...use({ loading })} />
+        )}
+      </content>
     </button>
   )
 }
@@ -58,8 +66,8 @@ Button.defaultProps = {
         transition: inherit;
       }
 
-      &:not(:active, :disabled):hover,
-      &:not(:active):focus {
+      &:not(:active, :disabled, [|loading]):hover,
+      &:not(:active, [|loading]):focus {
         &::before {
           transform: translate(2px, 2px);
           border-color: rgb(var(--frame));
@@ -115,6 +123,14 @@ Button.defaultProps = {
           color: #fff;
         }
       }
+
+      &[|loading] {
+        pointer-events: none;
+        cursor: none;
+        & content > loading {
+          display: block;
+        }
+      }
     }
 
     content {
@@ -133,6 +149,23 @@ Button.defaultProps = {
       height: 32px;
       padding: 0 16px;
       pointer-events: none;
+    }
+
+    @keyframes spin {
+      from {
+        transform: rotate(0);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    loading {
+      display: none;
+      position: absolute;
+      top: 2px;
+      right: 2px;
+      animation: spin 1000ms linear infinite;
     }
   `,
 }

@@ -1,8 +1,16 @@
 import React from "react"
+import { useRouteMatch } from "react-router-dom"
 import styled, { use } from "reshadow/macro"
 
 import { title_page } from "styles/helper"
-import { Comments, Stages, Grid, Breadcrumbs } from "components"
+import {
+  Comments,
+  Stages,
+  Grid,
+  Breadcrumbs,
+  Documents,
+  Loader,
+} from "components"
 import { TaskIdContext } from "./contex"
 import { Header } from "./Header"
 import { Panel } from "./Panel"
@@ -12,28 +20,18 @@ import useTasksIdState from "./useTasksIdState"
 import { StagesBlock } from "./StagesBlock"
 
 export const TaskId = () => {
+  const { url } = useRouteMatch()
   const [state, dispatch] = useTasksIdState()
 
-  return styled(title_page)`
-    block {
-      display: grid;
-      grid-auto-flow: dense;
-      grid-template-columns: 7fr 5fr;
-      align-items: start;
-      grid-row-gap: 16px;
-      grid-column-gap: 32px;
-    }
+  if (state.loading.initial) return <Loader size={48} center />
 
-    InfoList,
-    DeviceList {
-      grid-column: 1;
-    }
-  `(
+  return styled(title_page)(
     <TaskIdContext.Provider value={[state, dispatch]}>
       <>
         <Breadcrumbs />
         <Header />
         <Panel />
+        <Documents {...{ state, dispatch }} />
         <Grid
           left={
             <>

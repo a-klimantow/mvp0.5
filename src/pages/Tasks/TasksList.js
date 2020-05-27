@@ -1,10 +1,11 @@
 import React from "react"
 import { Link as LinkRow } from "react-router-dom"
 import styled, { css } from "reshadow/macro"
-import { Timeline, Timer, Device, Icon } from "components"
+import { Timeline, Timer, Device, Icon, Loader, Empty } from "components"
 
 export const TasksList = ({ styles, loading, items = [] }) => {
-  if (loading) return "Загрузка..."
+  if (loading) return <Loader size={36} />
+  if (!items.length) return <Empty text="Список задач пуст" />
   return items.map(
     ({
       id,

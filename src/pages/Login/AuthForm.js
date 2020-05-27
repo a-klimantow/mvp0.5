@@ -9,7 +9,7 @@ export const AuthForm = ({ styles }) => {
     email: { value: "" },
     password: { value: "" },
   })
-  const { submit, laoding } = useAuth()
+  const { submit, loading } = useAuth()
 
   const handleChange = (e) => {
     const name = e.target.name
@@ -32,7 +32,7 @@ export const AuthForm = ({ styles }) => {
             name="email"
             value={inputs.email.value}
             onChange={handleChange}
-            readOnly={laoding}
+            readOnly={loading}
           />
         </Label>
         <Label labelText="Пароль">
@@ -42,13 +42,14 @@ export const AuthForm = ({ styles }) => {
             password
             value={inputs.password.value}
             onChange={handleChange}
-            readOnly={laoding}
+            readOnly={loading}
           />
         </Label>
         <Button
           big
           primary
-          disabled={!inputs.password.value || !inputs.email.value || laoding}
+          disabled={!inputs.password.value || !inputs.email.value}
+          loading={loading}
         >
           Вход в систему
         </Button>

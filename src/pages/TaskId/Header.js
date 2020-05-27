@@ -2,7 +2,7 @@ import React, { useContext } from "react"
 import styled, { css } from "reshadow/macro"
 
 import { title_page } from "styles/helper"
-import { Timeline, Timer } from "components"
+import { Timeline, Timer, Loader } from "components"
 import { TaskIdContext } from "./contex"
 
 export const Header = ({ styles }) => {
@@ -10,7 +10,7 @@ export const Header = ({ styles }) => {
     { name, currentStage, creationTime, expectedCompletionTime, closingTime },
   ] = useContext(TaskIdContext)
 
-  if (!name) return "Загрузка..."
+  if (!name) return <Loader size={32} />
   return styled(title_page, styles)(
     <header as="div">
       <title_page>{currentStage ? currentStage.name : name}</title_page>
