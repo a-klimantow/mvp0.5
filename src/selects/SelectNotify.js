@@ -15,11 +15,11 @@ export const SelectNotify = (props) => {
   }, [touched])
 
   return (
-    <Label onClick={() => !touched && setTouched(true)} labelText="Исполнитель">
+    <Label onClick={() => !touched && setTouched(true)} labelText="Получатель">
       <Select
         options={options}
         multiple
-        placeholder="Выберите исполнителя"
+        placeholder="Выберите получателя"
         {...props}
       />
     </Label>

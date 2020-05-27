@@ -24,7 +24,7 @@ export const useAuth = () => {
       localStorage.setItem("roles", JSON.stringify(roles))
       replace("/")
     } catch (err) {
-      window.alert("Неправильный логин или пароль")
+      // window.alert("Неправильный логин или пароль")
       setLoading(false)
     }
   }

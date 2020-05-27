@@ -30,7 +30,7 @@ export const Button = ({
       <content>
         {children}
         {loading && (
-          <loading as="Icon" icon="replacement" {...use({ loading })} />
+          <loading as="Icon" icon="replacement" size={12} {...use({ loading })} />
         )}
       </content>
     </button>

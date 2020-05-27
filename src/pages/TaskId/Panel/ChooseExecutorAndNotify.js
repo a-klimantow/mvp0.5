@@ -25,7 +25,10 @@ export const ChooseExecutorAndNotify = ({ styles }) => {
         </Button>
         <PushButton
           disabled={!nextPerpetratorId}
-          data={{ nextPerpetratorId, emailNotify: { message, contractorsIds } }}
+          data={{
+            nextPerpetratorId,
+            emailNotify: { message, contractorsIds },
+          }}
         />
       </bottom>
     </>

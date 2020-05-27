@@ -7,7 +7,7 @@ import { TaskIdContext } from "./contex"
 
 export const StagesBlock = ({ styles }) => {
   const [state, dispatch] = useContext(TaskIdContext)
-  const { stages, userOperatingStatus } = state
+  const { stages, userOperatingStatus, loading } = state
   return styled(styles, title_section)(
     <stages>
       <title_section>Этапы выполнения</title_section>
@@ -46,6 +46,7 @@ export const StagesBlock = ({ styles }) => {
                         payload: { comment: "" },
                       })
                     }
+                    loading={loading.revertStage}
                   >
                     вернуть этап
                   </Btn>
