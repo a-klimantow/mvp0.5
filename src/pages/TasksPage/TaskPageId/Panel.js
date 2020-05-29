@@ -7,10 +7,13 @@ import {
   ChooseExecutorAndSwitch,
 } from "./panels"
 import { PushButton } from "./PushButton"
+import { TaskPageIdContext } from "./context"
 
-export const Panel = ({ currentStage }) => {
+export const Panel = () => {
+  const {
+    state: { currentStage },
+  } = React.useContext(TaskPageIdContext)
   if (!currentStage) return null
-  console.log(currentStage.action)
   const { action } = currentStage
   return styled()`
     panel {

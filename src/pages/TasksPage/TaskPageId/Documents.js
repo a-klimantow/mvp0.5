@@ -2,8 +2,13 @@ import React from "react"
 import styled, { css } from "reshadow/macro"
 
 import { Icon, Loader } from "components"
+import { TaskPageIdContext } from "./context"
 
-export const Documents = ({ styles, documents = [], remove = () => {} }) => {
+export const Documents = ({ styles }) => {
+  const {
+    state: { documents = [] },
+  } = React.useContext(TaskPageIdContext)
+
   if (!documents.length) return null
   return styled(styles)(
     documents.map(
@@ -25,7 +30,7 @@ export const Documents = ({ styles, documents = [], remove = () => {} }) => {
             (deleted ? (
               <Loader />
             ) : (
-              <button onClick={() => remove(i, "documents")}>
+              <button>
                 <Icon icon="del" />
               </button>
             ))}

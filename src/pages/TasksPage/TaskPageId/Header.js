@@ -8,16 +8,19 @@ import {
   getFormatingTime,
 } from "styles/helper"
 import { Icon } from "components"
+import { TaskPageIdContext } from "./context"
 
-export const Header = ({
-  styles,
-  currentStage,
-  name,
-  expectedCompletionTime,
-  creationTime,
-  closingTime,
-  ...p
-}) => {
+export const Header = ({ styles }) => {
+  const {
+    state: {
+      currentStage,
+      name,
+      expectedCompletionTime,
+      creationTime,
+      closingTime,
+    },
+  } = React.useContext(TaskPageIdContext)
+  
   const { width, color } = getTimelineProps(
     creationTime,
     expectedCompletionTime
