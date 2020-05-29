@@ -22,7 +22,7 @@ export const TasksList = ({ styles, loading, items = [] }) => {
         <item key={id}>
           <LinkRow
             to={{
-              pathname: "/task/" + id,
+              pathname: "/tasks/" + id,
               state: {
                 id,
                 name,

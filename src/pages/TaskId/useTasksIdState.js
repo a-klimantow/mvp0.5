@@ -1,29 +1,38 @@
-import { useReducer, useEffect } from "react"
-import { useRouteMatch } from "react-router-dom"
+import { useReducer, useEffect, useContext } from "react"
+import { useRouteMatch, useParams } from "react-router-dom"
 
 import axios from "services/ajax"
+import { GlobalContext } from "context"
 
 export default () => {
-  const { url } = useRouteMatch()
-  const [{ config, ...state }, dispatch] = useReducer(reducer, {
-    url,
-    config: { method: "get", url },
-    loading: { initial: true },
-  })
-
+  const { params } = useRouteMatch()
+  const { taskId } = useParams()
+  const { state, dispatch } = useContext(GlobalContext)
   useEffect(() => {
-    config && getData()
-  }, [config])
+    dispatch({
+      type: "fetch_start",
+      payload: { config: { method: "get", url: `/tasks/${taskId}` } },
+    })
+  }, [taskId])
+  // const [{ config, ...state }, dispatch] = useReducer(reducer, {
+  //   url,
+  //   config: { method: "get", url },
+  //   loading: { initial: true },
+  // })
 
-  async function getData() {
-    try {
-      const result = await axios(config)
-      const { successResponse } = result.data
-      dispatch({ type: "fetch_success", payload: successResponse })
-    } catch (error) {
-      dispatch({ type: "fetch_error" })
-    }
-  }
+  // useEffect(() => {
+  //   config && getData()
+  // }, [config])
+
+  // async function getData() {
+  //   try {
+  //     const result = await axios(config)
+  //     const { successResponse } = result.data
+  //     dispatch({ type: "fetch_success", payload: successResponse })
+  //   } catch (error) {
+  //     dispatch({ type: "fetch_error" })
+  //   }
+  // }
 
   return [state, dispatch]
 }

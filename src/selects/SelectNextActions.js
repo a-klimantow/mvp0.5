@@ -5,13 +5,13 @@ import { Label, Select } from "components"
 import axios from "services/ajax"
 
 export const SelectNextActions = (props) => {
-  const { taskId } = useParams()
+  const params = useParams()
   const [touched, setTouched] = useState(false)
   const [options, setOptions] = useState([])
 
   useEffect(() => {
     touched &&
-      axios(`/tasks/${taskId}/nextstages`).then((res) => {
+      axios(`/tasks/${params[0]}/nextstages`).then((res) => {
         console.log(res)
         setOptions(res.data.successResponse?.items)
       })

@@ -5,14 +5,10 @@ import styled, { css } from "reshadow/macro"
 import { task, object, key, setting, username2 } from "assets/icons/menu.json"
 
 const menuItems = [
-  {
-    name: "Задачи",
-    icon: task,
-    to: "/tasks",
-  },
-  { name: "Объекты", icon: object, to: "/housingstocks/" },
-  { name: "Собственники", icon: key, to: "/owners/" },
-  { name: "Настройки", icon: setting, to: "/settings/" },
+  { name: "Задачи", icon: task, to: "/tasks/", pages: ["tasks", "task"] },
+  { name: "Объекты", icon: object, to: "/objects/", pages: ["objects"] },
+  { name: "Собственники", icon: key, to: "/owners/", pages: ["owners"] },
+  { name: "Настройки", icon: setting, to: "/settings/", pages: ["settings"] },
 ]
 
 export const Menu = ({ styles }) => {
@@ -31,9 +27,16 @@ export const Menu = ({ styles }) => {
             <span>Выход</span>
           </logout>
         </li>
-        {menuItems.map(({ name, icon, to }) => (
+        {menuItems.map(({ name, icon, to, pages }) => (
           <li key={name}>
-            <NavLink to={to} activeClassName={styles.active}>
+            <NavLink
+              to={to}
+              activeClassName={styles.active}
+              isActive={(match, location) => {
+                const page = location.pathname.split("/")[1]
+                return pages.includes(page)
+              }}
+            >
               <svg width={16} height={16} fill="currentColor">
                 <path as="path" d={icon} />
               </svg>

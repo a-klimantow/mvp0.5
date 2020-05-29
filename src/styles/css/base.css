@@ -31,3 +31,9 @@ path {
   clip-rule: evenodd;
   fill-rule: evenodd;
 }
+
+h1 {
+  margin: 0;
+  font-weight: 300;
+  font-size: 32px;
+}

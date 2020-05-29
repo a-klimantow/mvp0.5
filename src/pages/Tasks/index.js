@@ -1,29 +1,58 @@
-import React from "react"
-import { Redirect } from "react-router-dom"
+import React, { useEffect } from "react"
+import { Redirect, Route, Switch, useRouteMatch } from "react-router-dom"
 import styled from "reshadow/macro"
 
+import { GlobalContext } from "context"
 import { title_page, tabs } from "styles/helper"
-
 import { TasksList } from "./TasksList"
+import { Tab } from "components"
+import { useCanselToken } from "hooks"
 
-import useTasksState from "./useTasksState"
+const tabItems = [
+  { name: "К исполнению", tab: "executing" },
+  { name: "Наблюдаемые", tab: "observing" },
+  { name: "Архив", tab: "archived" },
+]
 
-import { TasksTabs } from "./TasksTabs"
+export const Tasks = ({ match }) => {
+  const { state, dispatch } = React.useContext(GlobalContext)
+  const { path } = match
+  const tabPath = useRouteMatch(path + ":grouptype")
+  const { token, cancel } = useCanselToken()
+  useEffect(() => {
+    tabPath &&
+      dispatch({
+        type: "fetch_start",
+        payload: {
+          config: {
+            method: "get",
+            url: "/tasks",
+            params: tabPath?.params,
+            cancelToken: token,
+          },
+          loading: true,
+        },
+      })
+    return () => cancel()
+  }, [tabPath?.params.grouptype])
 
-export const Tasks = ({ location, match }) => {
-  const { search } = location
-  const {
-    loading,
-    items,
-    executingTasksCount,
-    observingTasksCount,
-  } = useTasksState()
-  if (!search) return <Redirect to={match.url + "?grouptype=executing"} />
   return styled(title_page, tabs)(
     <>
       <title_page as="h1">Задачи</title_page>
-      <TasksTabs {...{ executingTasksCount, observingTasksCount }} />
-      <TasksList items={items} loading={loading} />
+      <tabs>
+        {tabItems.map((item) => (
+          <Tab key={item.name} to={item.tab}>
+            {item.name}
+          </Tab>
+        ))}
+      </tabs>
+      <Switch>
+        <Route path={path + "(executing|observing|archived)"}>
+          <TasksList items={state.items} loading={state.loading} />
+        </Route>
+        <Redirect from={path} to={path + "executing"} exact />
+        <Redirect from="*" to="/404" exact />
+      </Switch>
     </>
   )
 }

@@ -1,16 +1,32 @@
-import React, { useMemo } from "react"
+import React, { useEffect } from "react"
+import { useHistory } from "react-router-dom"
 
-import { GlobalStoreContext } from "./context"
+import { GlobalContext } from "context"
 import reducer from "./reducer"
-// import { request } from "services/api"
-// import { useLocation } from "react-router-dom"
+import axios from "services/ajax"
 
 export const GlobalStore = ({ children }) => {
+  const { replace } = useHistory()
   const [state, dispatch] = React.useReducer(reducer, {})
-
+  const { config } = state
+  useEffect(() => {
+    config &&
+      axios(config)
+        .then((res) =>
+          dispatch({ type: "fetch_success", payload: res.data })
+        )
+        .catch((err) => {
+          if (axios.isCancel(err)) {
+          } else {
+            if (err?.response.status === 404) {
+              replace("/404")
+            }
+          }
+        })
+  }, [config])
   return (
-    <GlobalStoreContext.Provider value={[state, dispatch]}>
+    <GlobalContext.Provider value={{ state, dispatch }}>
       {children}
-    </GlobalStoreContext.Provider>
+    </GlobalContext.Provider>
   )
 }

@@ -12,6 +12,7 @@ import {
   ObjectId,
   DeviceId,
   HousingStoks,
+  TasksPage,
 } from "pages"
 import { Menu } from "components/Menu"
 
@@ -26,8 +27,7 @@ export const App = () => {
         <Route path="/">
           <Layout>
             <Switch>
-              <Route path="/tasks/:taskId" component={TaskId} />
-              <Route path="/tasks/" component={Tasks} />
+              <Route path="/tasks/" component={TasksPage} />
               <Route
                 path="/housingstocks/"
                 render={({ match: { path } }) => (

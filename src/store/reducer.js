@@ -1,34 +1,17 @@
 export default (state, action) => {
   switch (action.type) {
-    case "cancel":
-      return { ...state, cancelFetch: true }
-    case "get":
-      return {
-        config: {
-          url: "tasks",
-          ...action.payload,
-        },
-        loading: true,
-      }
-    case "get_task_id":
-      return {
-        isCancel: true,
-        config: {
-          url: "Tasks/" + action.payload.taskId,
-        },
-      }
-    case "auth":
+    case "fetch_start":
       return {
         ...state,
-        auth: true,
-        config: {
-          method: "post",
-          url: "Auth/login",
-          data: JSON.stringify(action.payload),
-        },
+        ...action.payload,
+        loading: true,
       }
     case "fetch_success":
-      return { ...action.payload }
+      return { ...state, ...action.payload, loading: false }
+
+    case "clear":
+      console.log("cloar")
+      return {}
     default:
       console.error("action type => ", action.type)
       return state
