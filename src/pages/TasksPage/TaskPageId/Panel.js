@@ -11,10 +11,12 @@ import { TaskPageIdContext } from "./context"
 
 export const Panel = () => {
   const {
-    state: { currentStage },
+    state: { currentStage, userOperatingStatus },
   } = React.useContext(TaskPageIdContext)
   if (!currentStage) return null
+
   const { action } = currentStage
+  if (userOperatingStatus === "Observer") return "observer"
   return styled()`
     panel {
       display: grid;

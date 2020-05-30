@@ -13,8 +13,10 @@ import { Comments } from "./Comments"
 export const TaskPageId = ({ match }) => {
   const url = `tasks/${match.params[0]}`
   const { token, cancel } = useCanselToken()
+  const [mount, setMount] = React.useState(true)
   const [state, dispatch] = React.useReducer(
     (state, action) => {
+      const { comments, actionIds = [] } = state
       switch (action.type) {
         case "success":
           return success(state, action)
@@ -43,12 +45,47 @@ export const TaskPageId = ({ match }) => {
             },
             commentCreateLoading: true,
           }
+        case "comment_delete":
+          return {
+            ...state,
+            config: {
+              method: "delete",
+              url: url + "/comments/" + action.payload.id,
+            },
+            actionIds: [action.payload.id, ...actionIds],
+          }
+        case "comment_save":
+          return {
+            ...state,
+            config: {
+              method: "put",
+              url: url + "/comments/" + action.payload.id,
+              data: JSON.stringify(state.editValue.trim()),
+            },
+            actionIds: [action.payload.id, ...actionIds],
+          }
+        case "edit_start":
+          const editComments = comments.map((item) => ({
+            ...item,
+            isEdit: item.id === action.payload.id,
+          }))
+          return {
+            ...state,
+            comments: editComments,
+            editValue: action.payload.text,
+          }
+        case "edit_cancel":
+          return {
+            ...state,
+            comments: comments.map((item) => ({ ...item, isEdit: false })),
+          }
         default:
           console.error(action.type)
           return state
       }
     },
     {
+      mount: true,
       textarea: "",
       loading: true,
       config: {
@@ -58,30 +95,11 @@ export const TaskPageId = ({ match }) => {
       },
     }
   )
-
+  useEffect(() => () => setMount(false), [])
   useEffect(() => {
     axios(state.config)
       .then(({ data, config }) => {
-        // const { url, method } = config
-        // const { successResponse } = data
-        // if (url.includes("revert")) {
-        //   dispatch({
-        //     type: "success",
-        //     payload: { ...successResponse, revertLoader: false },
-        //   })
-        //   return
-        // }
-        // if (url.includes("push")) {
-        //   dispatch({
-        //     type: "success",
-        //     payload: { ...successResponse, pushLoader: false },
-        //   })
-        //   return
-        // }
-        // if (url.includes("comments") && method === "post") {
-        //   console.log("yes")
-        // }
-        dispatch({ type: "success", payload: { data, config } })
+        mount && dispatch({ type: "success", payload: { data, config } })
       })
       .catch((e) => e)
     return () => cancel()
@@ -102,10 +120,11 @@ function success(state, action) {
   const method = action.payload.config.method
   const url = action.payload.config.url
   const { successResponse } = action.payload.data
-
+  const { comments, actionIds = [] } = state
+  const dataId = Number(url.split("/").slice(-1)[0])
   switch (method) {
     case "post":
-      if (url.includes("pushstage") && url.includes("revertstage"))
+      if (url.includes("pushstage") || url.includes("revertstage"))
         return { ...state, ...successResponse, stageLoader: false }
       if (url.includes("comments"))
         return {
@@ -114,6 +133,22 @@ function success(state, action) {
           commentCreateLoading: false,
           textarea: "",
         }
+    case "put":
+      return {
+        ...state,
+        comments: comments.map((item) =>
+          item.id === dataId ? successResponse : item
+        ),
+        actionIds: actionIds.filter((id) => id !== dataId),
+      }
+    case "delete":
+      if (url.includes("comments")) {
+        return {
+          ...state,
+          comments: comments.filter((item) => item.id !== dataId),
+          actionIds: actionIds.filter((id) => id !== dataId),
+        }
+      }
     default:
       return { ...state, ...successResponse, loading: false }
   }

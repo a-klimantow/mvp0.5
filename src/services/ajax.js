@@ -2,6 +2,7 @@ import axios from "axios"
 
 axios.defaults.baseURL = "https://transparent-staging.herokuapp.com/api"
 axios.defaults.headers.post["Content-Type"] = "application/json"
+axios.defaults.headers.put["Content-Type"] = "application/json"
 
 axios.interceptors.request.use((req) => {
   req.headers["Authorization"] = `Bearer ${getToken()}`

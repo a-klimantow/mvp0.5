@@ -7,7 +7,7 @@ import { TaskPageIdContext } from "./context"
 
 export const Stages = () => {
   const {
-    state: { stages = [], stageLoader },
+    state: { stages = [], stageLoader, userOperatingStatus },
     dispatch,
   } = React.useContext(TaskPageIdContext)
   return styled(title_section)(
@@ -18,7 +18,10 @@ export const Stages = () => {
           <Stage
             key={stage.id}
             {...stage}
-            showRevertBtn={arr[i + 1]?.status === "InProgress"}
+            showRevertBtn={
+              arr[i + 1]?.status === "InProgress" &&
+              userOperatingStatus === "Executor"
+            }
             onClick={() =>
               dispatch({
                 type: "move_stage",
