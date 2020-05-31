@@ -3,7 +3,7 @@ import axios from "axios"
 axios.defaults.baseURL = "https://transparent-staging.herokuapp.com/api"
 axios.defaults.headers.post["Content-Type"] = "application/json"
 axios.defaults.headers.put["Content-Type"] = "application/json"
-
+axios.defaults.timeout = 15000
 axios.interceptors.request.use((req) => {
   req.headers["Authorization"] = `Bearer ${getToken()}`
   return req
@@ -26,8 +26,8 @@ function setTokenData(data) {
 }
 
 function getToken() {
-  const { token } = JSON.parse(localStorage.getItem("tokenData"))
-  return token
+  const data = localStorage.getItem("tokenData")
+  return data ? JSON.parse(data).token : null
 }
 
 function refresh(config) {

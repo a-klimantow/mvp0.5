@@ -8,7 +8,6 @@ import {
   Tasks,
   TaskId,
   Objects,
-  Dev,
   ObjectId,
   DeviceId,
   HousingStoks,
@@ -22,9 +21,9 @@ export const App = () => {
     <GlobalStore>
       <Switch>
         <Route path="/login/" component={Login} />
-        <Route path="/404/" render={() => "404"} />
-        <Route path="/dev/" render={() => <Dev />} />
-        <Route path="/">
+        <Route path="/error/" render={() => "error"} />
+        <Route path="/" component={Layout} />
+        {/* <Route path="/">
           <Layout>
             <Switch>
               <Route path="/tasks/" component={TasksPage} />
@@ -47,7 +46,7 @@ export const App = () => {
               <Redirect from="*" to="/404" />
             </Switch>
           </Layout>
-        </Route>
+        </Route> */}
       </Switch>
     </GlobalStore>
   )
