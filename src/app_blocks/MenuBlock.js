@@ -31,10 +31,7 @@ export const MenuBlock = () => {
         >
           <span>Выход</span>
         </NavLink>
-        <NavLink
-          to={{ pathname: "/tasks", search: "grouptype=executing" }}
-          activeClassName={active}
-        >
+        <NavLink to="/tasks/" activeClassName={active}>
           <Icon icon="task" />
           <span>Задачи</span>
         </NavLink>

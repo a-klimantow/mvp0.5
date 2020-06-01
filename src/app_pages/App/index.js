@@ -18,10 +18,6 @@ export const App = () => {
       overflow: hidden;
       overflow-y: scroll;
       max-height: 100vh;
-      display: grid;
-      align-content: start;
-      grid-template-columns: 8fr 5fr;
-      grid-gap: 16px;
       padding: 16px 56px;
     }
   `(
