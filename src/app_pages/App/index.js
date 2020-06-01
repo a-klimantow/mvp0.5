@@ -32,7 +32,6 @@ export const App = () => {
           <Switch>
             <Route path="/tasks/" component={TasksPage} />
             <Redirect from="/" to="/tasks" exact />
-            <Redirect to="/error" />
           </Switch>
         </main>
       </app>

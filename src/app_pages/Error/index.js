@@ -1,5 +1,8 @@
 import React from "react"
+import { useLocation } from "react-router-dom"
 
 export const Error = () => {
-  return <div>error page</div>
+  const { state } = useLocation()
+  console.log(state)
+  return <div>{state.error.message}</div>
 }
