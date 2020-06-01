@@ -14,7 +14,7 @@ export const Tasks = ({ styles }) => {
     dispatch({
       type: "start",
       payload: {
-        page: params[0],
+        page: params,
         config: {
           method: "get",
           url: "/tasks",
@@ -48,7 +48,7 @@ export const Tasks = ({ styles }) => {
       {loading && <Loader size={32} />}
       {data.items?.length === 0 && <empty>Нет данных</empty>}
       {data.items?.map((item) => (
-        <ListItem key={item.id} to="/tasks/" {...item} />
+        <ListItem key={item.id} pathname="/tasks/" {...item} />
       ))}
     </page>
   )

@@ -4,7 +4,7 @@ import { Route, Redirect, Switch } from "react-router-dom"
 
 import { AppState } from "app_bisnes"
 import { MenuBlock } from "app_blocks"
-import { TasksPage } from "app_pages"
+import { TasksPage, ObjectsPage } from "app_pages"
 
 export const App = () => {
   return styled()`
@@ -27,6 +27,7 @@ export const App = () => {
         <main>
           <Switch>
             <Route path="/tasks/" component={TasksPage} />
+            <Route path="/objects/" component={ObjectsPage} />
             <Redirect from="/" to="/tasks" exact />
           </Switch>
         </main>

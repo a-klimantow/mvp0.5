@@ -19,11 +19,9 @@ export const ListItem = ({
   expectedCompletionTime,
   closingTime,
   device,
-  to,
+  pathname,
   ...p
 }) => {
-  const { path } = useRouteMatch(to)
-
   const bottom = styled(styles)(
     <row>
       {device && (
@@ -58,7 +56,7 @@ export const ListItem = ({
   if (!currentStage)
     return styled(styles)(
       <item>
-        <header as="Link" to={path + id}>
+        <header as="Link" to={pathname + id}>
           <h4>{name}</h4>
         </header>
         <row>
@@ -90,7 +88,7 @@ export const ListItem = ({
     }
   `(
     <item>
-      <header as="Link" to={path + id}>
+      <header as="Link" to={pathname + id}>
         <h4>{currentStage?.name}</h4>
         <name>{name}</name>
       </header>

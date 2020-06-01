@@ -26,7 +26,11 @@ export const AppState = ({ children }) => {
             loading: true,
           }
         case "success":
-          return { ...state, data: payload.successResponse, loading: false }
+          return {
+            ...state,
+            data: { ...state.data, ...payload.successResponse },
+            loading: false,
+          }
         case "error":
           return { ...state, error: payload, loading: false }
         case "clear_data_field":

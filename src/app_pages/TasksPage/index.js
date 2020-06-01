@@ -1,17 +1,11 @@
 import React from "react"
 import { Route, useRouteMatch, Switch, Redirect } from "react-router-dom"
 
-import { Breadcrumbs } from "app_blocks"
-import { Headers } from "./Headers"
-import { useTasks } from "./useTasks"
-import { Tabs } from "./Tabs"
-import { List } from "./List"
-import { TasksHeader } from "./TasksHeader"
 import { Tasks } from "./Tasks"
+import { TasksId } from "./TasksId"
 
 export const TasksPage = () => {
-  const { path, url } = useRouteMatch()
-  // useTasks()
+  const { path } = useRouteMatch()
 
   return (
     <Switch>
@@ -19,25 +13,9 @@ export const TasksPage = () => {
         path={[path + "(executing|observing|archived)"]}
         component={Tasks}
       />
+      <Route path={[path + "(\\d+)"]} component={TasksId} />
       <Redirect from={path} to={path + "executing"} exact />
-      {/* <Route path={[path + "(\\d+)"]}>
-        <Breadcrumbs />
-        <Headers />
-      </Route>
-      <Route path={[url + "(/?)"]}>
-        <TasksHeader />
-        <Tabs />
-        <List />
-      </Route> */}
+      <Redirect to="/objects/" />
     </Switch>
   )
-  // const
-  // return (
-  //   <>
-  //     <Breadcrumbs />
-  //     <Headers />
-  //     <Tabs />
-  //     <List />
-  //   </Switch>
-  // )
 }
