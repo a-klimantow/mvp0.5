@@ -16,6 +16,9 @@ export const Objects = () => {
         },
       },
     })
+    return () => {
+      dispatch({ type: "clear_data_field", payload: { items: null } })
+    }
   }, [])
 
   return styled()`

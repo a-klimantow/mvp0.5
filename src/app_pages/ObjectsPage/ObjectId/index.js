@@ -12,7 +12,7 @@ export const ObjectId = () => {
   const { url } = useRouteMatch()
   const info = useRouteMatch("/objects/(\\d+)")
   const devs = useRouteMatch("/objects/(\\d+)/devices")
-  const { loading, data, dispatch } = React.useContext(AppContext)
+  const { data, dispatch } = React.useContext(AppContext)
 
   React.useEffect(() => {
     console.log(data.items)
@@ -35,20 +35,33 @@ export const ObjectId = () => {
           config: { url: "housingstocks/" + info.params[0] + "/devices" },
         },
       })
-
-      if (!loading && !data.items) {
-        dispatch({
-          type: "start",
-          payload: {
-            config: { url: "tasks" },
-          },
-        })
-      }
     }
   }, [info.isExact, devs?.isExact])
 
-  // React.useEffect(() => {}, [loading, data.items])
+  React.useEffect(() => {
+    if ((!data.items && data.id) || (!data.items && data.devices)) {
+      dispatch({
+        type: "start",
+        payload: {
+          config: {
+            url: `tasks?grouptype=notarchived&take=3&housingstockid=${
+              info.params[0]
+            }`,
+          },
+        },
+      })
+    }
+  }, [data.items, data.id, data.devices])
 
+  React.useEffect(
+    () => () => {
+      dispatch({
+        type: "clear_data_field",
+        payload: { items: null, devices: null, id: null },
+      })
+    },
+    []
+  )
   const title = data.street ? (
     <h1>{[data.street, data.number].join(", ")}</h1>
   ) : (

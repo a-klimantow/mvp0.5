@@ -9,7 +9,6 @@ import { Loader } from "app_components"
 export const Tasks = ({ styles }) => {
   const { params } = useRouteMatch()
   const { dispatch, data, loading, ...p } = React.useContext(AppContext)
-  console.log(p)
   React.useEffect(() => {
     dispatch({
       type: "start",
