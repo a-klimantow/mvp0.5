@@ -43,13 +43,14 @@ Item.defaultProps = {
       grid-template-columns: 1.5fr 16px repeat(4, 1fr) auto;
       align-items: center;
       grid-gap: 8px;
+      border-bottom: 1px solid var(--frame);
     }
-
+    
     button {
       padding: 12px;
       height: auto;
     }
-
+    
     wrap {
       border: 1px solid red;
       display: contents;
