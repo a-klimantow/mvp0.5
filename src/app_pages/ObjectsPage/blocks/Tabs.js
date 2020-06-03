@@ -8,12 +8,16 @@ export const Tabs = () => {
   const { path } = useRouteMatch()
   const objLink = useRouteMatch(path + ":objId")
 
+  const o = useRouteMatch(path + ":id/:type")
+  console.log(o)
+
   if (!objLink) return null
 
   const obj = [
-    `${path}(\\d+)`,
-    `${path}(\\d+)/devices/`,
-    `${path}(\\d+)/apartments/`,
+    `${path}(\\d{3})`,
+    `${path}(\\d{3})/(devices|apartments)`,
+    // `${path}(\\d{3})/devices/`,
+    // `${path}(\\d+)/apartments/`,
   ]
   const dev = [`${obj[1]}(\\d+)`]
 

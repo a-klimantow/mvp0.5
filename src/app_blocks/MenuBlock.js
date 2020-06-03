@@ -25,9 +25,9 @@ export const MenuBlock = () => {
           <span>comany</span>
         </NavLink>
         <NavLink
-          to="/logout"
+          to="/login"
           activeClassName={active}
-          onClick={(e) => e.preventDefault()}
+          // onClick={(e) => e.preventDefault()}
         >
           <span>Выход</span>
         </NavLink>

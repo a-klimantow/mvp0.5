@@ -1,6 +1,6 @@
 import React, { useEffect } from "react"
 
-import axios from "services/ajax"
+import axios from "axios"
 import { useCanselToken } from "hooks"
 import { Grid, Loader } from "components"
 import { Header } from "./Header"

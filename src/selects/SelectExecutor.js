@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react"
 import { Label, Select } from "components"
-import axios from "services/ajax"
+import axios from "axios"
 
 export const SelectExecutor = (props) => {
   const [touched, setTouched] = useState(false)

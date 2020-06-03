@@ -1,7 +1,7 @@
 import { useReducer, useEffect, useContext } from "react"
 import { useRouteMatch, useParams } from "react-router-dom"
 
-import axios from "services/ajax"
+import axios from "axios"
 import { GlobalContext } from "context"
 
 export default () => {

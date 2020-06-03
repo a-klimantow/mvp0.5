@@ -5,7 +5,7 @@ import styled from "reshadow/macro"
 import { title_page, tabs, title_section } from "styles/helper"
 
 import { Tab, Grid, DeviceItemList, EventItem, Breadcrumbs } from "components"
-import axios from "services/ajax"
+import axios from "axios"
 import { useCanselToken } from "hooks"
 import { InfoList } from "./InfoList"
 

@@ -13,7 +13,7 @@ import {
   SimpleListItem,
   Breadcrumbs,
 } from "components"
-import axios from "services/ajax"
+import axios from "axios"
 import { useCanselToken } from "hooks"
 import { InfoList } from "./InfoList"
 

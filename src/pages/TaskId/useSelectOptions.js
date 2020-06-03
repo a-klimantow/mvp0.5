@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import axios from "services/ajax"
+import axios from "axios"
 
 export const useSelectOptions = (type) => {
   const [perpetrators, setPerpetrators] = useState([])

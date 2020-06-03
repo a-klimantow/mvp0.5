@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 
 import { Label, Select } from "components"
-import axios from "services/ajax"
+import axios from "axios"
 
 export const SelectNextActions = (props) => {
   const params = useParams()

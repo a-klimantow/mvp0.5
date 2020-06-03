@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom"
 
 import { GlobalContext } from "context"
 import reducer from "./reducer"
-import axios from "services/ajax"
+import axios from "axios"
 
 export const GlobalStore = ({ children }) => {
   const { replace } = useHistory()
@@ -12,9 +12,7 @@ export const GlobalStore = ({ children }) => {
   useEffect(() => {
     config &&
       axios(config)
-        .then((res) =>
-          dispatch({ type: "fetch_success", payload: res.data })
-        )
+        .then((res) => dispatch({ type: "fetch_success", payload: res.data }))
         .catch((err) => {
           if (axios.isCancel(err)) {
           } else {

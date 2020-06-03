@@ -1,6 +1,6 @@
 import React from "react"
 import { useHistory } from "react-router-dom"
-import axios from "services/ajax"
+import axios from "axios"
 
 export const useLogin = () => {
   const { replace } = useHistory()
@@ -42,7 +42,7 @@ export const useLogin = () => {
           const { roles, ...tokenData } = res.data.successResponse
           localStorage.setItem("tokenData", JSON.stringify(tokenData))
           localStorage.setItem("roles", JSON.stringify(roles))
-          replace("/")
+          replace("/tasks/executing")
         },
         (e) => {
           if (e.response?.status === 400) {

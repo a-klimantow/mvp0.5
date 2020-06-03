@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import { Link as LinkItem, useRouteMatch } from "react-router-dom"
 import styled, { css } from "reshadow/macro"
 
-import axios from "services/ajax"
+import axios from "axios"
 import { useCanselToken } from "hooks"
 import { title_page } from "styles/helper"
 import { Icon, Button } from "components"

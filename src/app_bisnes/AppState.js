@@ -1,7 +1,7 @@
 import React from "react"
 
 import { AppContext } from "context"
-import axios from "services/ajax"
+import axios from "axios"
 import { useCanselToken } from "hooks"
 
 const initialState = {

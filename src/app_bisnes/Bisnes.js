@@ -1,6 +1,6 @@
 import React from "react"
 import { useHistory, useLocation } from "react-router-dom"
-import axios from "services/ajax"
+import axios from "axios"
 
 import { AppContext } from "context"
 

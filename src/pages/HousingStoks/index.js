@@ -1,7 +1,7 @@
 import React, { useReducer, useEffect } from "react"
 import { Route, useLocation, useRouteMatch, Switch } from "react-router-dom"
 
-import axios from "services/ajax"
+import axios from "axios"
 import { Grid } from "components"
 import { HousingStocksContext } from "./context"
 import { Headers } from "./Headers"

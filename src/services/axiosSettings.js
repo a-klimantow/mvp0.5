@@ -36,5 +36,3 @@ function refresh(config) {
     .post("Auth/refreshToken", data)
     .then(() => axios(config), (err) => console.log("err", err))
 }
-
-export { axios }

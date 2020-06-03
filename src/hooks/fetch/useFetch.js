@@ -2,8 +2,8 @@ import { useEffect } from "react"
 import { useHistory } from "react-router-dom"
 import axios from "axios"
 
-axios.defaults.baseURL = "https://transparent-staging.herokuapp.com/api"
-axios.defaults.headers.post["Content-Type"] = "application/json"
+// axios.defaults.baseURL = "https://transparent-staging.herokuapp.com/api"
+// axios.defaults.headers.post["Content-Type"] = "application/json"
 
 axios.interceptors.response.use(
   (res) => {
@@ -27,7 +27,7 @@ function setTokenData({ data }, refresh = false) {
   const { token, refreshToken, roles } = data.successResponse
   localStorage.setItem("token", JSON.stringify(token))
   localStorage.setItem("refreshToken", JSON.stringify(refreshToken))
-  axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
+  // axios.defaults.headers.common["Authorization"] = `Bearer ${token}`
   !refresh && localStorage.setItem("roles", JSON.stringify(roles))
 }
 

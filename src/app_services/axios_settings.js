@@ -25,7 +25,7 @@ function setTokenData(data) {
 function addBerer(req) {
   const data = localStorage.getItem("tokenData")
   const token = data ? JSON.parse(data).token : null
-  console.log(req)
+  // console.log(req)
   req.headers["Authorization"] = `Bearer ${token}`
   return req
 }

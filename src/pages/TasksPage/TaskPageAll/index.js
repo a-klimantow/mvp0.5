@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react"
 import styled from "reshadow/macro"
 import { useRouteMatch } from "react-router-dom"
 
-import axios from "services/ajax"
+import axios from "axios"
 import { useCanselToken } from "hooks"
 import { title_page, tabs } from "styles/helper"
 import { Tab } from "components"
