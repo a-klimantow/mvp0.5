@@ -1,31 +1,27 @@
 import React from "react"
 import styled from "reshadow/macro"
+import { Route } from "react-router-dom"
 
+import { TasksContext } from "context"
+import { useTasks, useFetch } from "app_hooks"
+import { reducer } from "./reducer"
+import pageState from "./initialState"
 import { Header, Tabs, List } from "./blocks"
-import { TasksContext, reducer, initial, useFetchState } from "./local"
-import { axios } from "app_services"
 
-export const TasksPage = () => {
-  const { cancel, token } = axios.CancelToken.source()
-  const [state, dispatch] = React.useReducer(reducer, initial)
-  const { config, key } = state
-  useFetchState(state, dispatch)
-  React.useEffect(() => {
-    config &&
-      axios({ ...config, cancelToken: token }).then(
-        ({ data }) =>
-          dispatch({ type: "success", payload: data.successResponse }),
-        (e) => e
-      )
-    // eslint-disable-next-line
-  }, [config])
-  // eslint-disable-next-line
-  React.useEffect(() => () => cancel(), [key])
+export const TasksPage = ({ match }) => {
+  const [state, dispatch] = React.useReducer(reducer, pageState)
+
+  useTasks(dispatch)
+  useFetch(state, dispatch)
 
   return styled()`
-    page {
+    page,
+    grid {
       display: grid;
       grid-gap: 16px;
+    }
+    grid {
+      grid-template-columns: 8fr 5fr;
     }
   `(
     <TasksContext.Provider value={{ ...state }}>
@@ -33,6 +29,9 @@ export const TasksPage = () => {
         <Header />
         <Tabs />
         <List />
+        <Route path={`${match.path}(\\d+)`}>
+          <grid>hello wordl</grid>
+        </Route>
       </page>
     </TasksContext.Provider>
   )

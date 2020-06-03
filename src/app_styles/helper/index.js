@@ -1,17 +1,7 @@
-export function getDeviceIconProps(device = {}) {
-  const cold = "var(--cold-water)"
-  const hot = "var(--hot-water)"
-  switch (device.resource) {
-    case "ColdWaterSupply":
-      return { icon: "water", fill: cold }
-    case "HotWaterSupply":
-      return { icon: "water", fill: hot }
-    case "Heat":
-      return { icon: "heat" }
-    default:
-      return { icon: "device" }
-  }
-}
+export * from "./getFormatTaskTime"
+export * from "./getDeviceIconProps"
+
+// ==================== old function
 
 export function getTimelineProps(start, finish) {
   const percent =
@@ -29,9 +19,9 @@ export function getFormatingTime(date, closingTime) {
   const time = closingTime
     ? new Date(date) - new Date(closingTime)
     : new Date(date) - Date.now()
-  const days = Math.abs(time) / 1000 / 60 / 60 / 24
-  const hours = (days - (days >> 0)) * 24
-  const minutes = (hours - (hours >> 0)) * 60
+  const days = Math.abs(time) / 1000 / 60 / 60 / 24,
+    hours = (days - (days >> 0)) * 24,
+    minutes = (hours - (hours >> 0)) * 60
 
   const expired = time < 0
   let timeString = ""

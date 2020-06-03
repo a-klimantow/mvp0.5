@@ -1,4 +1,5 @@
-import { createContext } from "react"
+import React from "react"
 
-export const GlobalContext = createContext()
-export const AppContext = createContext()
+export const GlobalContext = React.createContext()
+export const AppContext = React.createContext()
+export const TasksContext = React.createContext()

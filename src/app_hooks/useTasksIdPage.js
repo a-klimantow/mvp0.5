@@ -1,21 +1,23 @@
 import React from "react"
 import { useRouteMatch, useLocation } from "react-router-dom"
 
-export function useFetchState({ config, page }, dispatch) {
+export function useTasks({ page }, dispatch) {
   const { key } = useLocation()
-  const tasksPage = useRouteMatch(`${page}/:grouptype`)
-  const params = tasksPage ? tasksPage.params : null
-  
+  const tasks = useRouteMatch(`${page}/:grouptype`)
+  const params = tasks ? tasks.params : null
+
   React.useEffect(() => {
-    if (tasksPage) {
+    if (tasks) {
       dispatch({
         type: "fetch",
         payload: {
-          config: { url: "tasks", params },
+          config: { url: "tasks", params, cancelToken },
           key,
+          clearing: ["items"],
         },
       })
     }
+    return () => console.log("unm")
     // eslint-disable-next-line
   }, [key])
 }

@@ -2,27 +2,33 @@ import React from "react"
 import styled from "reshadow/macro"
 
 import { tabs as style } from "app_styles"
-import { useRouteMatch, NavLink } from "react-router-dom"
-import { TasksContext } from "../local"
+import { useRouteMatch, NavLink, Route } from "react-router-dom"
+import { TasksContext } from "context"
 
 export const Tabs = () => {
-  const { tabs, page } = React.useContext(TasksContext)
-  const tasksPage = useRouteMatch(
-    `${page}/(${tabs.map(({ tab }) => tab).join("|")})`
-  )
+  const { tabs, tabsMatch } = React.useContext(TasksContext)
+  const { path } = useRouteMatch()
+  const t = useRouteMatch(path + ":tab")
 
-  if (!tasksPage) return null
   const linkProps = {
     activeClassName: style.active,
     replace: true,
   }
+
   return styled(style)(
-    <tabs>
-      {tabs.map(({ tab, name }) => (
-        <NavLink key={tab} to={`${page}/${tab}`} {...linkProps}>
-          {name}
-        </NavLink>
-      ))}
-    </tabs>
+    <Route path={path + tabsMatch}>
+      <tabs>
+        {tabs.map(({ 0: name, 1: tab }) => (
+          <NavLink
+            key={tab}
+            to={`${path}${tab}`}
+            onClick={(e) => t?.params.tab === tab && e.preventDefault()}
+            {...linkProps}
+          >
+            {name}
+          </NavLink>
+        ))}
+      </tabs>
+    </Route>
   )
 }
