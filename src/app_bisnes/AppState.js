@@ -43,6 +43,9 @@ export const AppState = ({ children }) => {
     initialState
   )
 
+  const getData = (url, params) =>
+    dispatch({ type: "start", payload: { method: "get", url, params } })
+
   React.useEffect(() => {
     config &&
       axios({ ...config, cancelToken: token }).then(
@@ -58,7 +61,7 @@ export const AppState = ({ children }) => {
   React.useEffect(() => () => page && cancel(), [page])
 
   return (
-    <AppContext.Provider value={{ ...state, dispatch }}>
+    <AppContext.Provider value={{ ...state, dispatch, getData }}>
       {/* <Bisnes /> */}
       {children}
     </AppContext.Provider>

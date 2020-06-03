@@ -1,16 +1,16 @@
 import React from "react"
 import styled, { css } from "reshadow/macro"
-import { Link } from "react-router-dom"
+import { Link, useRouteMatch } from "react-router-dom"
 import { Loader, Icon } from "app_components"
 import { getDeviceIconProps } from "app_styles/helper"
 
-export const DeviceList = ({ styles, list }) => {
+export const DeviceList = ({ styles, list, pathname = "" }) => {
   if (!list) return <Loader size={24} />
   return styled(styles)(
     <ul>
       {list.map(({ id, futureCheckingDate, resource, model, serialNumber }) => (
         <device key={id}>
-          <link as="Link" to="/">
+          <link as="Link" to={pathname + id}>
             <Icon
               fill="var(--main-100)"
               {...getDeviceIconProps({ resource })}

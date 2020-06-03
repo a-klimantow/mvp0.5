@@ -6,6 +6,7 @@ import { getFormatingTime } from "app_styles/helper"
 
 export const Events = ({ styles, list }) => {
   if (!list) return <Loader size={24} />
+  if (!list.length) return styled(styles)(<empty>Нет событий</empty>)
   return list.map(({ id, name, currentStage }) => {
     const stage = getFormatingTime(currentStage?.expectedCompletionTime)
     const deadline = new Date(
@@ -64,6 +65,10 @@ Events.defaultProps = {
       & > Icon {
         margin-right: 8px;
       }
+    }
+
+    empty {
+      padding: 0 8px;
     }
   `,
 }

@@ -7,7 +7,6 @@ import { useRouteMatch } from "react-router-dom"
 
 export const TasksId = () => {
   const { params } = useRouteMatch()
-  console.log(params)
   const { loading, data, dispatch } = React.useContext(AppContext)
 
   React.useEffect(() => {
@@ -19,7 +18,6 @@ export const TasksId = () => {
     })
   }, [])
 
-  console.log(loading)
   return styled()(
     <page>
       <Header {...data} />

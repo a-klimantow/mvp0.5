@@ -1,6 +1,12 @@
 import React from "react"
 import styled from "reshadow/macro"
-import { NavLink, useRouteMatch, Route } from "react-router-dom"
+import {
+  NavLink,
+  useRouteMatch,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom"
 import { tabs, header_block } from "app_styles"
 import { AppContext } from "context"
 import { Loader } from "app_components"
@@ -9,14 +15,11 @@ import { DeviceList } from "../DeviceList"
 import { Events } from "../Events"
 
 export const ObjectId = () => {
-  const { url } = useRouteMatch()
+  const { url, path } = useRouteMatch()
   const info = useRouteMatch("/objects/(\\d+)")
   const devs = useRouteMatch("/objects/(\\d+)/devices")
   const { data, dispatch } = React.useContext(AppContext)
-
   React.useEffect(() => {
-    console.log(data.items)
-
     if (info.isExact && !data.id) {
       dispatch({
         type: "start",
@@ -57,7 +60,7 @@ export const ObjectId = () => {
     () => () => {
       dispatch({
         type: "clear_data_field",
-        payload: { items: null, devices: null, id: null },
+        payload: { items: null, devices: null, id: null, street: null },
       })
     },
     []
@@ -98,14 +101,17 @@ export const ObjectId = () => {
         </NavLink>
       </tabs>
       <div>
-        <Route path={[info.path]} exact>
-          <h2>Информация</h2>
-          <Info {...data} />
-        </Route>
-        <Route path={[devs?.path]} exact>
-          <h2>ОДПУ</h2>
-          <DeviceList list={data.devices} />
-        </Route>
+        <Switch>
+          <Route path={[devs?.path]} exact>
+            <h2>ОДПУ</h2>
+            <DeviceList list={data.devices} pathname={devs?.url + "/"} />
+          </Route>
+          <Route path={[info.path]} exact>
+            <h2>Информация</h2>
+            <Info {...data} />
+          </Route>
+          <Redirect to={"/"} />
+        </Switch>
       </div>
       <div>
         <h2>События с объектом</h2>
