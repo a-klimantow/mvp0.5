@@ -6,7 +6,7 @@ import { TasksContext } from "context"
 import { useTasks, useFetch } from "app_hooks"
 import { reducer } from "./reducer"
 import pageState from "./initialState"
-import { Header, Tabs, List } from "./blocks"
+import { Header, Tabs, List, Panel } from "./blocks"
 
 export const TasksPage = ({ match }) => {
   const [state, dispatch] = React.useReducer(reducer, pageState)
@@ -20,6 +20,10 @@ export const TasksPage = ({ match }) => {
       display: grid;
       grid-gap: 16px;
     }
+
+    page {
+      margin-bottom: 40px;
+    }
     grid {
       grid-template-columns: 8fr 5fr;
     }
@@ -29,6 +33,7 @@ export const TasksPage = ({ match }) => {
         <Header />
         <Tabs />
         <List />
+        <Panel />
         <Route path={`${match.path}(\\d+)`}>
           <grid>i</grid>
         </Route>

@@ -30,6 +30,9 @@
 
   --h-norm: calc(var(--step) * 8px);
   --h-big: calc(var(--step) * 12px);
+
+  --shadow: 0px 8px 16px rgba(78, 93, 146, 0.08),
+    0px 4px 4px rgba(78, 93, 146, 0.16);
 }
 
 body {
