@@ -1,35 +1,21 @@
 import React from "react"
 import axios from "axios"
-
-// console.log(process.env)
+import { middleSuccess, middleRequest } from "01/middleware"
 
 axios.defaults.baseURL = process.env.REACT_APP_URL
+
 axios.defaults.headers.post["Content-Type"] = "application/json"
 
-axios.interceptors.request.use((req) => {
-  req.headers["Authorization"] = `Bearer ${getToken()}`
-  return req
-})
+axios.interceptors.request.use(middleRequest)
 
-axios.interceptors.response.use(
-  (res) => {
-    if (res.config.url === "Auth/refreshToken") setTokenData(res.data)
-    return res
-  },
-  (err) => {
-    if (err.response?.status === 401) return refresh(err.config)
-    return Promise.reject(err)
-  }
-)
+axios.interceptors.response.use(middleSuccess, (err) => {
+  if (err.response?.status === 401) return refresh(err.config)
+  return Promise.reject(err)
+})
 
 function setTokenData(data) {
   const { token, refreshToken } = data.successResponse
   localStorage.setItem("tokenData", JSON.stringify({ token, refreshToken }))
-}
-
-function getToken() {
-  const { token } = JSON.parse(localStorage.getItem("tokenData"))
-  return token
 }
 
 function refresh(config) {
@@ -41,21 +27,18 @@ function refresh(config) {
 
 // ++++++++++++++++ hook
 
-export const useFetch = ({ config = {}, start = false, triger = [] }) => {
-  const [fetchStart, setFetchStart] = React.useState(start)
+export const useFetch = ({ config }, dispatch) => {
   React.useEffect(() => {
-    fetchStart && fetchData()
-  }, [fetchStart])
-
-  async function fetchData() {
-    try {
-      const result = await axios(config)
-      
-      console.log(result)
-    } catch (error) {
-      console.log("err")
+    const fetchData = async () => {
+      try {
+        const res = await axios(config)
+        const { successResponse } = res.data
+        dispatch({ type: "success", payload: successResponse })
+      } catch (err) {
+        console.log("err", err)
+        dispatch({ type: "error", payload: err })
+      }
     }
-  }
-
-  return { start: () => setFetchStart(true), success: true }
+    config && fetchData()
+  }, [config?.url ?? null])
 }

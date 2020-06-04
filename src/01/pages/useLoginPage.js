@@ -1,17 +1,11 @@
 import React from "react"
 
-import { useFetch } from "../hooks/useFetch"
+import { PageContext } from "01/context"
 
 export const useLoginPage = () => {
+  const { dispatch } = React.useContext(PageContext)
   const [email, setEmail] = React.useState({ value: "" })
   const [password, setPassword] = React.useState({ value: "" })
-  const auth = useFetch({
-    config: {
-      method: "post",
-      url: "auth/login",
-      data: { password: password.value, email: email.value },
-    },
-  })
 
   const change = (e) => {
     const name = e.target.name
@@ -25,13 +19,19 @@ export const useLoginPage = () => {
   const submit = (e) => {
     e.preventDefault()
     if (validData()) {
-      auth()
+      const data = { email: email.value, password: password.value }
+      dispatch({ type: "login", payload: { data } })
     }
   }
 
   return {
     email: { ...email, onChange: change, name: "email" },
-    password: { ...password, onChange: change, name: "password" },
+    password: {
+      ...password,
+      onChange: change,
+      name: "password",
+      type: "password",
+    },
     btn: { disabled: !validData(), type: "submit" },
     form: { onSubmit: submit },
   }

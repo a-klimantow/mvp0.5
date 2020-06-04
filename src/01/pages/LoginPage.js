@@ -29,5 +29,10 @@ function login() {
   return css`
     main {
     }
+    form {
+      border: 1px solid red;
+      max-width: 400px;
+      margin: 100px auto;
+    }
   `
 }
