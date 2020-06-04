@@ -1,5 +1,11 @@
 import React from "react"
-import { Route, Switch, Redirect, BrowserRouter } from "react-router-dom"
+import {
+  Route,
+  Switch,
+  Redirect,
+  BrowserRouter,
+  useRouteMatch,
+} from "react-router-dom"
 
 import { GlobalStore } from "store"
 import { Layout } from "components"
@@ -16,7 +22,11 @@ import {
 import { Menu } from "components/Menu"
 
 export const App = () => {
-  const auth = false
+  // const m = useRouteMatch("/(^.*?(.*)$)")
+  const m = useRouteMatch("[/]+")
+  console.log(new URLSearchParams("?grouptype=executing&a=b").has("grouptype"))
+
+  console.log(m)
   return (
     <GlobalStore>
       <Switch>

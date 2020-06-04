@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation, useRouteMatch } from "react-router-dom"
 import axios from "services/ajax"
 
 export default () => {
