@@ -7,7 +7,7 @@ import { request } from "services/api"
 import { CommentItem } from "./CommentItem"
 import { Creator } from "./Creator"
 
-export const Comments = ({ comments, url }) => {
+export const Comments = ({ comments, url, canBeCreate }) => {
   const [state, dispatch] = React.useReducer(reducer, {
     items: comments,
     url: url + "/Comments",

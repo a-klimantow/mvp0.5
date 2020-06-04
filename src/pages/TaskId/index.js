@@ -22,7 +22,7 @@ import { StagesBlock } from "./StagesBlock"
 export const TaskId = () => {
   const { url } = useRouteMatch()
   const [state, dispatch] = useTasksIdState()
-
+  console.log(state)
   if (state.loading.initial) return <Loader size={48} center />
 
   return styled(title_page)(
@@ -35,7 +35,7 @@ export const TaskId = () => {
         <Grid
           left={
             <>
-              <Comments comments={state.comments} />
+              <Comments comments={state.comments} url={url} />
               <InfoList />
               <DeviceList />
             </>
