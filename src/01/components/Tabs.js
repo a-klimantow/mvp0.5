@@ -1,13 +1,14 @@
 // eslint-disable-next-line
 import { NavLink } from "react-router-dom"
 import React from "react"
+import t from "prop-types"
 import styled, { css } from "reshadow/macro"
 
-export const Tabs = ({ styles, list = [{ name: "tav", to: "/taasf" }] }) => {
+export const Tabs = ({ styles, list = [] }) => {
   return styled(styles)(
     <tabs>
-      {list.map(({ name, ...rest }) => (
-        <tab as="NavLink" key={name} {...rest}>
+      {list.map(({ name, to }, i) => (
+        <tab as="NavLink" key={name ?? i} to={to ?? ""}>
           {name}
         </tab>
       ))}
@@ -22,4 +23,13 @@ Tabs.defaultProps = {
       display: grid;
     }
   `,
+}
+
+Tabs.propTypes = {
+  list: t.arrayOf(
+    t.shape({
+      name: t.string.isRequired,
+      to: t.any.isRequired,
+    })
+  ).isRequired,
 }

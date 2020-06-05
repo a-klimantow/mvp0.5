@@ -1,6 +1,6 @@
 import React from "react"
 import styled from "reshadow/macro"
-import { Route, Switch, Redirect, useRouteMatch } from "react-router-dom"
+import { Route, Switch } from "react-router-dom"
 
 import "./index.css"
 

@@ -13,10 +13,10 @@ axios.interceptors.response.use(middleSuccess, (err) => {
   return Promise.reject(err)
 })
 
-function setTokenData(data) {
-  const { token, refreshToken } = data.successResponse
-  localStorage.setItem("tokenData", JSON.stringify({ token, refreshToken }))
-}
+// function setTokenData(data) {
+//   const { token, refreshToken } = data.successResponse
+//   localStorage.setItem("tokenData", JSON.stringify({ token, refreshToken }))
+// }
 
 function refresh(config) {
   const data = JSON.parse(localStorage.getItem("tokenData"))
@@ -40,5 +40,6 @@ export const useFetch = ({ config }, dispatch) => {
       }
     }
     config && fetchData()
+    // eslint-disable-next-line
   }, [config?.url ?? null])
 }

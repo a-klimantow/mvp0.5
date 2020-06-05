@@ -9,7 +9,7 @@ export function middleRequest(config) {
 }
 
 export function middleSuccess(response) {
-  const { config, data, ...p } = response
+  const { config, data } = response
   if (isAuth(config.url)) {
     setTokenData(data)
     return { ...response, data: { [sr]: { auth: true } } }
