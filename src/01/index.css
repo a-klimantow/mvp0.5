@@ -70,14 +70,16 @@ h5,
 h6,
 p,
 ul,
-li {
+li,
+menu {
   margin: 0;
 }
 
 /* padding */
 ul,
 input,
-button {
+button,
+menu {
   padding: 0;
 }
 

@@ -1,13 +1,14 @@
 import React from "react"
-import { Route, Switch, Redirect } from "react-router-dom"
+import styled from "reshadow/macro"
+import { Route, Switch, Redirect, useRouteMatch } from "react-router-dom"
 
 import "./index.css"
 
-import { useFetch } from "01/hooks/useFetch"
 import { PageContext } from "01/context"
-import { Pages } from "01/components/Pages"
-import { LoginPage } from "01/pages/LoginPage"
-import { TasksPage } from "01/pages/TasksPage"
+import { routes } from "01/routes"
+import { useFetch } from "01/hooks/useFetch"
+import { useAuthCheck } from "01/hooks/useAuthCheck"
+import { Menu } from "01/components/Menu"
 
 const initialPage = {
   config: null,
@@ -19,17 +20,27 @@ const initialPage = {
 export const Main = () => {
   const [state, dispatch] = React.useReducer(pageReducer, initialPage)
   useFetch(state, dispatch)
-  return (
+  useAuthCheck()
+  return styled()`
+    app {
+      display: flex;
+      height: 100vh;
+    }
+    pages {
+      flex-grow: 1;
+    }
+  `(
     <PageContext.Provider value={{ ...state, dispatch }}>
-      <Route path="/login" component={LoginPage} />
-      <Route path="/">
-        <Pages>
+      <app>
+        <Menu />
+        <pages>
           <Switch>
-            <Route path="/tasks" component={TasksPage} />
-            <Redirect from="/" to="/fa" exact/>
+            {routes.map((page) => (
+              <Route key={page.path} {...page} />
+            ))}
           </Switch>
-        </Pages>
-      </Route>
+        </pages>
+      </app>
     </PageContext.Provider>
   )
 }
