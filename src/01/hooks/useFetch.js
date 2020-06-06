@@ -33,7 +33,8 @@ export const useFetch = ({ config }, dispatch) => {
       try {
         const res = await axios(config)
         const { successResponse } = res.data
-        dispatch({ type: "success", payload: successResponse })
+        const payload = successResponse ?? res.data
+        dispatch({ type: "success", payload })
       } catch (err) {
         console.log("err", err)
         dispatch({ type: "error", payload: err })

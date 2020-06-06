@@ -1,9 +1,9 @@
 import React from "react"
 
-import { PageContext } from "01/context"
+import { AppContext } from "01/context"
 
 export const useLoginPage = () => {
-  const { dispatch } = React.useContext(PageContext)
+  const { dispatch } = React.useContext(AppContext)
   const [email, setEmail] = React.useState({ value: "" })
   const [password, setPassword] = React.useState({ value: "" })
 

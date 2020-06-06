@@ -1,45 +1,43 @@
 // eslint-disable-next-line
-import { NavLink, useRouteMatch } from "react-router-dom"
+import { NavLink } from "react-router-dom"
 import React from "react"
-import styled, { css } from "reshadow/macro"
+import styled, { css, use } from "reshadow/macro"
 
-import { menu } from "01/routes"
 import { Icon } from "01/components/Icon"
 
-export const Menu = ({ styles }) => {
-  const login = useRouteMatch("/login")
-  if (login) return null
-
-  const linkProps = {
-    activeClassName: styles.active,
-  }
-
-  return styled(styles)(
-    <menu as="div">
-      {menu.map(({ name, icon, to }, i) => (
-        <navlink as="NavLink" key={name} to={to} {...linkProps}>
+export const Menu = ({ styles, list = [] }) =>
+  styled(styles)(
+    <nav>
+      {list.map(({ name, icon, to }, i) => (
+        <navlink
+          as="NavLink"
+          key={name}
+          to={to}
+          activeClassName={styles.active}
+        >
           {icon && <Icon icon={icon} />}
-          <span>{name}</span>
+          <span {...use({ auth: to.match(/auth/gi) })}>{name}</span>
           {i === 0 && <span>ukname</span>}
         </navlink>
       ))}
-    </menu>
+    </nav>
   )
-}
 
 Menu.defaultProps = {
   styles: css`
-    menu {
+    nav {
       /* default var*/
       --color: var(--main-100);
       --active: var(--primary-100);
       /* -------- */
+      grid-area: var(--menu);
       width: 208px;
+      height: 100vh;
       padding-top: 8px;
       display: grid;
       grid-gap: 16px;
       place-content: start stretch;
-      place-items: center start;
+      place-items: center stretch;
       color: var(--color);
       font-weight: 500;
       background: var(--bg);
@@ -56,11 +54,11 @@ Menu.defaultProps = {
     span {
       grid-column: 2;
       & + span,
-      &:only-child {
+      &[|auth] {
         font-size: 12px;
       }
 
-      &:only-child {
+      &[|auth] {
         margin-top: -16px;
       }
 

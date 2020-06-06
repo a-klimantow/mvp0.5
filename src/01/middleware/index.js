@@ -12,7 +12,7 @@ export function middleSuccess(response) {
   const { config, data } = response
   if (isAuth(config.url)) {
     setTokenData(data)
-    return { ...response, data: { [sr]: { auth: true } } }
+    return { ...response, data: { isAuth: true } }
   }
   return response
 }

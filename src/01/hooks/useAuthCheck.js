@@ -1,16 +1,14 @@
 import React from "react"
 import { useHistory, useRouteMatch } from "react-router-dom"
 
-export const useAuthCheck = () => {
-  const { replace } = useHistory()
-  const main = useRouteMatch("/")
-  const auth = !!localStorage.getItem("tokenData")
-  React.useEffect(() => {
-    console.log(main.isExact)
-    if (main.isExact && auth) replace("/login")
-    if (!main.isExact && auth) replace("/tasks")
-    // eslint-disable-next-line
-  }, [auth])
+export const useAuthCheck = ({ isAuth }) => {
+  const login = useRouteMatch("/login")
 
-  React.useEffect(() => {}, [])
+  const { replace } = useHistory()
+  React.useEffect(() => {
+    console.log("auth", isAuth, "loign", login)
+    if (!isAuth) return replace("/login")
+    if (isAuth && login?.isExact) return replace("/tasks")
+    // eslint-disable-next-line
+  }, [isAuth])
 }
