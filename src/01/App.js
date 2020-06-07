@@ -32,6 +32,8 @@ export const App = () => {
 function pageReducer(state, action) {
   const { type, payload } = action
   switch (type) {
+    case "fetch":
+      return { ...state, ...initialState, config: payload, loading: true }
     case "error": {
       return { ...state, ...initialState, error: payload }
     }

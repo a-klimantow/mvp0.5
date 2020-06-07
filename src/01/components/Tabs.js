@@ -5,6 +5,7 @@ import t from "prop-types"
 import styled, { css } from "reshadow/macro"
 
 export const Tabs = ({ styles, list = [], ...props }) => {
+  console.log(list)
   return styled(styles)(
     <tabs {...props}>
       {list.map(({ name, to, ...rest }) => (
@@ -17,13 +18,17 @@ export const Tabs = ({ styles, list = [], ...props }) => {
 }
 
 Tabs.defaultProps = {
-  tabs: css`
+  styles: css`
     tabs {
-      border: 1px solid red;
       display: grid;
+      /* grid-auto-flow: dense; */
+      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+      grid-gap: 16px;
+      justify-content: start;
+      border-bottom: 1px solid var(--frame);
     }
-    tab  {
-      border: 1px solid red;
+    tab {
+      color: red;
     }
   `,
 }

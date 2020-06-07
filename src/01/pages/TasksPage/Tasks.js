@@ -18,7 +18,7 @@ export const Tasks = () => {
       <header_block>
         <h1>Задачи</h1>
       </header_block>
-      <Tabs list={tabs} />
+      <Tabs {...tabs} />
       <list_block>list</list_block>
     </page>
   )
