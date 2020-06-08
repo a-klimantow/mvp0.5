@@ -5,11 +5,12 @@ import "./index.css"
 
 import { AppContext } from "01/context"
 import { useFetch } from "01/hooks/useFetch"
+import { useAuthCheck } from "01/hooks/useAuthCheck"
 import { AuthPage } from "01/pages/AuthPage"
 import { Pages } from "01/components/Pages"
 
 const initialState = {
-  config: null,
+  config: {},
   loading: null,
   error: null,
   data: null,
@@ -21,6 +22,7 @@ export const App = () => {
     isAuth: !!localStorage.getItem("tokenData"),
   }))
   useFetch(state, dispatch)
+  useAuthCheck(state)
   return styled()(
     <AppContext.Provider value={{ ...state, dispatch }}>
       <AuthPage />
@@ -38,14 +40,10 @@ function pageReducer(state, action) {
       return { ...state, ...initialState, error: payload }
     }
     case "success": {
-      return { ...state, ...initialState, ...payload }
+      return { ...state, ...initialState, data: payload }
     }
-    case "login":
-      return {
-        ...state,
-        config: { method: "post", url: "auth/login", data: payload.data },
-        loading: true,
-      }
+    case "auth":
+      return { ...state, ...initialState, isAuth: payload }
 
     default:
       console.error(type)

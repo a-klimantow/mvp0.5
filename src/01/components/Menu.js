@@ -5,7 +5,7 @@ import styled, { css, use } from "reshadow/macro"
 
 import { Icon } from "01/components/Icon"
 
-export const Menu = ({ styles, list = [] }) =>
+export const Menu = React.memo(({ styles, list = [] }) =>
   styled(styles)(
     <nav>
       {list.map(({ name, icon, to }, i) => (
@@ -22,6 +22,7 @@ export const Menu = ({ styles, list = [] }) =>
       ))}
     </nav>
   )
+)
 
 Menu.defaultProps = {
   styles: css`

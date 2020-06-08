@@ -1,9 +1,9 @@
 import React from "react"
-import { useRouteMatch, Route } from "react-router-dom"
+import { useRouteMatch } from "react-router-dom"
 import styled from "reshadow/macro"
 import { Menu } from "01/components/Menu"
 import menuItems from "01/menu.json"
-import { tasks } from "01/pages/TasksPage"
+import { TasksPage } from "01/pages/TasksPage"
 
 export const Pages = ({ children }) => {
   const authPage = useRouteMatch("/auth")
@@ -19,7 +19,7 @@ export const Pages = ({ children }) => {
   `(
     <main>
       <Menu list={menuItems} />
-      <Route {...tasks}  />
+      <TasksPage />
     </main>
   )
 }

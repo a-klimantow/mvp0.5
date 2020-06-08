@@ -1,20 +1,44 @@
+import axios from "axios"
 const sr = "successResponse"
 const isAuth = (str) => str.match(/login/gi)
 
 export function middleRequest(config) {
   if (isAuth(config.url)) return config
-  const token = JSON.parse(localStorage.getItem("tokenData")?.token ?? null)
+  const token = JSON.parse(localStorage.getItem("tokenData"))?.token ?? null
   config.headers["Authorization"] = `Bearer ${token}`
   return config
 }
 
 export function middleSuccess(response) {
   const { config, data } = response
-  if (isAuth(config.url)) {
-    setTokenData(data)
-    return { ...response, data: { isAuth: true } }
+  console.log(data[sr])
+  // if (isAuth(config.url)) {
+  //   setTokenData(data)
+  //   return { auth: true, data: true }
+  // }
+  return { data: data[sr] }
+}
+
+export function middleError(error) {
+  const { config, response } = error
+  if (axios.isCancel(error)) return Promise.resolve(null)
+  if (response?.status === 401) {
+    return Promise.resolve(refresh(config))
   }
-  return response
+
+  return Promise.reject(error)
+}
+
+async function refresh(config) {
+  const tokenData = JSON.parse(localStorage.getItem("tokenData"))
+  try {
+    const { data } = await axios.post("auth/refreshToken", tokenData)
+    setTokenData(data, true)
+    return axios(config)
+  } catch (error) {
+    localStorage.clear()
+    return { auth: true, data: false }
+  }
 }
 
 function setTokenData(data, refresh = false) {

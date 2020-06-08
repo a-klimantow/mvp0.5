@@ -1,6 +1,6 @@
 [
   { "name": "Пользователь", "icon": "username", "to": "/user/" },
-  { "name": "Выход из системы", "icon": null, "to": "/auth/logout" },
+  { "name": "Выход из системы", "icon": null, "to": "/auth/login" },
   { "name": "Задачи", "icon": "task", "to": "/tasks/" },
   { "name": "Ввод показаний", "icon": null, "to": "/enter/" },
   { "name": "Oбъекты", "icon": "object", "to": "/objects/" },

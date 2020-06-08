@@ -4,31 +4,60 @@ import React from "react"
 import t from "prop-types"
 import styled, { css } from "reshadow/macro"
 
-export const Tabs = ({ styles, list = [], ...props }) => {
-  console.log(list)
+export const Tabs = React.memo(({ styles, list = [], ...props }) => {
+  // console.log(list)
   return styled(styles)(
     <tabs {...props}>
       {list.map(({ name, to, ...rest }) => (
-        <tab as="NavLink" key={name} to={to ?? ""} {...rest}>
+        <tab
+          as="NavLink"
+          key={name}
+          to={to ?? ""}
+          {...rest}
+          activeClassName={styles.active}
+        >
           {name}
         </tab>
       ))}
     </tabs>
   )
-}
+})
 
 Tabs.defaultProps = {
   styles: css`
     tabs {
-      display: grid;
-      /* grid-auto-flow: dense; */
-      grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-      grid-gap: 16px;
-      justify-content: start;
+      display: flex;
       border-bottom: 1px solid var(--frame);
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 2em;
     }
+    tab:not(:last-child) {
+      margin-right: 16px;
+    }
+
     tab {
-      color: red;
+      padding: 8px;
+      position: relative;
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -1px;
+        height: 2px;
+        background-color: transparent;
+        border-radius: 4px 4px 0 0;
+      }
+
+      &:hover,
+      &.active {
+        color: var(--primary-100);
+      }
+
+      &.active::before {
+        background-color: var(--primary-100);
+      }
     }
   `,
 }
