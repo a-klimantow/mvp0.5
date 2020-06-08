@@ -1,11 +1,33 @@
 import React from "react"
+import axios from "01/api/axios"
+import { useHistory } from "react-router-dom"
 
-import { AppContext } from "01/context"
+const login = axios.create({ method: "post", url: "auth/login" })
+login.interceptors.response.use((res) => {
+  const { token, refreshToken, roles } = res.data.successResponse
+  console.log("res", token, roles, refreshToken)
+  localStorage.setItem("tokenData", JSON.stringify({ token, refreshToken }))
+  localStorage.setItem("roles", JSON.stringify(roles))
+  return "/tasks/"
+})
 
 export const useLogin = () => {
-  const { dispatch } = React.useContext(AppContext)
+  const { replace } = useHistory()
   const [email, setEmail] = React.useState({ value: "" })
   const [password, setPassword] = React.useState({ value: "" })
+  const [data, setData] = React.useState(null)
+  React.useEffect(() => {
+    data &&
+      (async () => {
+        try {
+          const url = await login({ data })
+
+          replace(url)
+        } catch (error) {
+          window.alert(error.messages)
+        }
+      })()
+  }, [data])
 
   const change = (e) => {
     const name = e.target.name
@@ -20,14 +42,7 @@ export const useLogin = () => {
     e.preventDefault()
     if (validData()) {
       const data = { email: email.value, password: password.value }
-      dispatch({
-        type: "fetch",
-        payload: {
-          method: "post",
-          url: "auth/login",
-          data,
-        },
-      })
+      setData(data)
     }
   }
 

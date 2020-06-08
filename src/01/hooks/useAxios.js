@@ -1,22 +1,38 @@
-import axios from "axios"
-import { middleError, middleSuccess, middleRequest } from "01/middleware"
+import React from "react"
+import axios from "01/api/axios"
 
-const baseURL = "https://transparent-production.herokuapp.com/api"
+const initialState = {
+  data: null,
+  loading: null,
+  error: null,
+  config: {},
+}
 
-axios.defaults.baseURL = baseURL
-
-axios.defaults.headers.post["Content-Type"] = "application/json"
-
-axios.interceptors.request.use(middleRequest)
-
-axios.interceptors.response.use(middleSuccess, middleError)
 export const useAxios = (config) => {
-  const { cancel, token } = axios.CancelToken.source()
-  const fetch = () =>
-    axios({
-      ...config,
-      cancelToken: token,
-    })
+  const [state, dispatch] = React.useReducer((state, action) => {
+    const { payload, type } = action
+    switch (type) {
+      case "start":
+        return { ...initialState, config: payload }
+      case "success":
+        return { ...initialState, data: payload }
+      default:
+        console.error("fetch", type)
+        return state
+    }
+  }, initialState)
 
-  return { fetch, cancel }
+  React.useEffect(() => {})
+
+  const request = axios.create({
+    ...config,
+    transformResponse: [
+      (data, ...p) => {
+        console.log("data", JSON.parse(data), p)
+        return data
+      },
+    ],
+  })
+
+  return { ...state, request }
 }

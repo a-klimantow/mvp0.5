@@ -11,17 +11,11 @@ export function middleRequest(config) {
 
 export function middleSuccess(response) {
   const { config, data } = response
-  console.log(data[sr])
-  // if (isAuth(config.url)) {
-  //   setTokenData(data)
-  //   return { auth: true, data: true }
-  // }
-  return { data: data[sr] }
+  return response
 }
 
 export function middleError(error) {
   const { config, response } = error
-  if (axios.isCancel(error)) return Promise.resolve(null)
   if (response?.status === 401) {
     return Promise.resolve(refresh(config))
   }
