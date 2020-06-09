@@ -1,8 +1,16 @@
 {
-  "tasks": [{}],
+  "tasks": [
+    { "name": "К исполнению", "to": "/executing" },
+    { "name": "К исполнению", "to": "/observing" },
+    { "name": "К исполнению", "to": "/archived" }
+  ],
   "objectId": [
-    { "name": "Общие данные", "to": "/", "exact": true },
-    { "name": "ОДПУ", "to": "/apartments" },
-    { "name": "Квартиры", "to": "/devices" }
+    { "name": "Общие данные", "to": "", "exact": true },
+    { "name": "Квартиры", "to": "/apartments" },
+    { "name": "ОДПУ", "to": "/devices" }
+  ],
+  "deviceId": [
+    { "name": "Общие данные", "to": "", "exact": true },
+    { "name": "Приборы учета", "to": "/devices" }
   ]
 }

@@ -45,12 +45,6 @@ export const useTasks = () => {
 }
 
 function addTotal(items, arr) {
-  console.log(
-    "fasdf",
-    items.map((item, i) =>
-      !!arr.i ? { ...item, name: `${item.name} (${arr[i]})` } : item
-    )
-  )
   return items.map((item, i) =>
     !!arr.i ? { ...item, name: `${item.name} (${arr[i]})` } : item
   )

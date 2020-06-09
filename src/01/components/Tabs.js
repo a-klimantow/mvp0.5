@@ -4,26 +4,24 @@ import React from "react"
 import t from "prop-types"
 import styled, { css } from "reshadow/macro"
 
-export const Tabs = React.memo(
-  ({ styles, list = [], totals = [], ...props }) => {
-    console.log(list)
-    return styled(styles)(
-      <tabs {...props}>
-        {list.map(({ name, to, ...rest }, i) => (
-          <tab
-            as="NavLink"
-            key={name}
-            to={to ?? ""}
-            {...rest}
-            activeClassName={styles.active}
-          >
-            {name} {!!totals[i] && `(${totals[i]})`}
-          </tab>
-        ))}
-      </tabs>
-    )
-  }
-)
+export const Tabs = React.memo(({ styles, list = [], ...props }) => {
+  return styled(styles)(
+    <tabs {...props}>
+      {list.map(({ name, to, ...rest }, i) => (
+        <tab
+          as="NavLink"
+          key={name}
+          to={to ?? ""}
+          {...rest}
+          activeClassName={styles.active}
+          replace
+        >
+          {name}
+        </tab>
+      ))}
+    </tabs>
+  )
+})
 
 Tabs.defaultProps = {
   styles: css`

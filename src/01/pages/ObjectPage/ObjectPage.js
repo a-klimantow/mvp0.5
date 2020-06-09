@@ -7,9 +7,9 @@ import { DeviceId } from "./DeviceId"
 import { ApartmentId } from "./ApartmentId"
 
 const obj = "/objects/"
-const obj_id = `${obj}(\\d+)`
-const dev_id = `${obj}(\\d+)/devices/(\\d+)`
-const aprt_id = `${obj}(\\d+)/apartments/(\\d+)`
+const obj_id = `${obj}(\\d+)/`
+const dev_id = `${obj}(\\d+)/devices/(\\d+)/`
+const aprt_id = `${obj}(\\d+)/apartments/(\\d+)/`
 
 export const ObjectPage = () => {
   return (

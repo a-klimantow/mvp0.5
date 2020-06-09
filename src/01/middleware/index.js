@@ -1,6 +1,6 @@
 import axios from "axios"
 const sr = "successResponse"
-const isAuth = (str) => str.match(/login/gi)
+const isAuth = (str="") => str.match(/login/gi)
 
 export function middleRequest(config) {
   if (isAuth(config.url)) return config
