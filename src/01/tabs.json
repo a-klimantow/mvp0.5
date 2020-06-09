@@ -1,0 +1,8 @@
+{
+  "tasks": [{}],
+  "objectId": [
+    { "name": "Общие данные", "to": "/", "exact": true },
+    { "name": "ОДПУ", "to": "/apartments" },
+    { "name": "Квартиры", "to": "/devices" }
+  ]
+}

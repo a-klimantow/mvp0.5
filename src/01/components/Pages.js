@@ -4,6 +4,7 @@ import styled from "reshadow/macro"
 import { Menu } from "01/components/Menu"
 import menuItems from "01/menu.json"
 import { TasksPage } from "01/pages/TasksPage"
+import { ObjectPage } from "01/pages/ObjectPage"
 
 export const Pages = ({ children }) => {
   const authPage = useRouteMatch("/auth")
@@ -20,6 +21,7 @@ export const Pages = ({ children }) => {
     <main>
       <Menu list={menuItems} />
       <TasksPage />
+      <ObjectPage />
     </main>
   )
 }

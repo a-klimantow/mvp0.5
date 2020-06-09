@@ -6,7 +6,7 @@ import styled, { css } from "reshadow/macro"
 
 export const Tabs = React.memo(
   ({ styles, list = [], totals = [], ...props }) => {
-    console.log(totals)
+    console.log(list)
     return styled(styles)(
       <tabs {...props}>
         {list.map(({ name, to, ...rest }, i) => (
