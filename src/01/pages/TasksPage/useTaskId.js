@@ -2,11 +2,16 @@ import React from "react"
 import { useRouteMatch } from "react-router-dom"
 
 import axios from "01/api/axios"
-import { useTaskHeader } from "./useTaskHeader"
+import { useTaskPanel } from "./useTaskPanel"
+import {useSelectFetch} from '01/hooks/useSelectFetch'
 
 export const useTaskId = () => {
   const [state, setState] = React.useState(null)
   const task = useRouteMatch()
+  // const 
+
+
+  const panel = useTaskPanel(state)
   React.useEffect(() => {
     ;(async () => {
       try {
@@ -24,5 +29,6 @@ export const useTaskId = () => {
       expectedCompletionTime: state?.expectedCompletionTime,
       closingTime: state?.closingTime,
     },
+    panel,
   }
 }

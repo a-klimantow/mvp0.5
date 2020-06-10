@@ -7,12 +7,12 @@ import { TaksIdHeader } from "01/components/headers/TaskIdHeader"
 import { Panel } from "01/components/Panel"
 
 export const TaskId = () => {
-  const { header } = useTaskId()
+  const { header, panel } = useTaskId()
   return styled()(
     <Page>
       <div>bc</div>
       <TaksIdHeader {...header} />
-      <Panel />
+      <Panel {...panel} />
     </Page>
   )
 }

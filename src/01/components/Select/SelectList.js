@@ -1,19 +1,40 @@
 import React from "react"
 import styled, { use, css } from "reshadow/macro"
 
+import { Icon } from "01/components/Icon"
+import { Loader } from "01/components/Loader"
+
 export const SelectList = ({
   styles,
   onCheck = () => {},
   checkList = [],
   list = [],
+  loading = true,
+  show,
+  setShow,
   ...props
 }) => {
   const [focus, setFocus] = React.useState(-1)
-  const len = list.length
   const selectList = React.useRef()
 
+  if (loading)
+    return styled(styles)`
+      select_list {
+        display: grid;
+        place-content: center;
+      }
+      select_list[|show] {
+        min-height: calc(1 * var(--h));
+      }
+    `(
+      <select_list {...use({ show })} tabIndex="0" {...props}>
+        <Loader />
+      </select_list>
+    )
+
+  const len = list?.length === 0 ? 1 : list.length
+
   const hendleKeyDown = (e) => {
-    // console.log(e.keyCode)
     if (e.keyCode === 40) {
       setFocus(focus + 1 === len ? 0 : focus + 1)
     }
@@ -40,13 +61,15 @@ export const SelectList = ({
   }
 
   return styled(styles)`
-    select_list:focus {
+    select_list[|show] {
       min-height: ${`calc(${len} * var(--h))`};
     }
   `(
-    <select_list {...listProps}>
-      {list.map(({ name, icon, id }, i) => (
+    <select_list {...use({ show })} {...listProps}>
+      {!list?.length && <empty>Нет данных</empty>}
+      {list?.map(({ name, icon, id }, i) => (
         <select_item
+          key={id ?? name}
           {...use({ focus: i === focus, checked: checkList.includes(id) })}
           onClick={() => {
             addCheckedId(i)
@@ -54,6 +77,7 @@ export const SelectList = ({
             selectList.current.blur()
           }}
         >
+          {icon && <Icon icon={icon} />}
           <span>{name}</span>
         </select_item>
       ))}
@@ -71,12 +95,17 @@ SelectList.defaultProps = {
       box-shadow: var(--shadow);
       padding: 0 var(--pdng);
       color: var(--main-80);
-      cursor: pointer;
       height: 0;
       position: absolute;
       min-width: max-content;
-      max-width: 100%;
+      width: 100%;
       top: 100%;
+      display: grid;
+      z-index: 50;
+    }
+
+    empty {
+      place-self: center;
     }
 
     select_item {
@@ -106,8 +135,10 @@ SelectList.defaultProps = {
       }
     }
 
-    span {
+    span,
+    Icon {
       position: relative;
+      margin-left: 8px;
     }
   `,
 }

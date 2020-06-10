@@ -2,15 +2,30 @@ import React from "react"
 import styled, { use } from "reshadow/macro"
 import { SelectField } from "./SelectField"
 import { SelectList } from "./SelectList"
+import t from "prop-types"
 
-export const Select = ({ big = true }) => {
+export const Select = ({
+  big = false,
+  loading = false,
+  list = [],
+  placeholder = "",
+  labelText = "hello",
+  getSelectData = (id) => console.log(id),
+  ...props
+}) => {
   const [checked, setChecked] = React.useState([])
-  return styled()`
+  const [showList, setShowList] = React.useState(false)
+  React.useEffect(() => {
+    if (!loading) getSelectData(checked)
+  }, [checked])
+  return styled`
     select_wraper {
       --active: var(--primary-100);
       --h: var(--h-norm);
       --pdng: 8px;
       position: relative;
+      color: var(--main-80);
+      cursor: pointer;
       &[|big] {
         font-size: 16px;
         line-height: 2em;
@@ -18,24 +33,43 @@ export const Select = ({ big = true }) => {
       }
     }
 
-    SelectList:focus + SelectField {
-      border-color: var(--active);
+    label {
+      color: var(--main-60);
+      font-weight: 500;
+      margin-bottom: 8px;
+      display: inline-block;
+      line-height: 16px;
     }
   `(
-    <select_wraper {...use({ big })}>
+    <select_wraper {...use({ big })} {...props}>
+      {labelText && <label>{labelText}</label>}
       <SelectList
         onCheck={setChecked}
         checkList={checked}
-        list={[
-          { name: "test1", id: 1 },
-          { name: "test2", id: 2 },
-          { name: "test3", id: 3 },
-          { name: "test4", id: 4 },
-          { name: "test5fasdfasdfasdf", id: 5 },
-          { name: "test6", id: 6 },
-        ]}
+        list={list}
+        loading={loading}
+        show={showList}
+        onFocus={() => setShowList(true)}
+        onBlur={() => !loading && setShowList(false)}
       ></SelectList>
-      <SelectField />
+      <SelectField
+        show={showList}
+        setShow={setShowList}
+        list={list}
+        checkList={checked}
+        placeholder={placeholder}
+        show={showList}
+        setShow={setShowList}
+      />
     </select_wraper>
   )
+}
+
+Select.propTypes = {
+  big: t.bool,
+  loading: t.bool,
+  list: t.array,
+  placeholder: t.string,
+  labelText: t.string,
+  getSelectData: t.func,
 }
