@@ -6,9 +6,7 @@ import { useTaskHeader } from "./useTaskHeader"
 
 export const useTaskId = () => {
   const [state, setState] = React.useState(null)
-  const task = useRouteMatch("")
-  const header = useTaskHeader(state)
-  console.log(header)
+  const task = useRouteMatch()
   React.useEffect(() => {
     ;(async () => {
       try {
@@ -17,5 +15,14 @@ export const useTaskId = () => {
       } catch (error) {}
     })()
   }, [task.url])
-  return { header }
+
+  return {
+    header: {
+      name: state?.name,
+      currentStage: state?.currentStage,
+      creationTime: state?.creationTime,
+      expectedCompletionTime: state?.expectedCompletionTime,
+      closingTime: state?.closingTime,
+    },
+  }
 }
