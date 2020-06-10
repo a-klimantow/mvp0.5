@@ -5,7 +5,6 @@ import styled, { css } from "reshadow/macro"
 import { useCreateTabList } from "01/hooks/useCreateTabList"
 import { Tabs } from "01/components/Tabs"
 import { Page } from "01/components/Page"
-import { useObjectId } from "./useObjectId"
 import { useGetInfo } from "./useGetInfo"
 import { Info } from "./Info"
 

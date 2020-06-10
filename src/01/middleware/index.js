@@ -10,7 +10,7 @@ export function middleRequest(config) {
 }
 
 export function middleSuccess(response) {
-  const { config, data } = response
+
   return response
 }
 

@@ -1,4 +1,5 @@
 import React from "react"
+// eslint-disable-next-line
 import { Link } from "react-router-dom"
 import styled, { css } from "reshadow/macro"
 
@@ -57,7 +58,6 @@ ObjectItem.defaultProps = {
 
     span:first-of-type {
       color: var(--main-80);
-      
     }
     span:nth-last-child(1),
     span:nth-last-child(2) {

@@ -1,6 +1,4 @@
 import React from "react"
-import styled from "reshadow/macro"
-import { Link } from "react-router-dom"
 
 import { useObjects } from "./useObjects"
 import { Page } from "01/components/Page"

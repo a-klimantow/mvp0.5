@@ -35,6 +35,6 @@ export const useFetch = ({ config }, dispatch) => {
     config && fetchData()
     // eslint-disable-next-line
   }, [config?.url ?? null])
-
+  // eslint-disable-next-line
   React.useEffect(() => () => cancel(), [key])
 }

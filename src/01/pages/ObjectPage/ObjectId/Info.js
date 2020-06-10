@@ -1,6 +1,6 @@
 import React from "react"
 
-import { InfoItem } from "01/components/items/InfoItem"
+// import { InfoItem } from "01/components/items/InfoItem"
 
 export const Info = (info = null) => {
   if (!info) return "loading"

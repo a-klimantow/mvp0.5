@@ -1,6 +1,5 @@
 import React from "react"
-import { AppContext } from "01/context"
-import { useRouteMatch, useLocation } from "react-router-dom"
+import { useRouteMatch } from "react-router-dom"
 import axios from "01/hooks/useFetch"
 
 const tabItems = [
@@ -33,6 +32,7 @@ export const useTasks = () => {
       }
     })()
     return () => cancel()
+     // eslint-disable-next-line
   }, [params.grouptype])
 
   return {

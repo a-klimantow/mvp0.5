@@ -1,5 +1,6 @@
 import React from "react"
 import styled, { css } from "reshadow/macro"
+import t from "prop-types"
 
 import { formatTime, date } from "01/servises/date"
 
@@ -8,6 +9,7 @@ export const Timeline = ({
   creationTime,
   expectedCompletionTime,
   closingTime,
+  style,
   ...props
 }) => {
   if (closingTime) return null
@@ -17,7 +19,7 @@ export const Timeline = ({
   const time = new Date(expectedCompletionTime) - Date.now()
   const task = formatTime(time)
   const before = date(expectedCompletionTime).short
-  return styled(styles)`
+  return styled(styles, style)`
     line {
       width: ${percent};
       background-color: ${color};
@@ -55,6 +57,13 @@ Timeline.defaultProps = {
       left: 0;
       height: 100%;
       border-radius: inherit;
+    }
+
+    time {
+      position: relative;
+      &::before {
+        position: absolute;
+      }
     }
   `,
 }
