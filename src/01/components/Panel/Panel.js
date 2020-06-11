@@ -1,32 +1,16 @@
 import React from "react"
 import styled, { css } from "reshadow/macro"
 import { Select } from "01/components/Select"
-import { useSelectFetch } from "01/hooks/useSelectFetch"
+import { button } from "01/r_comp/button"
+export const Panel = ({ showPanel }) => {
+  if (!showPanel) return null
 
-export const Panel = ({ currentStage, perpetrator }) => {
-  // const perp = useSelectFetch("ManagingFirmUsers", "perpetratorId", {
-  //   placeholder: "Выберите исполнителя",
-  //   big: true,
-  //   labelText: "Исполнитель",
-  // })
-
-  if (!currentStage) return null
-  const { actions } = currentStage
-  console.log(actions)
-  return (
+  return styled(button)(
     <Wrapper>
-      {actions.map((item) => {
-        if (item.match(/perpetrator/gi)) {
-          return perpetrator
-        }
-      })}
-      {/*
-      <Select loading={false} />
-      <Select loading={false} />
-      <Select loading={false} />
-      <Select loading={false} />
-      <Select loading={false} /> */}
-      <button>Завершить этап</button>
+      <Select big />
+      <button data-primary data-big>
+        <span>Завершить этап</span>
+      </button>
     </Wrapper>
   )
 }
