@@ -5,9 +5,8 @@ const initialState = {
   config: null,
 }
 
-const createConfig = (id = "", data, method) => ({ method, data })
-
-export const useCommentsBlock = (url, comments = null) => {
+export const useCommentsBlock = (data) => {
+  console.log(data)
   const [state, dispatch] = React.useReducer(
     (state, action) => {
       const { payload, type } = action
@@ -21,12 +20,9 @@ export const useCommentsBlock = (url, comments = null) => {
     },
     {
       ...initialState,
-      list: comments ?? [],
+      // list: .comments ?? [],
     }
   )
-  React.useEffect(() => {}, [comments])
 
-  React.useEffect(() => {}, [state.config])
-
-  return { showBlock: !!comments }
+  return { showBlock: true }
 }

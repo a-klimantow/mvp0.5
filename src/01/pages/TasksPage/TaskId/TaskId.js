@@ -8,12 +8,12 @@ import { CommentsBlock, useCommentsBlock } from "01/components/CommentsBlock"
 import { useTaskId } from "./useTaskId"
 
 export const TaskId = () => {
-  const { state } = useTaskId()
-  const comments = useCommentsBlock("", state?.comments)
+  const { data } = useTaskId()
+  const comments = useCommentsBlock(data)
   return styled()(
     <Page>
       <div>bc</div>
-      <TaksIdHeader {...state} />
+      <TaksIdHeader {...data} />
       <Panel />
       <CommentsBlock {...comments} />
     </Page>
