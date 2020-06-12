@@ -20,6 +20,7 @@ export const button = css`
     font-weight: 600;
     position: relative;
     transition: color 70ms linear;
+    min-width: max-content;
     z-index: 10;
     &:hover:not(:active, :disabled),
     &:focus:not(:active) {

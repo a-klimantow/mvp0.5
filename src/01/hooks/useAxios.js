@@ -1,5 +1,5 @@
 import React from "react"
-import axios from "01/api/axios"
+import axios from "01/axios"
 
 const initialState = {
   data: null,

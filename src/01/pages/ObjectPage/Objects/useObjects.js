@@ -1,6 +1,6 @@
 import React from "react"
 
-import axios from "01/api/axios"
+import axios from "01/axios"
 import { getObj } from "01/api/object"
 export const useObjects = () => {
   const [state, setState] = React.useState({ loading: true, items: [] })

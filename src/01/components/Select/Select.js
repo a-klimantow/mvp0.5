@@ -10,7 +10,7 @@ export const Select = ({
   list = [],
   placeholder = "",
   labelText = "hello",
-  getSelectData = (id) => console.log(id),
+  getSelectData = () => {},
   ...props
 }) => {
   const [checked, setChecked] = React.useState([])

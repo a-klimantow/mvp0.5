@@ -1,6 +1,6 @@
 import React from "react"
 import { useRouteMatch } from "react-router-dom"
-import axios from "01/api/axios"
+import axios from "01/axios"
 
 const initialState = {
   data: null,
@@ -10,17 +10,19 @@ const initialState = {
 }
 
 export const useTaskId = () => {
-  const {
-    params: { taskId },
-  } = useRouteMatch("/:page/:taskId")
+  const { url } = useRouteMatch()
   const [state, dispatch] = React.useReducer(
     (state, action) => {
       const { payload, type } = action
       switch (type) {
-        case "fetch":
-          return { ...state, config: payload }
         case "success":
           return { ...state, ...initialState, ...payload }
+        case "push_stage":
+          return {
+            ...state,
+            config: { url: url + "/pushstage", method: "post", data: payload },
+            loading: true,
+          }
         default:
           console.error("tasks", type)
           return state
@@ -28,8 +30,7 @@ export const useTaskId = () => {
     },
     {
       ...initialState,
-      url: "/tasks/" + taskId,
-      config: { url: "/tasks/" + taskId },
+      config: { url },
     }
   )
 
@@ -48,16 +49,5 @@ export const useTaskId = () => {
     data: state.data,
     state,
     dispatch,
-    //   comments: {
-    //     create: (data) =>
-    //       dispatch({ type: "fetch", payload: setCommConf("", data) }),
-    //     edit: (id, data) =>
-    //       dispatch({ type: "fetch", payload: setCommConf(id, data) }),
-    //     del: (id) => dispatch({ type: "fetch", payload: setCommConf(id) }),
-    //   },
   }
-}
-
-function setCommConf(id = "", data = {}, method = "post") {
-  return { url: "/tasks/" + id, method, data }
 }

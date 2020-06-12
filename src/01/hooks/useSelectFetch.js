@@ -1,18 +1,26 @@
 import React from "react"
 
 import { Select } from "01/components/Select"
-import axios from "01/api/axios"
+import axios from "01/axios"
 
-export const useSelectFetch = (str = "", props = {}) => {
-  const [url, setUrl] = React.useState(null)
+const defautlProps = {
+  perpetrator: ["Исполнитель", "Выберите исполнителя"],
+}
+
+export const useSelectFetch = (fetchConfig = null, props = {}) => {
+  const [config, setConfig] = React.useState(null)
   const [data, setData] = React.useState({ list: [], loading: true })
   React.useEffect(() => {
-    url &&
+    config &&
       (async () => {
-        const res = await axios(url)
-        setData({ list: res.data.successResponse.items })
+        try {
+          const res = await axios(config)
+          setData({ list: res.data.successResponse.items })
+        } catch (error) {}
       })()
-  }, [url])
+  }, [config?.url])
 
-  return <Select onClick={() => setUrl(str)} {...data} {...props} />
+  return (
+    <Select onClick={() => setConfig(fetchConfig)} big {...data} {...props} />
+  )
 }

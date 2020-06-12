@@ -1,8 +1,8 @@
 import axios from "axios"
 import { middleError, middleSuccess, middleRequest } from "01/middleware"
 
-// const baseURL = process.env.REACT_APP_URL
-const baseURL = "https://transparent-production.herokuapp.com/api"
+const baseURL = process.env.REACT_APP_URL
+// const baseURL = "https://transparent-production.herokuapp.com/api"
 
 axios.defaults.baseURL = baseURL
 

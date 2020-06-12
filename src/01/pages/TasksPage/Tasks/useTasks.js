@@ -1,6 +1,6 @@
 import React from "react"
 import { useRouteMatch } from "react-router-dom"
-import axios from "01/hooks/useFetch"
+import axios from "01/axios"
 
 const tabItems = [
   { name: "К исполнению", to: "executing" },
@@ -32,7 +32,7 @@ export const useTasks = () => {
       }
     })()
     return () => cancel()
-     // eslint-disable-next-line
+    // eslint-disable-next-line
   }, [params.grouptype])
 
   return {

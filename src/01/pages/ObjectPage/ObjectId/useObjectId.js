@@ -1,7 +1,7 @@
 import React from "react"
 import { useRouteMatch } from "react-router-dom"
 
-import axios from "01/api/axios"
+import axios from "01/axios"
 
 export const useObjectId = () => {
   const [info, setInfo] = React.useState(null)
