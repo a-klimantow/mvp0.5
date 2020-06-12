@@ -13,17 +13,20 @@ login.interceptors.response.use((res) => {
 
 export const useLogin = () => {
   const { replace } = useHistory()
+  const [loading, setLoading] = React.useState(false)
   const [email, setEmail] = React.useState({ value: "" })
   const [password, setPassword] = React.useState({ value: "" })
   const [data, setData] = React.useState(null)
   React.useEffect(() => {
     data &&
       (async () => {
+        setLoading(true)
         try {
           const url = await login({ data })
 
           replace(url)
         } catch (error) {
+          setLoading(false)
           window.alert(error.messages)
         }
       })()
@@ -48,14 +51,16 @@ export const useLogin = () => {
   }
 
   return {
-    email: { ...email, onChange: change, name: "email" },
+    email: { ...email, onChange: change, name: "email", readOnly: loading },
     password: {
       ...password,
       onChange: change,
       name: "password",
       type: "password",
+      readOnly: loading,
     },
-    btn: { disabled: !validData(), type: "submit" },
+    btn: { disabled: !validData(), type: "submit", disabled: loading },
     form: { onSubmit: submit },
+    loading,
   }
 }

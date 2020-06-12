@@ -27,7 +27,7 @@ export const usePanel = ({ data }, dispatch) => {
   //------------
 
   // upload
-  const upload = useUpload()
+  const upload = useUpload((ids) => setDocumentsIds(ids))
   //-----------
 
   const isType = (type) => actions.some((item) => item.match(type))
@@ -35,6 +35,7 @@ export const usePanel = ({ data }, dispatch) => {
   function createPushData() {
     if (isType(/email/gi))
       return { emailNotify: { message, contractorsIds }, nextPerpetratorId }
+    if (isType(/document/gi)) return { documentsIds }
   }
 
   console.log(actions)

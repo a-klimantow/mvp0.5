@@ -1,22 +1,35 @@
 import React from "react"
 import styled, { css } from "reshadow/macro"
 
+import { input, button } from "01/r_comp"
 import { useLogin } from "./useLogin"
+import { Loader } from "components"
+
+Notification.requestPermission()
+
+new Notification("hello world", { body: "test" })
 
 export const Login = ({ style }) => {
-  const { email, password, btn, form } = useLogin()
-  return styled(login())(
+  const { email, password, btn, form, loading } = useLogin()
+  return styled(input, button, login())(
     <main>
       <form {...form}>
         <label>
           email
-          <input {...email} />
+          <input_frame data-big>
+            <input {...email} />
+          </input_frame>
         </label>
         <label>
           password
-          <input {...password} />
+          <input_frame data-big>
+            <input {...password} />
+          </input_frame>
         </label>
-        <button {...btn}>enter</button>
+        <button data-big data-primary {...btn}>
+          <span>Вход в систему</span>
+          {loading && <Loader />}
+        </button>
       </form>
     </main>
   )
@@ -25,11 +38,21 @@ export const Login = ({ style }) => {
 function login() {
   return css`
     main {
+      background: var(--login-bg);
+      height: 100vh;
+      display: grid;
+      place-content: center;
+      color: #fff;
     }
     form {
-      border: 1px solid red;
-      max-width: 400px;
-      margin: 100px auto;
+      min-width: 400px;
+      /* margin: 100px auto; */
+      display: grid;
+      grid-gap: 24px;
+    }
+    label {
+      display: grid;
+      grid-gap: 8px;
     }
   `
 }

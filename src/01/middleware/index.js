@@ -1,6 +1,6 @@
 import axios from "axios"
 const sr = "successResponse"
-const isAuth = (str="") => str.match(/login/gi)
+const isAuth = (str = "") => str.match(/login/gi)
 
 export function middleRequest(config) {
   if (isAuth(config.url)) return config
@@ -10,7 +10,6 @@ export function middleRequest(config) {
 }
 
 export function middleSuccess(response) {
-
   return response
 }
 
@@ -30,7 +29,8 @@ async function refresh(config) {
     setTokenData(data, true)
     return axios(config)
   } catch (error) {
-    localStorage.clear()
+    localStorage.removeItem("tokenData")
+    window.location.replace("/auth/login")
     return { auth: true, data: false }
   }
 }

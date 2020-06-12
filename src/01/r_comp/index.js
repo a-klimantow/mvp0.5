@@ -1,4 +1,5 @@
 export * from "./button"
+export * from "./input"
 // import { css } from "reshadow/macro"
 // export const page = css`
 //   page,
