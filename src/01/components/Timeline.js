@@ -12,7 +12,7 @@ export const Timeline = ({
   style,
   ...props
 }) => {
-  if (closingTime) return null
+  if (closingTime || !expectedCompletionTime || !creationTime) return null
 
   const percent = getPercent(creationTime, expectedCompletionTime)
   const color = getLineColor(percent)

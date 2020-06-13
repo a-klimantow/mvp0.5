@@ -5,10 +5,6 @@ import { input, button } from "01/r_comp"
 import { useLogin } from "./useLogin"
 import { Loader } from "components"
 
-Notification.requestPermission()
-
-new Notification("hello world", { body: "test" })
-
 export const Login = ({ style }) => {
   const { email, password, btn, form, loading } = useLogin()
   return styled(input, button, login())(

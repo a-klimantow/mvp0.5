@@ -1,9 +1,10 @@
 import React from "react"
-import { useRouteMatch } from "react-router-dom"
+import { useRouteMatch, Route, Switch } from "react-router-dom"
 import styled from "reshadow/macro"
 import { Menu } from "01/components/Menu"
 import menuItems from "01/menu.json"
 import { TasksPage } from "01/pages/TasksPage"
+import { TasksIdPage } from "01/pages/TasksIdPage"
 import { ObjectPage } from "01/pages/ObjectPage"
 
 export const Pages = ({ children }) => {
@@ -20,8 +21,15 @@ export const Pages = ({ children }) => {
   `(
     <main>
       <Menu list={menuItems} />
-      <TasksPage />
-      <ObjectPage />
+      {/* <Switch> */}
+      <Route path="/tasks/" component={TasksPage} />
+      <Route path="/task/:taskId/" component={TasksIdPage} />
+      <Route path="/objects/" render={() => "obj"} />
+      <Route path="/object/:objectId/device/" render={() => "device"} />
+      <Route path="/object/:objectId/" render={() => "object"} />
+      {/* </Switch> */}
+      {/* <TasksPage />
+      <ObjectPage /> */}
     </main>
   )
 }

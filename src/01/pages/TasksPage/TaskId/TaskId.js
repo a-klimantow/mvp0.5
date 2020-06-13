@@ -4,7 +4,7 @@ import styled from "reshadow/macro"
 import { Page } from "01/components/Page"
 import { TaksIdHeader } from "01/components/headers/TaskIdHeader"
 import { Panel, usePanel } from "01/components/Panel"
-import { CommentsBlock, useCommentsBlock } from "01/components/CommentsBlock"
+import { CommentsBlock, useCommentsBlock } from "01/components/Comments"
 import { useTaskId } from "./useTaskId"
 
 export const TaskId = () => {

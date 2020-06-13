@@ -7,20 +7,24 @@ const defautlProps = {
   perpetrator: ["Исполнитель", "Выберите исполнителя"],
 }
 
-export const useSelectFetch = (fetchConfig = null, props = {}) => {
-  const [config, setConfig] = React.useState(null)
-  const [data, setData] = React.useState({ list: [], loading: true })
+const initialState = { list: [], loading: true }
+
+export const useSelectFetch = (str, reset) => {
+  const [url, setUrl] = React.useState(null)
+  const [data, setData] = React.useState(initialState)
   React.useEffect(() => {
-    config &&
+    url &&
       (async () => {
         try {
-          const res = await axios(config)
+          const res = await axios(url)
           setData({ list: res.data.successResponse.items })
         } catch (error) {}
       })()
-  }, [config?.url])
+    return () => {
+      setData(initialState)
+      setUrl(null)
+    }
+  }, [url, reset])
 
-  return (
-    <Select onClick={() => setConfig(fetchConfig)} big {...data} {...props} />
-  )
+  return { ...data, onClick: () => setUrl(str) }
 }

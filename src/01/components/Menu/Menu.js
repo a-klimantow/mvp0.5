@@ -5,6 +5,13 @@ import styled, { css, use } from "reshadow/macro"
 
 import { Icon } from "01/components/Icon"
 
+function active(loc, path) {
+  const { pathname } = loc
+  const page = /^[/](\w+)/.exec(pathname)?.[1]
+  if (!page) return false
+  return path.match(page)
+}
+
 export const Menu = React.memo(({ styles, list = [] }) =>
   styled(styles)(
     <nav>
@@ -14,6 +21,7 @@ export const Menu = React.memo(({ styles, list = [] }) =>
           key={name}
           to={to}
           activeClassName={styles.active}
+          isActive={(m, l) => active(l, to)}
         >
           {icon && <Icon icon={icon} />}
           <span {...use({ auth: to.match(/auth/gi) })}>{name}</span>

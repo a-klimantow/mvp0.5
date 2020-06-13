@@ -19,10 +19,11 @@ export const TasksItem = ({
   expectedCompletionTime,
   closingTime,
   device,
+  path,
 }) => {
   return styled(styles)(
     <item>
-      <header as="Link" to={"/tasks/" + id}>
+      <header as="Link" to={path + id}>
         <h4>{currentStage ? currentStage.name : name}</h4>
         <name>{currentStage && name}</name>
       </header>

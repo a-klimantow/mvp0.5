@@ -5,6 +5,7 @@ import t from "prop-types"
 import styled, { css } from "reshadow/macro"
 
 export const Tabs = React.memo(({ styles, list = [], ...props }) => {
+  
   return styled(styles)(
     <tabs {...props}>
       {list.map(({ name, to, ...rest }, i) => (

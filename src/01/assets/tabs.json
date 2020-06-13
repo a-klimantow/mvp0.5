@@ -1,8 +1,8 @@
 {
   "tasks": [
-    { "name": "К исполнению", "tab": "executing" },
-    { "name": "К исполнению", "tab": "observing" },
-    { "name": "К исполнению", "tab": "archived" }
+    { "name": "К исполнению", "to": "executing" },
+    ["Наблюдаемые", "observing"],
+    ["Архив", "archived"]
   ],
   "objectId": [
     { "name": "Общие данные", "to": "", "exact": true },
