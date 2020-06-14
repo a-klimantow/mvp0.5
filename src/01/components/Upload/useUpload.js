@@ -59,7 +59,6 @@ export const useUpload = (cb = () => {}) => {
   }, initialState)
 
   React.useEffect(() => {
-    let fetchCansel
     state.config &&
       (async () => {
         try {
@@ -80,11 +79,13 @@ export const useUpload = (cb = () => {}) => {
           }
         } catch (error) {}
       })()
+    // eslint-disable-next-line
   }, [state.config])
 
   React.useEffect(() => {
     if (!state.files.length) cb([])
     else cb(state.files.map((item) => item.id))
+    // eslint-disable-next-line
   }, [state.files])
 
   return {

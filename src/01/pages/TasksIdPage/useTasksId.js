@@ -2,10 +2,15 @@ import React from "react"
 
 import axios from "01/axios"
 
-
-import { createHeader, createPanel } from "./utils"
+import {
+  createHeader,
+  createPanel,
+  createInfo,
+  createDeviceInfo,
+} from "./utils"
 import { api } from "./api"
 import { useUpload } from "01/components/Upload"
+import { useRouteMatch } from "react-router-dom"
 
 let cancel
 
@@ -26,6 +31,8 @@ async function fetchData(fetchConfig) {
     return Promise.resolve({
       header: createHeader(data),
       panel: createPanel(data),
+      info: createInfo(data),
+      deviceInfo: createDeviceInfo(data?.device),
     })
   } catch (error) {}
 }
@@ -38,11 +45,15 @@ const initialState = {
 }
 
 export const useTasksId = () => {
+  const {
+    params: { taskId },
+  } = useRouteMatch("/task/:taskId")
   const [state, dispatch] = React.useReducer(
     (state, action) => {
       const { type, payload } = action
       switch (type) {
         case "success":
+          console.log(payload)
           return { ...state, ...initialState, ...payload }
         case "get_users":
           return { ...state, config: !state.users && api.getUsers() }
@@ -50,7 +61,7 @@ export const useTasksId = () => {
           return { ...state, config: !state.contrs && api.getContractors() }
         case "push_stage":
           const pushData = createPushData(state)
-          return { ...state, config: api.moveStage("push", pushData) }
+          return { ...state, config: api.moveStage(taskId, "push", pushData) }
         case "change":
           return { ...state, ...payload }
 
@@ -61,7 +72,7 @@ export const useTasksId = () => {
     },
     {
       ...initialState,
-      config: api.getState(),
+      config: api.getState(taskId),
     }
   )
 
@@ -79,9 +90,11 @@ export const useTasksId = () => {
   )
 
   return {
-    uploadProps,
     header: state?.header,
     panel: state.panel,
+    info: state.info,
+    deviceInfo: state.deviceInfo,
+    uploadProps,
     pushProps: {
       disabled: isDisable(state),
       onClick() {
@@ -110,7 +123,6 @@ export const useTasksId = () => {
 
 function isDisable(state) {
   const { nextPerpetratorId = null, documentsIds = [], panel = {} } = state
-  console.table(state)
   if (panel.email) return !nextPerpetratorId
   if (panel.document) return !documentsIds.length
 }

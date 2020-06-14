@@ -16,11 +16,15 @@ export const page = css`
 
   page {
     padding: 16px 56px;
+    &[data-column] {
+      grid-template-columns: 8fr 5fr;
+    }
   }
 
   header_block,
   panel_block {
     padding: 8px;
+    grid-column: 1 / -1;
   }
 
   /* ============== header =================== */
@@ -40,6 +44,7 @@ export const page = css`
 
   /* ================= tabs ============================= */
   tabs_block {
+    grid-column: 1 / -1;
     grid-auto-flow: column;
     justify-content: start;
     border-bottom: 1px solid var(--frame);

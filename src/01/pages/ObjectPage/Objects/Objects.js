@@ -1,15 +1,25 @@
 import React from "react"
+import styled from "reshadow/macro"
+// eslint-disable-next-line
+import { Icon } from "01/components/Icon"
+import { page } from "01/r_comp"
 
+import { HeaderBlock } from "01/components/HeaderBlock"
 import { useObjects } from "./useObjects"
-import { Page } from "01/components/Page"
-import { List } from "01/components/List"
+import { api } from "../api"
+import { ObjectItem } from "./ObjectItem"
 
 export const Objects = () => {
-  const { list } = useObjects()
-  return (
-    <Page columns="1fr">
-      <h1>Объекты</h1>
-      <List item="object" {...list} />
-    </Page>
+  const { objList = [], loading } = useObjects()
+  console.log(objList)
+
+  return styled(page)(
+    <page>
+      <HeaderBlock title="Объекты" />
+      {loading && <loader as="Icon" icon="replacement" size={32} data-center />}
+      {objList.map((item) => (
+        <ObjectItem key={item.id} {...item} />
+      ))}
+    </page>
   )
 }

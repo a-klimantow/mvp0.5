@@ -1,54 +1,28 @@
 import React from "react"
 import { useRouteMatch, Route, Link } from "react-router-dom"
-import styled, { css } from "reshadow/macro"
+import styled from "reshadow/macro"
 
-import { useCreateTabList } from "01/hooks/useCreateTabList"
-import { Tabs } from "01/components/Tabs"
-import { Page } from "01/components/Page"
-import { useGetInfo } from "./useGetInfo"
-import { Info } from "./Info"
+import { HeaderBlock } from "01/components/HeaderBlock"
+import { TabsBlock } from "01/components/TabsBlock"
+import { page } from "01/r_comp"
+import { Tab } from "01/components/Tab"
+import { useObjectId } from "./useObjectId"
+import { Information } from "./Information"
 
 export const ObjectId = ({ styles }) => {
-  const { path } = useRouteMatch()
-  const tabs = useCreateTabList("objectId")
-  const { list } = useGetInfo()
+  const { url, tabList, header = {} } = useObjectId()
 
-  return styled(styles)(
-    <Page>
-      <h1>ObjectId</h1>
-      <Tabs list={tabs} />
-      <Route path={path} exact>
-        <Info {...list} />
-      </Route>
-      <Route path={path + "apartments"}>
-        <Link to={path + "apartments/1234"}>apartments</Link>
-      </Route>
-      <Route path={path + "devices"}>
-        <Link to={path + "devices/1234"}>devices</Link>
-      </Route>
-      <event>events</event>
-    </Page>
+  return styled(page)`
+    div {
+      grid-column: 1;
+    }
+  `(
+    <page data-column>
+      <HeaderBlock {...header} />
+      <TabsBlock />
+      <Information path={url} />
+      <Route path={url + "/apartments"}>hello1</Route>
+      <Route path={url + "/devices"}>hello3</Route>
+    </page>
   )
-}
-
-ObjectId.defaultProps = {
-  styles: css`
-    Page {
-      grid-template-areas:
-        "h h"
-        "t t"
-        ". e";
-    }
-
-    h1 {
-      grid-area: h;
-    }
-
-    Tabs {
-      grid-area: t;
-    }
-    event {
-      grid-area: e;
-    }
-  `,
 }

@@ -1,8 +1,8 @@
 import React from "react"
-import styled, { css } from "reshadow/macro"
+import styled from "reshadow/macro"
 
-import { Icon } from "01/components/Icon"
-import { button } from "01/r_comp"
+// import { Icon } from "01/components/Icon"
+// import { button } from "01/r_comp"
 import styles from "./styles"
 
 export const CommentsBlock = ({ url, comments, hidden, canBeCreate }) => {

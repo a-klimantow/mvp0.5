@@ -6,10 +6,10 @@ import styled, { css } from "reshadow/macro"
 import { Icon } from "01/components/Icon"
 
 export const ObjectItem = React.memo(
-  ({ styles, city, id, number, numberOfTasks, street }) =>
+  ({ styles, city, id, number, numberOfTasks, street, path = "/object/" }) =>
     styled(styles)(
       <item>
-        <link as="Link" to={String(id)}>
+        <link as="Link" to={path + id }>
           <h4>
             {street}, {number}
           </h4>

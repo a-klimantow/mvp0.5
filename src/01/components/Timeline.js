@@ -1,6 +1,5 @@
 import React from "react"
 import styled, { css } from "reshadow/macro"
-import t from "prop-types"
 
 import { formatTime, date } from "01/servises/date"
 

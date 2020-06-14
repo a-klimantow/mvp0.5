@@ -7,8 +7,10 @@ import { page, button } from "01/r_comp"
 import { useTasksId } from "./useTasksId"
 import { Timer } from "01/components/Timer"
 import { Select } from "01/components/Select"
-import { useUpload, Upload } from "01/components/Upload"
+import { Upload } from "01/components/Upload"
 import { CommentsBlock } from "01/components/Comments"
+import { InfoItem } from "01/components/items"
+import { LinkWrap } from "01/components/LinkWrap"
 
 const Perpetrator = (props) => (
   <Select
@@ -42,9 +44,35 @@ const PushButton = (props) =>
   )
 
 export const TasksIdPage = React.memo(() => {
-  const { header, panel, selectProps, pushProps, uploadProps } = useTasksId()
-  return styled(page, button)(
-    <page>
+  const {
+    header = null,
+    panel = null,
+    selectProps = {},
+    pushProps = {},
+    uploadProps = {},
+    info = [],
+    deviceInfo = null,
+  } = useTasksId()
+  return styled(page, button)`
+    info {
+      grid-column: 1;
+    }
+
+    info + info > h2 {
+      display: inline-flex;
+      align-items: center;
+
+      & Icon {
+        margin-right: 8px;
+      }
+
+      & span {
+        padding-left: 4px;
+        color: var(--main-60);
+      }
+    }
+  `(
+    <page data-column>
       <header_block>
         {!header ? (
           <loader as="Icon" icon="replacement" data-center size={32} />
@@ -68,6 +96,26 @@ export const TasksIdPage = React.memo(() => {
         </panel_block>
       )}
       <CommentsBlock />
+      <info>
+        <h2>Подробная информация</h2>
+        {info.map(({ 0: title, 1: text, 2: url }) => (
+          <InfoItem key={title} {...{ title, text, url }} />
+        ))}
+      </info>
+      {deviceInfo && (
+        <info>
+          <h2>
+            <LinkWrap to="/">
+              <Icon {...deviceInfo.icon} />
+              {deviceInfo.title.model}
+              <span>({deviceInfo.title.number})</span>
+            </LinkWrap>
+          </h2>
+          {deviceInfo.list.map(({ 0: title, 1: text }) => (
+            <InfoItem key={title} {...{ title, text }} />
+          ))}
+        </info>
+      )}
     </page>
   )
 })

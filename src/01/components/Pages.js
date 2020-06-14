@@ -5,7 +5,7 @@ import { Menu } from "01/components/Menu"
 import menuItems from "01/menu.json"
 import { TasksPage } from "01/pages/TasksPage"
 import { TasksIdPage } from "01/pages/TasksIdPage"
-import { ObjectPage } from "01/pages/ObjectPage"
+import { Objects, ObjectId } from "01/pages/ObjectPage"
 
 export const Pages = ({ children }) => {
   const authPage = useRouteMatch("/auth")
@@ -21,13 +21,13 @@ export const Pages = ({ children }) => {
   `(
     <main>
       <Menu list={menuItems} />
-      {/* <Switch> */}
-      <Route path="/tasks/" component={TasksPage} />
-      <Route path="/task/:taskId/" component={TasksIdPage} />
-      <Route path="/objects/" render={() => "obj"} />
-      <Route path="/object/:objectId/device/" render={() => "device"} />
-      <Route path="/object/:objectId/" render={() => "object"} />
-      {/* </Switch> */}
+      <Switch>
+        <Route path="/tasks/" component={TasksPage} />
+        <Route path="/task/:taskId/" component={TasksIdPage} />
+        <Route path="/object/:objectId/device/" render={() => "device"} />
+        <Route path="/object/:objectId/" component={ObjectId} />
+        <Route path="/objects/" component={Objects} />
+      </Switch>
       {/* <TasksPage />
       <ObjectPage /> */}
     </main>

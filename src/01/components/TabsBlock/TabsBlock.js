@@ -1,0 +1,87 @@
+import React from "react"
+import styled, { css } from "reshadow/macro"
+import { Route, NavLink, useRouteMatch, Switch } from "react-router-dom"
+
+const tasks = [
+    ["К исполнению", "executing"],
+    ["Наблюдаемые", "observing"],
+    ["Архив", "archived"],
+  ],
+  objectId = [
+    ["Общие данные"],
+    ["Квартиры", "apartments"],
+    ["ОДПУ", "devices"],
+  ],
+  deviceId = [["Общие данные"], ["Приборы учета", "devices"]]
+
+const styles = css`
+  tabbl {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-gap: 16px;
+    grid-auto-flow: column;
+    justify-content: start;
+    border-bottom: 1px solid var(--frame);
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 2em;
+
+    & > * {
+      padding: 8px;
+      position: relative;
+      &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: -1px;
+        border-top: 2px solid transparent;
+        border-radius: 4px 4px 0 0;
+      }
+
+      &:hover {
+        color: var(--primary-100);
+      }
+    }
+  }
+
+  .active {
+    color: var(--primary-100);
+    &::before {
+      border-color: inherit;
+    }
+  }
+`
+const Tab = ({ match, name, url, ...props }) => (
+  <NavLink
+    to={url ? `${match.url}/${url}` : match.url}
+    exact={!url}
+    activeClassName={styles.active}
+    {...props}
+  >
+    {name}
+  </NavLink>
+)
+
+export const TabsBlock = () => {
+  const match = useRouteMatch()
+
+  return styled(styles)(
+    <Switch>
+      <Route path={["/object/(\\d+)"]}>
+        <tabbl>
+          {objectId.map(({ 0: name, 1: url }) => (
+            <Tab {...{ match, name, url }} />
+          ))}
+        </tabbl>
+      </Route>
+      <Route path="">
+        <tabbl>
+          {tasks.map(({ 0: name, 1: url }) => (
+            <Tab {...{ match, name, url }} />
+          ))}
+        </tabbl>
+      </Route>
+    </Switch>
+  )
+}

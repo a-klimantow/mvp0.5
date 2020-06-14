@@ -1,9 +1,7 @@
-const taskId = window.location.pathname.split("/").slice(-1)[0]
-
 export const api = {
-  URL: `/tasks/${taskId}/`,
-  getState() {
-    return { url: this.URL }
+  URL: `/tasks/`,
+  getState(id) {
+    return { url: this.URL + id }
   },
   getUsers() {
     return { url: "ManagingFirmUsers", params: { Permissions: "TasksExecute" } }
@@ -11,7 +9,7 @@ export const api = {
   getContractors() {
     return { url: "Contractors" }
   },
-  moveStage(move, data) {
-    return { url: `${this.URL}${move}stage`, method: "post", data }
+  moveStage(id, move, data) {
+    return { url: `${this.URL + id}/${move}stage`, method: "post", data }
   },
 }

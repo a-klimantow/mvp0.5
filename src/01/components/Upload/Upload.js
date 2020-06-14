@@ -25,7 +25,7 @@ export const Upload = ({
           return (
             <file as="li" key={id}>
               <a
-                href={deleted ? null : url}
+                href={!deleted ? url : null}
                 target="_blank"
                 rel="noreferrer noopener"
               >

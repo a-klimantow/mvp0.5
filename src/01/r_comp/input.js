@@ -44,12 +44,12 @@ export const input = css`
         background: var(--main-4);
       }
     }
-    &[data-error] {
+    &[|invalid] {
       --active: var(--error);
       border-color: var(--error);
       color: var(--error);
     }
-    &[data-success] {
+    &[|valid] {
       --active: var(--success);
       border-color: var(--success);
     }
