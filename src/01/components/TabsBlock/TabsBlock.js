@@ -83,12 +83,13 @@ export const TabsBlock = () => {
           ))}
         </tabbl>
       </Route>
-      <Route path={["/meters/", "/meters/(\\d+)"]}>
+      <Route path="/meters/">
         <tabbl>
           {meters.map(({ 0: name, 1: url }) => (
             <Tab
               key={name}
               {...{ match, name, url }}
+              to={url ? `${match.path}${url}` : match.path}
               isActive={(m, l) => {
                 const houses = l.pathname.match(/houses/gi)
                 if (url && houses) return true

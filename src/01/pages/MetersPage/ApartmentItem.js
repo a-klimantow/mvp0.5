@@ -20,7 +20,7 @@ export const ApartmentItem = ({
       grid-template-columns:
         minmax(max-content, 1.5fr)
         repeat(2, minmax(max-content, 1fr));
-      aling-content: center;
+      align-content: center;
       min-height: 48px;
     }
 
@@ -37,7 +37,7 @@ export const ApartmentItem = ({
     }
   `(
     <item>
-      <LinkWrap to={`${url}/${id}`}>
+      <LinkWrap to={`${url}${id}`}>
         <h4>
           {title}, {apartmentNumber}
         </h4>

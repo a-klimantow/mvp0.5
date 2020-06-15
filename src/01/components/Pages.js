@@ -25,6 +25,9 @@ export const Pages = ({ children }) => {
       grid-gap: 16px;
       align-content: start;
       padding: 16px 56px;
+      height: 100vh;
+      overflow: hidden;
+      overflow-y: scroll;
     }
   `(
     <main>
