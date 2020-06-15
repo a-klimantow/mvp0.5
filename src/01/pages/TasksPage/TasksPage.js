@@ -12,7 +12,7 @@ import { TabsBlock } from "01/components/TabsBlock"
 export const TasksPage = () => {
   const { tabList, items, loading } = useTasksPage()
   return styled(page)(
-    <page>
+    <>
       <HeaderBlock title="Задачи" />
       <TabsBlock />
       {loading && <loader size={32} data-center as="Icon" icon="replacement" />}
@@ -20,6 +20,6 @@ export const TasksPage = () => {
       {items?.map((item) => (
         <TasksItem key={item.id} {...item} path="/task/" />
       ))}
-    </page>
+    </>
   )
 }

@@ -15,6 +15,7 @@ export const page = css`
   }
 
   page {
+    border: 1px solid blue;
     padding: 16px 56px;
     &[data-column] {
       grid-template-columns: 8fr 5fr;

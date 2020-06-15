@@ -14,12 +14,12 @@ export const Objects = () => {
   console.log(objList)
 
   return styled(page)(
-    <page>
+    <>
       <HeaderBlock title="Объекты" />
       {loading && <loader as="Icon" icon="replacement" size={32} data-center />}
       {objList.map((item) => (
         <ObjectItem key={item.id} {...item} />
       ))}
-    </page>
+    </>
   )
 }

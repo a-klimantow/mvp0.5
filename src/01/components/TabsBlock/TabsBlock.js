@@ -12,7 +12,8 @@ const tasks = [
     ["Квартиры", "apartments"],
     ["ОДПУ", "devices"],
   ],
-  deviceId = [["Общие данные"], ["Приборы учета", "devices"]]
+  deviceId = [["Общие данные"], ["Приборы учета", "devices"]],
+  meters = [["По квартирам"], ["По домам", "houses"]]
 
 const styles = css`
   tabbl {
@@ -71,14 +72,21 @@ export const TabsBlock = () => {
       <Route path={["/object/(\\d+)"]}>
         <tabbl>
           {objectId.map(({ 0: name, 1: url }) => (
-            <Tab {...{ match, name, url }} />
+            <Tab key={name} {...{ match, name, url }} />
           ))}
         </tabbl>
       </Route>
-      <Route path="">
+      <Route path="/tasks/">
         <tabbl>
           {tasks.map(({ 0: name, 1: url }) => (
-            <Tab {...{ match, name, url }} />
+            <Tab key={name} {...{ match, name, url }} />
+          ))}
+        </tabbl>
+      </Route>
+      <Route path="/meters/">
+        <tabbl>
+          {meters.map(({ 0: name, 1: url }) => (
+            <Tab key={name} {...{ match, name, url }} />
           ))}
         </tabbl>
       </Route>

@@ -9,7 +9,7 @@ export const ObjectItem = React.memo(
   ({ styles, city, id, number, numberOfTasks, street, path = "/object/" }) =>
     styled(styles)(
       <item>
-        <link as="Link" to={path + id }>
+        <link as="Link" to={path + id}>
           <h4>
             {street}, {number}
           </h4>
@@ -34,6 +34,7 @@ ObjectItem.defaultProps = {
       margin-bottom: 16px;
       display: flex;
       align-items: center;
+      grid-column: 1 / -1;
     }
 
     link {

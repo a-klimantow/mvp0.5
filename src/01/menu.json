@@ -3,6 +3,6 @@
   { "name": "Выход из системы", "icon": null, "to": "/auth/login" },
   { "name": "Задачи", "icon": "task", "to": "/tasks/" },
   { "name": "Oбъекты", "icon": "object", "to": "/objects/" },
-  { "name": "Собственники", "icon": "key", "to": "/owners/" },
+  { "name": "Ввод показаний", "icon": "dock", "to": "/meters/" },
   { "name": "Настройки", "icon": "setting", "to": "/settings/" }
 ]

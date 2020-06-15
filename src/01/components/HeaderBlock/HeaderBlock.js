@@ -28,7 +28,7 @@ export const HeaderBlock = ({
         <title as="h1">{title}</title>
         <city>{city}</city>
       </Route>
-      <Route path="/(tasks|objects)/">
+      <Route path="/(tasks|objects|meters)/">
         <title as="h1">{title}</title>
       </Route>
       {/* object id */}

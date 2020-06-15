@@ -17,12 +17,12 @@ export const ObjectId = ({ styles }) => {
       grid-column: 1;
     }
   `(
-    <page data-column>
+    <>
       <HeaderBlock {...header} />
       <TabsBlock />
       <Information path={url} />
       <Route path={url + "/apartments"}>hello1</Route>
       <Route path={url + "/devices"}>hello3</Route>
-    </page>
+    </>
   )
 }

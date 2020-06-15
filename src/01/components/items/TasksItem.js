@@ -67,6 +67,7 @@ TasksItem.defaultProps = {
       font-size: 14px;
       margin-bottom: 16px;
       padding: 8px;
+      grid-column: 1/ -1;
     }
 
     timer,
