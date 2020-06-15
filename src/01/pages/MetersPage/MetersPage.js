@@ -7,7 +7,7 @@ import { Filter } from "./Filter"
 import { ApartmentItem } from "./ApartmentItem"
 
 export const MetersPage = () => {
-  const { filter, apartmentList = [] } = useMetersPage()
+  const { filter, apartmentList = [], loading } = useMetersPage()
   const { url, path } = useRouteMatch()
 
   return (
@@ -18,6 +18,7 @@ export const MetersPage = () => {
         <Route path={path + "houses"}>по домам</Route>
         <Route path={path} exact>
           <Filter {...filter} />
+          {loading && "Загрузочка..."}
           {apartmentList.map((item) => (
             <ApartmentItem key={item.id} {...item} />
           ))}

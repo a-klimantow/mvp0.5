@@ -13,7 +13,12 @@ const tasks = [
     ["ОДПУ", "devices"],
   ],
   deviceId = [["Общие данные"], ["Приборы учета", "devices"]],
-  meters = [["По квартирам"], ["По домам", "houses"]]
+  meters = [["По квартирам"], ["По домам", "houses"]],
+  settings = [
+    ["Общие данные"],
+    ["Сотрудники", "users"],
+    ["Подрядчики", "contractors"],
+  ]
 
 const styles = css`
   tabbl {
@@ -95,6 +100,17 @@ export const TabsBlock = () => {
                 if (url && houses) return true
                 if (!url && !houses) return true
               }}
+            />
+          ))}
+        </tabbl>
+      </Route>
+      <Route path="/settings/">
+        <tabbl>
+          {settings.map(({ 0: name, 1: url }) => (
+            <Tab
+              key={name}
+              {...{ match, url, name }}
+              to={url ? `${match.path}${url}` : match.path}
             />
           ))}
         </tabbl>

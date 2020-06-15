@@ -7,6 +7,8 @@ import { TasksPage } from "01/pages/TasksPage"
 import { TasksIdPage } from "01/pages/TasksIdPage"
 import { Objects, ObjectId } from "01/pages/ObjectPage"
 import { MetersPage } from "01/pages/MetersPage"
+import { SettingsPage } from "01/pages/SettitngsPage"
+
 export const Pages = ({ children }) => {
   const authPage = useRouteMatch("/auth")
   if (authPage) return null
@@ -40,6 +42,7 @@ export const Pages = ({ children }) => {
           <Route path="/object/:objectId/" component={ObjectId} />
           <Route path="/objects/" component={Objects} />
           <Route path="/meters/" component={MetersPage} />
+          <Route path="/settings/" component={SettingsPage} />
         </Switch>
       </pages>
       {/* <TasksPage />
