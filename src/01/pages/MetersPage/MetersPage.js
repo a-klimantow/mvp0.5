@@ -13,7 +13,7 @@ export const MetersPage = () => {
   return (
     <>
       <HeaderBlock title="Ввод показаний" />
-      <TabsBlock />
+      {/* <TabsBlock /> */}
       <Switch>
         <Route path={path + "houses"}>по домам</Route>
         <Route path={path} exact>
