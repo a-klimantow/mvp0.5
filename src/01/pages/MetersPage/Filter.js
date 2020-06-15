@@ -1,24 +1,64 @@
 import React from "react"
-import styled from "reshadow/macro"
+import styled, { use } from "reshadow/macro"
 
 import { input } from "01/r_comp"
 
-const fields = {
-  0: { placeholder: "Введите город", name: "City", value: "" },
-  1: { placeholder: "Введите назавние улицы", name: "Street", value: "" },
-  2: { placeholder: "Дом", name: "HousingStockNumber", value: "" },
-  3: { placeholder: "Кв.", name: "ApartmentNumber", value: "" },
+const fields = [
+  { placeholder: "Введите город", name: "City" },
+  { placeholder: "Введите назавние улицы", name: "Street" },
+  { placeholder: "Дом", name: "HousingStockNumber" },
+  { placeholder: "Кв.", name: "ApartmentNumber" },
+]
+
+const initialState = {
+  City: { value: "Нижнекамск" },
+  Street: { value: "Мира" },
+  HousingStockNumber: { value: "6" },
+  ApartmentNumber: { value: "" },
 }
 
-export const Filter = () => {
-  const [inputs, setInputs] = React.useState(fields)
+export const Filter = ({ getParams = () => {} }) => {
+  const [params, setParams] = React.useState(initialState)
 
-  const handleChange = (e, idx) => {
-    const name = e.target.name
+  const handleChange = (e) => {
     const value = e.target.value
-    const changedInp = { [idx]: { ...inputs[idx], value } }
-    setInputs({ ...inputs, ...changedInp })
+    const name = e.target.name
+    setParams({ ...params, [name]: { value, valid: !!value, invalid: !value } })
   }
+  const resetValid = () => {
+    const resetObj = Object.entries(params).reduce(
+      (res, { 0: name, 1: p }) => ({ ...res, [name]: { value: p.value } }),
+      {}
+    )
+    setParams(resetObj)
+  }
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      if (
+        Object.values(params)
+          .filter((i, idx) => idx !== 3)
+          .every((i) => i.value)
+      ) {
+        const currentParams = Object.entries(params).reduce(
+          (params, { 0: name, 1: { value } }) => ({
+            ...params,
+            [name]: value,
+          }),
+          {}
+        )
+
+        getParams(currentParams)
+        resetValid()
+      }
+    }, 300)
+    return () => clearTimeout(timer)
+    // eslint-disable-next-line
+  }, [
+    params.ApartmentNumber.value,
+    params.HousingStockNumber.value,
+    params.Street.value,
+    params.City.value,
+  ])
 
   return styled(input)`
     filter {
@@ -33,11 +73,29 @@ export const Filter = () => {
     }
   `(
     <filter as="div">
-      {Object.values(inputs).map((inp, i) => (
-        <input_frame key={i}>
-          <input {...inp} onChange={(e) => handleChange(e, i)} />
+      {fields.map((inp, i) => (
+        <input_frame
+          key={i}
+          {...use({
+            valid: i !== 3 ? params[inp.name].valid : null,
+            invalid: i !== 3 ? params[inp.name].invalid : null,
+          })}
+        >
+          <input
+            {...inp}
+            value={params[inp.name].value}
+            onChange={handleChange}
+          />
         </input_frame>
       ))}
     </filter>
   )
 }
+
+// function getParams(obj) {
+//   let res = {}
+//   for (let key in obj) {
+//     res = { ...res, key: key.value }
+//   }
+//   return res
+// }
