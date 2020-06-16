@@ -2,15 +2,15 @@ import React from "react"
 import styled, { use } from "reshadow/macro"
 
 import { Icon } from "01/components/Icon"
-import { Timeline } from "01/components/Timeline"
 import { page, button } from "01/r_comp"
 import { useTasksId } from "./useTasksId"
-import { Timer } from "01/components/Timer"
+
 import { Select } from "01/components/Select"
 import { Upload } from "01/components/Upload"
 import { CommentsBlock } from "01/components/Comments"
 import { InfoItem } from "01/components/items"
 import { LinkWrap } from "01/components/LinkWrap"
+import { HeaderBlock } from "01/components/HeaderBlock"
 
 const Perpetrator = (props) => (
   <Select
@@ -73,19 +73,8 @@ export const TasksIdPage = React.memo(() => {
     }
   `(
     <>
-      <header_block>
-        {!header ? (
-          <loader as="Icon" icon="replacement" data-center size={32} />
-        ) : (
-          <>
-            <h1>{header.title}</h1>
-            {header.name && <name>{header.name}</name>}
-            <Timeline {...header.timeline} />
-            <Timer {...header.timer} />
-          </>
-        )}
-      </header_block>
-      {panel && (
+      <HeaderBlock title="hello" name="wordl" />
+      {/* {panel && (
         <panel_block {...use({ ...panel })}>
           {panel.perpetrator && <Perpetrator {...selectProps.perpetrator} />}
           {panel.contractor && <Contractor {...selectProps.contractors} />}
@@ -94,9 +83,9 @@ export const TasksIdPage = React.memo(() => {
           {panel.document && <Upload {...uploadProps} />}
           <PushButton {...pushProps} />
         </panel_block>
-      )}
+      )} */}
       {/* <CommentsBlock /> */}
-      <info>
+      {/* <info>
         <h2>Подробная информация</h2>
         {info.map(({ 0: title, 1: text, 2: url }) => (
           <InfoItem key={title} {...{ title, text, url }} />
@@ -115,7 +104,7 @@ export const TasksIdPage = React.memo(() => {
             <InfoItem key={title} {...{ title, text }} />
           ))}
         </info>
-      )}
+      )} */}
     </>
   )
 })

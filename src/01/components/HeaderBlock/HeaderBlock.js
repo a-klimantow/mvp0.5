@@ -4,6 +4,8 @@ import styled, { css } from "reshadow/macro"
 
 import { Icon } from "01/components/Icon"
 import { button } from "01/r_comp"
+import { Timeline } from "01/components/Timeline"
+import { Timer } from "01/components/Timer"
 
 const hb = css`
   hb {
@@ -17,8 +19,14 @@ const hb = css`
     grid-row: 1;
     grid-column: 1;
   }
-  city {
+  city,
+  name,
+  Timer {
     color: var(--main-60);
+  }
+
+  Timeline {
+    color: var(--main-80);
   }
 `
 
@@ -26,6 +34,7 @@ export const HeaderBlock = ({
   title = "",
   loader = false,
   city = "",
+  name = "",
   ...props
 }) => {
   const { push } = useHistory()
@@ -43,8 +52,13 @@ export const HeaderBlock = ({
           <ButtonLink onClick={() => push(url + "/create")} />
         </Route>
       </Route>
-      {/* object id */}
-      <Route></Route>
+      {/* tasks id */}
+      <Route path="/task/(\\d+)">
+        <h1>{title}</h1>
+        {name && <name>{name}</name>}
+        <Timeline />
+        <Timer />
+      </Route>
       <Route></Route>
       <Route></Route>
     </hb>
