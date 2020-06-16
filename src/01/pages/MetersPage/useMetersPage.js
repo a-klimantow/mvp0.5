@@ -38,6 +38,8 @@ export const useMetersPage = () => {
     {
       loading: false,
       params: null,
+      items: null,
+      housingStock: {},
     }
   )
 
@@ -62,11 +64,13 @@ export const useMetersPage = () => {
     }
   }, [apartId])
 
+  const { items = null, housingStock = {} } = state
+
   return {
     ...state,
-    apartmentList: state.items?.map((item) => ({
+    apartmentList: items?.map((item) => ({
       ...item,
-      title: state.params.Street,
+      title: createTitle(housingStock, item),
     })),
     filter: {
       getParams(params) {
@@ -74,4 +78,8 @@ export const useMetersPage = () => {
       },
     },
   }
+}
+
+function createTitle({ street = "", number = "" }, { apartmentNumber = "" }) {
+  return `${street} ${number}, кв.${apartmentNumber}`
 }

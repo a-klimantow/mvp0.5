@@ -17,6 +17,7 @@ export const useUpload = (cb = () => {}) => {
     const { type, payload } = actcion
     switch (type) {
       case "upload":
+        formData.append("type", "AdditionalMaterials")
         formData.append("file", payload.file)
         return {
           ...state,

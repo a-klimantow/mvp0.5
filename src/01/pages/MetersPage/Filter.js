@@ -12,8 +12,8 @@ const fields = [
 
 const initialState = {
   City: { value: "Нижнекамск" },
-  Street: { value: "Мира" },
-  HousingStockNumber: { value: "6" },
+  Street: { value: "" },
+  HousingStockNumber: { value: "" },
   ApartmentNumber: { value: "" },
 }
 

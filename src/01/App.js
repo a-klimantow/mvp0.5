@@ -15,3 +15,7 @@ export const App = () => {
     </AppContext.Provider>
   )
 }
+
+// 0 - сотрудник - ["ManagingFirmExecutor"]
+// 1- админ - ["ManagingFirmAdministrator"]
+// 2 - оператор - ["ManagingFirmOperator"]
