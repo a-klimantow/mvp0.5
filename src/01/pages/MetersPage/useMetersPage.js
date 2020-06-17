@@ -1,82 +1,87 @@
 import React from "react"
-import { useRouteMatch } from "react-router-dom"
+import { useRouteMatch, useLocation } from "react-router-dom"
 import axios from "01/axios"
 
+import { useCurrentApart } from "./useCurrentApart"
+import { useFilter } from "./useFiter"
+import { useApartList } from "./useApartList"
+
+let cancel = () => {}
 async function fetchApartments(config) {
   try {
-    const res = await axios(config)
+    const res = await axios({
+      ...config,
+      cancelToken: new axios.CancelToken((e) => {
+        cancel = e
+      }),
+    })
     const data = res.data.successResponse
 
     return Promise.resolve(data)
   } catch (error) {}
 }
 
+function reducer(state, action) {
+  const { type, payload, config } = action
+  switch (type) {
+    case "start":
+      return { ...state, config, loadign: true }
+    case "finish":
+      return { ...state, ...payload, loading: false }
+    case "change_params":
+      return { ...state, params: { ...state.params, ...payload } }
+    case "filter":
+      return { ...state, filter: payload }
+    default:
+      console.error("meters", type)
+      return state
+  }
+}
+
 const URL = "apartments"
+const pageURL = (url = "") => url.replace(/meters/, URL)
 
 export const useMetersPage = () => {
-  const { path, url, isExact } = useRouteMatch()
-  const apartId = useRouteMatch(path + "(\\d+)")
-  const houses = useRouteMatch(path + "houses")
+  const aparts = useRouteMatch()
+  const apartId = useRouteMatch(aparts.path + "(\\d+)")
+  const { pathname } = useLocation()
+  const url = pageURL(pathname)
 
-  const [state, dispatch] = React.useReducer(
-    (state, action) => {
-      const { type, payload } = action
-      switch (type) {
-        case "start":
-          return { ...state, params: payload, loading: true }
-        case "finish":
-          console.log("data", payload)
-          return { ...state, ...payload, loading: false }
-        case "change":
-          return { ...state, inputs: { ...state.inputs, payload } }
-        default:
-          console.error("meters", type)
-          return state
-      }
-    },
-
-    {
-      loading: false,
-      params: null,
-      items: null,
-      housingStock: {},
-    }
-  )
-
-  console.log(apartId)
+  const [{ config, ...state }, dispatch] = React.useReducer(reducer, {
+    params: { City: "Нижнекамск", Street: "Мира", HousingStockNumber: "95" },
+    filter: "",
+  })
 
   React.useEffect(() => {
-    state.params &&
-      fetchApartments({
-        url: url.replace(/meters/gi, URL),
-        params: state.params,
-      }).then((data) => {
+    if (config)
+      fetchApartments(config).then((data) =>
         dispatch({ type: "finish", payload: data })
-      })
-    // eslint-disable-next-line
-  }, [state.params])
+      )
+  }, [config])
 
   React.useEffect(() => {
-    if (apartId) {
-      fetchApartments({
-        url: apartId.url.replace(/meters/gi, URL),
-      })
-    }
-  }, [apartId])
+    if (apartId?.isExact) dispatch({ type: "start", config: { url } })
+  }, [pathname])
 
-  const { items = null, housingStock = {} } = state
+  const { params } = state
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      const chekP = Object.values(params).every((i) => !!i)
+      if (aparts.isExact && chekP)
+        dispatch({ type: "start", config: { url, params } })
+      console.log(chekP)
+    }, 300)
+    return () => clearTimeout(timer)
+  }, [params])
+
+  const filter = useFilter(state, dispatch)
+  const apartList = useApartList(state)
+  const currentApart = useCurrentApart(state)
 
   return {
-    ...state,
-    apartmentList: items?.map((item) => ({
-      ...item,
-      title: createTitle(housingStock, item),
-    })),
-    filter: {
-      getParams(params) {
-        dispatch({ type: "start", payload: params })
-      },
-    },
+    filter,
+    apartList,
+    currentApart,
   }
 }
 

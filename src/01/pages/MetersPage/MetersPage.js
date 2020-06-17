@@ -5,25 +5,23 @@ import { TabsBlock } from "01/components/TabsBlock"
 import { useMetersPage } from "./useMetersPage"
 import { Filter } from "./Filter"
 import { ApartmentItem } from "./ApartmentItem"
-
+import { CurrentApartment } from "./CurrentApartment"
+import { ApartList } from "./ApartList"
 export const MetersPage = () => {
-  const { filter, apartmentList = [], loading } = useMetersPage()
   const { url, path } = useRouteMatch()
+  const { filter, apartList, currentApart } = useMetersPage()
 
   return (
     <>
       <HeaderBlock title="Ввод показаний" />
       {/* <TabsBlock /> */}
+      <Filter {...filter} />
       <Switch>
         <Route path={path + "houses"}>по домам</Route>
-        <Route path={path} exact>
-          <Filter {...filter} />
-          {loading && "Загрузочка..."}
-          {apartmentList.map((item) => (
-            <ApartmentItem key={item.id} {...item} />
-          ))}
-        </Route>
+        <Route path={path} exact></Route>
       </Switch>
+      <ApartList {...apartList} />
+      <CurrentApartment {...currentApart} />
     </>
   )
 }
