@@ -11,6 +11,7 @@ import { CommentsBlock } from "01/components/Comments"
 import { InfoItem } from "01/components/items"
 import { LinkWrap } from "01/components/LinkWrap"
 import { HeaderBlock } from "01/components/HeaderBlock"
+import { PanelBlock } from "01/components/PanelBlock"
 
 const Perpetrator = (props) => (
   <Select
@@ -44,67 +45,11 @@ const PushButton = (props) =>
   )
 
 export const TasksIdPage = React.memo(() => {
-  const {
-    header = null,
-    panel = null,
-    selectProps = {},
-    pushProps = {},
-    uploadProps = {},
-    info = [],
-    deviceInfo = null,
-  } = useTasksId()
-  return styled(page, button)`
-    info {
-      grid-column: 1;
-    }
-
-    info + info > h2 {
-      display: inline-flex;
-      align-items: center;
-
-      & Icon {
-        margin-right: 8px;
-      }
-
-      & span {
-        padding-left: 4px;
-        color: var(--main-60);
-      }
-    }
-  `(
+  const { header = {}, panel = {} } = useTasksId()
+  return styled(page, button)(
     <>
-      <HeaderBlock title="hello" name="wordl" />
-      {/* {panel && (
-        <panel_block {...use({ ...panel })}>
-          {panel.perpetrator && <Perpetrator {...selectProps.perpetrator} />}
-          {panel.contractor && <Contractor {...selectProps.contractors} />}
-          {panel.email && <textarea />}
-          {panel.email && <TemplButton />}
-          {panel.document && <Upload {...uploadProps} />}
-          <PushButton {...pushProps} />
-        </panel_block>
-      )} */}
-      {/* <CommentsBlock /> */}
-      {/* <info>
-        <h2>Подробная информация</h2>
-        {info.map(({ 0: title, 1: text, 2: url }) => (
-          <InfoItem key={title} {...{ title, text, url }} />
-        ))}
-      </info>
-      {deviceInfo && (
-        <info>
-          <h2>
-            <LinkWrap to="/">
-              <Icon {...deviceInfo.icon} />
-              {deviceInfo.title.model}
-              <span>({deviceInfo.title.number})</span>
-            </LinkWrap>
-          </h2>
-          {deviceInfo.list.map(({ 0: title, 1: text }) => (
-            <InfoItem key={title} {...{ title, text }} />
-          ))}
-        </info>
-      )} */}
+      <HeaderBlock {...header} />
+      <PanelBlock {...panel} />
     </>
   )
 })

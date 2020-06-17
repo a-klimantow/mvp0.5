@@ -35,6 +35,8 @@ export const HeaderBlock = ({
   loader = false,
   city = "",
   name = "",
+  timeline = {},
+  timer = {},
   ...props
 }) => {
   const { push } = useHistory()
@@ -56,8 +58,8 @@ export const HeaderBlock = ({
       <Route path="/task/(\\d+)">
         <h1>{title}</h1>
         {name && <name>{name}</name>}
-        <Timeline />
-        <Timer />
+        <Timeline {...timeline} />
+        <Timer {...timer} />
       </Route>
       <Route></Route>
       <Route></Route>
