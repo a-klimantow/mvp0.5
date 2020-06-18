@@ -14,11 +14,17 @@ export async function fetchApartments(config, token) {
     })
     const data = res.data.successResponse
     const url = res.config.url
-    if (/^[/]apart.*[/]?$/gi.test(url)) return Promise.resolve(data)
-    if (/^[/]apart.*\/\d+$/gi) return Promise.resolve(data)
+    if (/.*(apart).*\/\d+/gi.test(url)) {
+      const ApartmentId = url.match(/(\d+)/gi)[0]
+      // console.log()
+      const meters = await axios("MeteringDevices", { params: { ApartmentId } })
+      const dataM = meters.data.successResponse
+      return { ...data, meters: dataM }
+    }
+    return data
   } catch (error) {}
 }
-
+// /api/MeteringDevices
 function reducer(state, action) {
   const { type, payload } = action
   switch (type) {
@@ -58,41 +64,43 @@ export const useMetersPage = () => {
     params: { City: "Нижнекамск", Street: "Мира", HousingStockNumber: "95" },
     filter: "",
   })
-  console.log(state.apartId)
+
   const { params } = state
-  // apart page
+
+  // apart
   React.useEffect(() => {
+    let mount = true
     const { token, cancel } = axios.CancelToken.source()
     const timer = setTimeout(() => {
       if (isExact && Object.values(params).every((i) => i)) {
         dispatch({ type: "apart_start" })
-        fetchApartments({ url: pageURL(url), params }, token).then((data) =>
-          dispatch({ type: "apart_finish", payload: data })
+        fetchApartments({ url: pageURL(url), params }, token).then(
+          (data) => mount && dispatch({ type: "apart_finish", payload: data })
         )
       }
     }, 300)
     return () => {
       clearTimeout(timer)
       cancel()
+      mount = false
     }
   }, [isExact, url, params])
 
-  React.useEffect(
-    () => () => dispatch({ type: "page_leave", payload: "apart" }),
-    [isExact]
-  )
-  //  apart page
-
+  //  apart id
   const apartIdUrl = apartId?.url ?? null
   React.useEffect(() => {
+    let mount = true
     const { token, cancel } = axios.CancelToken.source()
     if (apartIdUrl) {
       dispatch({ type: "apart_id_start" })
-      fetchApartments({ url: pageURL(apartIdUrl) }, token).then((data) =>
-        dispatch({ type: "apart_id_finish", payload: data })
+      fetchApartments({ url: pageURL(apartIdUrl) }, token).then(
+        (data) => mount && dispatch({ type: "apart_id_finish", payload: data })
       )
     }
-    return () => cancel()
+    return () => {
+      mount = false
+      cancel()
+    }
   }, [apartIdUrl])
 
   const filter = useFilter(state, dispatch)

@@ -1,19 +1,20 @@
 function createOwnList({ firstName, phoneNumber, personalAccountNumber }) {
   return [
-    ["Собственник", firstName, "/tasks"],
+    ["Собственник", firstName, "/owner"],
     ["Лицевой счет", personalAccountNumber],
     ["Телефон", phoneNumber],
   ]
 }
 
-export const useCurrentApart = ({
-  housingStock = {},
-  apartmentNumber,
-  homeowners = [],
-}) => {
-  const { street, number } = housingStock
+export const useCurrentApart = ({ apartId }) => {
+  if (!apartId) return {}
+  const { housingStock, apartmentNumber = "", homeowners = [] } = apartId
+
+  console.log(apartId)
   return {
-    title: apartmentNumber && `${street}, ${number} кв.${apartmentNumber}`,
+    title:
+      apartmentNumber &&
+      `${housingStock.street}, ${housingStock.number} кв.${apartmentNumber}`,
     infoList: [
       ...homeowners.flatMap(createOwnList),
       ["Управляющая компания", ""],

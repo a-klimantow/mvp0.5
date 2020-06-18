@@ -4,7 +4,8 @@ import { HeaderBlock } from "01/components/HeaderBlock"
 import { TabsBlock } from "01/components/TabsBlock"
 import { useMetersPage } from "./useMetersPage"
 import { Filter } from "./Filter"
-import { ApartmentItem } from "./ApartmentItem"
+import { MeterDataList } from "./MeterDataList"
+
 import { CurrentApartment } from "./CurrentApartment"
 import { ApartList } from "./ApartList"
 export const MetersPage = () => {
@@ -22,6 +23,7 @@ export const MetersPage = () => {
         </Route>
         <Route path="/meters/(\d+)" exact>
           <CurrentApartment {...currentApart} />
+          <MeterDataList />
         </Route>
       </Switch>
     </>

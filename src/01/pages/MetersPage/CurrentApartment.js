@@ -10,7 +10,6 @@ export const CurrentApartment = ({
   title,
   infoList = [],
 }) => {
-  const { street, number } = housingStock
   return styled(styles)(
     <Route path="/meters/(\\d+)">
       <top>
