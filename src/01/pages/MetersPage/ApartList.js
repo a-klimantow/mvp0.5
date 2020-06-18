@@ -1,12 +1,14 @@
 import React from "react"
 import styled, { css } from "reshadow/macro"
-import { Route } from "react-router-dom"
 import { LinkWrap } from "01/components/LinkWrap"
 
-export const ApartList = React.memo(({ styles, list = [] }) => {
-  return styled(styles)(
-    <Route path="/meters/" exact>
-      {list.map(
+export const ApartList = React.memo(
+  ({ styles, list = [], loading = false, message = "" }) => {
+    if (loading) return "loading"
+    if (message) return message
+
+    return styled(styles)(
+      list.map(
         ({
           id,
           apartmentNumber,
@@ -26,10 +28,10 @@ export const ApartList = React.memo(({ styles, list = [] }) => {
             </LinkWrap>
           </item>
         )
-      )}
-    </Route>
-  )
-})
+      )
+    )
+  }
+)
 
 ApartList.defaultProps = {
   styles: css`

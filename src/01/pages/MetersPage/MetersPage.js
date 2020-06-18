@@ -9,19 +9,21 @@ import { CurrentApartment } from "./CurrentApartment"
 import { ApartList } from "./ApartList"
 export const MetersPage = () => {
   const { url, path } = useRouteMatch()
-  const { filter, apartList, currentApart } = useMetersPage()
+  const { filter, apartList, currentApart, aparts, apartId } = useMetersPage()
 
   return (
     <>
       <HeaderBlock title="Ввод показаний" />
       {/* <TabsBlock /> */}
-      <Filter {...filter} />
       <Switch>
-        <Route path={path + "houses"}>по домам</Route>
-        <Route path={path} exact></Route>
+        <Route path="/meters/" exact>
+          <Filter {...filter} />
+          <ApartList {...apartList} />
+        </Route>
+        <Route path="/meters/(\d+)" exact>
+          <CurrentApartment {...currentApart} />
+        </Route>
       </Switch>
-      <ApartList {...apartList} />
-      <CurrentApartment {...currentApart} />
     </>
   )
 }

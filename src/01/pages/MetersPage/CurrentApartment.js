@@ -1,6 +1,7 @@
 import React from "react"
 import styled, { css } from "reshadow/macro"
 import { Route } from "react-router-dom"
+import { InfoItem } from "01/components/items"
 
 export const CurrentApartment = ({
   styles,
@@ -9,7 +10,6 @@ export const CurrentApartment = ({
   title,
   infoList = [],
 }) => {
-  console.log(title)
   const { street, number } = housingStock
   return styled(styles)(
     <Route path="/meters/(\\d+)">
@@ -17,11 +17,7 @@ export const CurrentApartment = ({
         <h2>{title}</h2>
       </top>
       <info_block>
-        <info_list>
-          {infoList.map((i) => (
-            <info_item>{i[0]}</info_item>
-          ))}
-        </info_list>
+        <InfoList list={infoList} />
         <block>block</block>
       </info_block>
     </Route>
@@ -33,24 +29,22 @@ CurrentApartment.defaultProps = {
     top {
       height: 48px;
       grid-column: 1 / -1;
+      display: flex;
+      align-items: center;
+      & > h2 {
+        margin: 0;
+      }
     }
-    div,
     info_block {
+      grid-column: 1/ -1;
       display: grid;
       grid-row-gap: 8px;
       grid-column-gap: 16px;
-    }
-
-    div {
-      grid-template-rows: 48px;
-    }
-
-    top {
-      padding: 8px;
+      padding: 16px;
     }
 
     info_block {
-      grid-template-columns: auto 1fr 1fr auto;
+      grid-template-columns: 1fr 1fr;
       box-shadow: var(--shadow);
     }
 
@@ -61,3 +55,13 @@ CurrentApartment.defaultProps = {
     }
   `,
 }
+
+const InfoList = React.memo(({ list = [] }) => {
+  return (
+    <ul>
+      {list.map(({ 0: title, 1: text, 2: url }) => (
+        <InfoItem key={title} {...{ title, text, url }} />
+      ))}
+    </ul>
+  )
+})
