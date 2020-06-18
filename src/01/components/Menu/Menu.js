@@ -22,6 +22,7 @@ export const Menu = React.memo(({ styles, list = [] }) =>
           to={to}
           activeClassName={styles.active}
           isActive={(m, l) => active(l, to)}
+          onClick={/выход/gi.test(name) ? () => localStorage.clear() : null}
         >
           {icon && <Icon icon={icon} />}
           <span {...use({ auth: to.match(/auth/gi) })}>{name}</span>

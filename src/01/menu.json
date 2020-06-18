@@ -1,8 +1,33 @@
 [
-  { "name": "Пользователь", "icon": "username", "to": "/user/" },
-  { "name": "Выход из системы", "icon": null, "to": "/auth/login" },
-  { "name": "Задачи", "icon": "task", "to": "/tasks/" },
-  { "name": "Oбъекты", "icon": "object", "to": "/objects/" },
-  { "name": "Ввод показаний", "icon": "dock", "to": "/meters/" },
-  { "name": "Настройки компании", "icon": "setting", "to": "/settings/" }
+  {
+    "name": "Пользователь",
+    "icon": "username",
+    "to": "/user/",
+    "permission": "all"
+  },
+  {
+    "name": "Выход из системы",
+    "icon": null,
+    "to": "/auth/login",
+    "permission": "all"
+  },
+  { "name": "Задачи", "icon": "task", "to": "/tasks/", "permission": "all" },
+  {
+    "name": "Oбъекты",
+    "icon": "object",
+    "to": "/objects/",
+    "permission": "all"
+  },
+  {
+    "name": "Ввод показаний",
+    "icon": "dock",
+    "to": "/meters/",
+    "permission": ["ManagingFirmOperator"]
+  },
+  {
+    "name": "Настройки компании",
+    "icon": "setting",
+    "to": "/settings/",
+    "permission": ["ManagingFirmAdministrator"]
+  }
 ]

@@ -9,6 +9,26 @@ import { Objects, ObjectId } from "01/pages/ObjectPage"
 import { MetersPage } from "01/pages/MetersPage"
 import { SettingsPage } from "01/pages/SettitngsPage"
 
+const roles = JSON.parse(localStorage.getItem("roles"))
+console.log(roles)
+// const reduceMenu = menuItems.reduce((menu, item) => {
+//   if (item.permission === "all") menu.push(item)
+//   if (Array.isArray(item.permission)) {
+//     roles.some((r) => item.permission.includes(r)) && menu.push(item)
+//   }
+//   return menu
+// }, [])
+
+console.log(reduceMenu)
+
+function reduceMenu(menu, roles) {
+  return menu.reduce((m, i) => {
+    if (i.permission === "all") m.push(i)
+    if (roles.some((r) => i.permission.includes(r))) m.push(i)
+    return m
+  }, [])
+}
+
 export const Pages = ({ children }) => {
   const authPage = useRouteMatch("/auth")
   if (authPage) return null
@@ -33,7 +53,7 @@ export const Pages = ({ children }) => {
     }
   `(
     <main>
-      <Menu list={menuItems} />
+      <Menu list={reduceMenu(menuItems, roles)} />
       <pages>
         <Switch>
           <Route path="/tasks/" component={TasksPage} />

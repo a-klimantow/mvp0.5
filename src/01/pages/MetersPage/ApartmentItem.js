@@ -36,7 +36,7 @@ export const ApartmentItem = ({
       }
     }
   `(
-    <item>
+    <item key={id}>
       <LinkWrap to={`${url}${id}`}>
         <h4>{title}</h4>
         <span>{homeownerName}</span>

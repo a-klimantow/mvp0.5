@@ -2,82 +2,118 @@ import React from "react"
 import { useRouteMatch } from "react-router-dom"
 import axios from "01/axios"
 
-async function fetchApartments(config) {
-  try {
-    const res = await axios(config)
-    const data = res.data.successResponse
-
-    return Promise.resolve(data)
-  } catch (error) {}
-}
-
-const URL = "apartments"
-
 export const useMetersPage = () => {
-  const { path, url, isExact } = useRouteMatch()
-  const apartId = useRouteMatch(path + "(\\d+)")
-  const houses = useRouteMatch(path + "houses")
-
   const [state, dispatch] = React.useReducer(
     (state, action) => {
-      const { type, payload } = action
+      const { payload = null, type = "" } = action
+      const { params } = state
       switch (type) {
-        case "start":
-          return { ...state, params: payload, loading: true }
-        case "finish":
-          console.log("data", payload)
-          return { ...state, ...payload, loading: false }
-        case "change":
-          return { ...state, inputs: { ...state.inputs, payload } }
+        case "success":
+          return { ...state, ...payload }
+        case "aparts_msg":
+          return { ...state, aparts: { msg: payload } }
+        case "change_filter":
+          return { ...state, filter: payload }
+        case "change_params":
+          return {
+            ...state,
+            params: { ...params, ...payload },
+          }
         default:
-          console.error("meters", type)
+          console.error(type)
           return state
       }
     },
-
     {
-      loading: false,
-      params: null,
-      items: null,
-      housingStock: {},
+      config: null,
+      filter: "",
+      params: { City: "Нижнекамск", Street: "Мира", HousingStockNumber: "" },
+      aparts: {},
     }
   )
 
-  console.log(apartId)
-
-  React.useEffect(() => {
-    state.params &&
-      fetchApartments({
-        url: url.replace(/meters/gi, URL),
-        params: state.params,
-      }).then((data) => {
-        dispatch({ type: "finish", payload: data })
+  async function fetchData(config, token) {
+    try {
+      const res = await axios({
+        ...config,
+        cancelToken: token,
       })
-    // eslint-disable-next-line
-  }, [state.params])
-
-  React.useEffect(() => {
-    if (apartId) {
-      fetchApartments({
-        url: apartId.url.replace(/meters/gi, URL),
-      })
+      const data = res.data.successResponse
+      const url = res.config.url
+      if (/apartments/.test(url))
+        dispatch({
+          type: "success",
+          payload: { aparts: data ? data : { msg: "Ненайдено" } },
+        })
+    } catch (error) {
+      console.log(error.message)
     }
-  }, [apartId])
-
-  const { items = null, housingStock = {} } = state
-
-  return {
-    ...state,
-    apartmentList: items?.map((item) => ({
-      ...item,
-      title: createTitle(housingStock, item),
-    })),
-    filter: {
-      getParams(params) {
-        dispatch({ type: "start", payload: params })
-      },
-    },
   }
+
+  const { params } = state
+  React.useEffect(() => {
+    const start = Object.values(params).every((i) => i.trim())
+    if (start) {
+      dispatch({ type: "aparts_msg", payload: "loading" })
+    } else {
+      dispatch({ type: "aparts_msg", payload: "Заполните все поля" })
+    }
+    const { cancel, token } = axios.CancelToken.source()
+    const timer = setTimeout(() => {
+      if (start) {
+        fetchData({ url: "apartments", params }, token)
+      }
+    }, 500)
+
+    return () => {
+      clearTimeout(timer)
+      cancel()
+    }
+  }, [params])
+
+  // const { params } = state
+
+  // // apart
+  // React.useEffect(() => {
+  //   let mount = true
+  //   const { token, cancel } = axios.CancelToken.source()
+  //   const timer = setTimeout(() => {
+  //     if (isExact && Object.values(params).every((i) => i)) {
+  //       dispatch({ type: "apart_start" })
+  //       fetchApartments({ url: pageURL(url), params }, token).then(
+  //         (data) => mount && dispatch({ type: "apart_finish", payload: data })
+  //       )
+  //     }
+  //   }, 300)
+  //   return () => {
+  //     clearTimeout(timer)
+  //     cancel()
+  //     mount = false
+  //   }
+  // }, [isExact, url, params])
+
+  // //  apart id
+  // const apartIdUrl = apartId?.url ?? null
+  // React.useEffect(() => {
+  //   let mount = true
+  //   const { token, cancel } = axios.CancelToken.source()
+  //   if (apartIdUrl) {
+  //     dispatch({ type: "apart_id_start" })
+  //     fetchApartments({ url: pageURL(apartIdUrl) }, token).then(
+  //       (data) => mount && dispatch({ type: "apart_id_finish", payload: data })
+  //     )
+  //   }
+  //   return () => {
+  //     mount = false
+  //     cancel()
+  //   }
+  // }, [apartIdUrl])
+
+  // const filter = useFilter(state, dispatch)
+  // const apartList = useApartList(state)
+  // const currentApart = useCurrentApart(state)
+
+  return { state, dispatch }
 }
 
 function createTitle({ street = "", number = "" }, { apartmentNumber = "" }) {
