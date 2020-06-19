@@ -4,7 +4,7 @@ export const app = css`
   layout {
     height: 100vh;
     display: grid;
-    grid-template-columns: 280px 1fr;
+    grid-template-columns: 208px 1fr;
   }
   main,
   menu {

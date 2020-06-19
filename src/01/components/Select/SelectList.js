@@ -2,7 +2,7 @@ import React from "react"
 import styled, { use, css } from "reshadow/macro"
 
 import { Icon } from "01/components/Icon"
-import { Loader } from "01/components/Loader"
+import { Loader } from "01/components/Loader/Loader"
 
 export const SelectList = ({
   styles,

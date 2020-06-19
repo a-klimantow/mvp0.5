@@ -6,17 +6,19 @@ import { useAuthFetch } from "./hooks"
 export function useApp() {
   const [state, dispatch] = React.useReducer(reducer, {})
   const auth = useAuthFetch(dispatch)
+
   return ({ children }) => (
-    <AppContext.Provider value={{ auth }}>{children}</AppContext.Provider>
+    <AppContext.Provider value={{ ...state, auth }}>
+      {children}
+    </AppContext.Provider>
   )
 }
 
 function reducer(state, action) {
-  const { payload, type } = action
+  const { type = "" } = action
   switch (type) {
     case "login":
       return { ...state, isAuth: true }
-
     default:
       console.error("app", type)
       return state
