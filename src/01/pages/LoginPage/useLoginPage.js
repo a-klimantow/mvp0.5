@@ -1,7 +1,7 @@
 import React from "react"
-
-import loginFetch from "./loginFetch"
 import { useHistory } from "react-router-dom"
+
+import { useAppContext } from "01/hooks"
 
 const initialState = {
   data: null,
@@ -11,7 +11,8 @@ const initialState = {
 }
 
 export const useLoginPage = () => {
-  const { replace } = useHistory()
+  const [data, setData] = React.useReducer({ email: "", password: "" })
+  const { auth } = useAppContext()
   const [state, dispatch] = React.useReducer(
     (state, action) => {
       const { type, payload } = action
@@ -38,21 +39,6 @@ export const useLoginPage = () => {
     },
     { ...initialState }
   )
-
-  React.useEffect(() => {
-    state.data &&
-      loginFetch({ data: state.data }).then(({ data }) => {
-        const { token, refreshToken, roles } = data.successResponse
-        localStorage.setItem(
-          "tokenData",
-          JSON.stringify({ token, refreshToken })
-        )
-        localStorage.setItem("roles", JSON.stringify(roles))
-        dispatch({ type: "success" })
-        replace("/")
-      })
-    // eslint-disable-next-line
-  }, [state.data])
 
   const onInvalid = (e) => {
     e.preventDefault()
@@ -90,7 +76,8 @@ export const useLoginPage = () => {
     form: {
       onSubmit(e) {
         e.preventDefault()
-        !state.loading && dispatch({ type: "submit" })
+        !state.loading &&
+          auth.login({ email: state.email, password: state.password })
       },
     },
     email: {
@@ -110,5 +97,9 @@ export const useLoginPage = () => {
       onChange,
       onInvalid,
     },
+    inputs: [
+      { key: "email", name: "email", login: "Логин", value: "" },
+      { key: "password", name: "password", login: "Логин", value: "" },
+    ],
   }
 }
