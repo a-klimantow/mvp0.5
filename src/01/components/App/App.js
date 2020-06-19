@@ -17,6 +17,7 @@ export const App = () => {
       <Switch>
         <Route path="/login" component={LoginPage} />
         <Route path="/logout" render={() => "logout"} />
+        <Route path="/error/" render={() => "404"} />
         <Route path="/">
           <layout>
             <menu as="div">
@@ -25,7 +26,7 @@ export const App = () => {
             </menu>
             <main>
               <Switch>
-                <Route path="/tasks/">
+                <Route path={`/tasks/`}>
                   <Switch>
                     <Route path="/tasks/" exact>
                       <div>1</div>
@@ -34,6 +35,8 @@ export const App = () => {
                     <Redirect to="error" />
                   </Switch>
                 </Route>
+                <Redirect from="/" to="/tasks/" exact />
+                <Redirect from="*" to="/error/" />
               </Switch>
             </main>
           </layout>
