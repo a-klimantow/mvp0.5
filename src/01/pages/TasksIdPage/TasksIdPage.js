@@ -12,6 +12,7 @@ import { InfoItem } from "01/components/items"
 import { LinkWrap } from "01/components/LinkWrap"
 import { HeaderBlock } from "01/components/HeaderBlock"
 import { PanelBlock } from "01/components/PanelBlock"
+import { Select as S } from "01/components/newSelect"
 
 const Perpetrator = (props) => (
   <Select
@@ -50,6 +51,7 @@ export const TasksIdPage = React.memo(() => {
     <>
       <HeaderBlock {...header} />
       <PanelBlock {...panel} />
+      <S />
     </>
   )
 })
