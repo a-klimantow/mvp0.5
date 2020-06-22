@@ -7,7 +7,7 @@ import "01/css/index.css"
 import { useApp } from "./useApp"
 import { app } from "01/styles/app"
 import { Logotip, Menu } from "01/components"
-import { Tasks, Login, TaskProfile } from "01/_pages"
+import { Tasks, Login, TaskProfile, Objects, ObjectProfile } from "01/_pages"
 
 export const App = () => {
   const AppProvider = useApp()
@@ -31,6 +31,12 @@ export const App = () => {
                   component={Tasks}
                 />
                 <Route path="/tasks/(\\d+)" component={TaskProfile} />
+                <Route path="/objects/" component={Objects} exact />
+                <Route
+                  path="/objects/(\\d+)/(apartments|devices)?"
+                  component={ObjectProfile}
+                  exact
+                />
                 <Route render={() => "no"} />
               </Switch>
             </main>
