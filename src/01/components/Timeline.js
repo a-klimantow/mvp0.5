@@ -8,7 +8,7 @@ export const Timeline = ({
   creationTime,
   expectedCompletionTime,
   closingTime,
-  style,
+  showTitle = false,
   ...props
 }) => {
   if (closingTime || !expectedCompletionTime || !creationTime) return null
@@ -18,10 +18,14 @@ export const Timeline = ({
   const time = new Date(expectedCompletionTime) - Date.now()
   const task = formatTime(time)
   const before = date(expectedCompletionTime).short
-  return styled(styles, style)`
+  return styled(styles)`
     line {
       width: ${percent};
       background-color: ${color};
+    }
+
+    time::before {
+      display: ${showTitle ? "block" : "none"};
     }
   `(
     <div {...props}>
@@ -62,6 +66,9 @@ Timeline.defaultProps = {
       position: relative;
       &::before {
         position: absolute;
+        content: "Время на задачу";
+        bottom: 100%;
+        margin-bottom: 8px;
       }
     }
   `,

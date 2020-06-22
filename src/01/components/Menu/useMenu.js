@@ -1,5 +1,5 @@
 export function useMenu() {
-  const user = JSON.parse(localStorage.getItem("userData")) ?? {}
+  const user = JSON.parse(localStorage.getItem("user")) ?? {}
   const roles = JSON.parse(localStorage.getItem("roles")) ?? []
   const { managementFirm = {}, id = "" } = user
   return [
@@ -10,7 +10,7 @@ export function useMenu() {
       icon: "username2",
       perm: ["all"],
     },
-    { name: "Выход из системы", to: "/logout/", perm: ["all"] },
+    { name: "Выход из системы", to: "/login/", perm: ["all"] },
     { name: "Задачи", to: "/tasks/", icon: "task", perm: ["all"] },
     { name: "Объекты", to: "/objects/", icon: "object", perm: ["all"] },
     {

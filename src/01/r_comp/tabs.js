@@ -29,4 +29,10 @@ export const tabs = css`
       }
     }
   }
+  .active {
+    color: var(--primary-100);
+    &::before {
+      border-color: inherit;
+    }
+  }
 `

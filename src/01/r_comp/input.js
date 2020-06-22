@@ -66,13 +66,17 @@ export const input = css`
     }
   }
   input_frame > Icon,
-  input_frame > toggle_pass {
+  input_frame > pass_btn {
     align-self: center;
     position: relative;
     z-index: 1;
   }
-  toggle_pass {
+  pass_btn {
     display: inherit;
     grid-column: -1;
+    cursor: pointer;
+    &:hover {
+      color: var(--primary-100);
+    }
   }
 `

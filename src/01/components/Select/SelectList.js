@@ -2,7 +2,7 @@ import React from "react"
 import styled, { use, css } from "reshadow/macro"
 
 import { Icon } from "01/components/Icon"
-import { Loader } from "01/components/Loader/Loader"
+import { Loader } from "01/components"
 
 export const SelectList = ({
   styles,
@@ -28,7 +28,7 @@ export const SelectList = ({
       }
     `(
       <select_list {...use({ show })} tabIndex="0" {...props}>
-        <Loader />
+        <Loader show={loading} size="32" />
       </select_list>
     )
 

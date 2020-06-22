@@ -28,6 +28,7 @@ export const Select = ({
   options = null,
   defaultId = [],
   getSelectData = () => {},
+  ...props
 }) => {
   const [state, dispatch] = useReducer(reducer, {
     big,
@@ -65,7 +66,7 @@ export const Select = ({
 
   return (
     <SelectContext.Provider value={{ state, dispatch }}>
-      <Container>
+      <Container {...props}>
         <Field>
           <Single />
           <Multiple />

@@ -2,7 +2,7 @@ import React, { useContext } from "react"
 import styled, { css, use } from "reshadow/macro"
 import { SelectContext } from "./context"
 
-export const Container = ({ styles, children }) => {
+export const Container = ({ styles, children, ...props }) => {
   const { state, dispatch } = useContext(SelectContext)
   const { big, open, focus } = state
 
@@ -38,6 +38,7 @@ export const Container = ({ styles, children }) => {
       onFocus={() => dispatch({ type: "open", payload: true })}
       onBlur={() => dispatch({ type: "open", payload: false })}
       {...use({ big, open })}
+      {...props}
     >
       {children}
     </container>

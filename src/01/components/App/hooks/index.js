@@ -1,2 +1,0 @@
-export { useAuthFetch } from "./useAuthFetch"
-

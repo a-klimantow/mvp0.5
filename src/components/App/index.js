@@ -11,22 +11,18 @@ import { GlobalStore } from "store"
 import { Layout } from "components"
 import {
   Login,
-  Tasks,
   TaskId,
   Objects,
   Dev,
   ObjectId,
   DeviceId,
   HousingStoks,
+  Tasks,
 } from "pages"
+
 import { Menu } from "components/Menu"
 
 export const App = () => {
-  // const m = useRouteMatch("/(^.*?(.*)$)")
-  const m = useRouteMatch("[/]+")
-  console.log(new URLSearchParams("?grouptype=executing&a=b").has("grouptype"))
-
-  console.log(m)
   return (
     <GlobalStore>
       <Switch>
@@ -36,7 +32,7 @@ export const App = () => {
         <Route path="/">
           <Layout>
             <Switch>
-              <Route path="/tasks/:taskId" component={TaskId} />
+              {/* <Route path="/tasks/:taskId" component={TaskId} />
               <Route path="/tasks/" component={Tasks} />
               <Route
                 path="/housingstocks/"
@@ -53,8 +49,7 @@ export const App = () => {
               />
               <Route path="/settings/" render={() => "settings"} />
               <Route path="/owners/" render={() => "settings"} />
-              <Redirect from="/" to="/tasks" exact />
-              <Redirect from="*" to="/404" />
+              <Redirect from="*" to="/404" /> */}
             </Switch>
           </Layout>
         </Route>
