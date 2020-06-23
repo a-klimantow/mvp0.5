@@ -26,6 +26,10 @@ export const getTaskPage = async (url = "", dispatch = () => {}) => {
   try {
     const res = await axios.get(url)
     sessionStorage.setItem("data", JSON.stringify(res))
-    dispatch({ type: "initial_page", data: { header: createHeader(res) } })
+    const { currentStage, stages } = res
+    dispatch({
+      type: "initial_page",
+      data: { header: createHeader(res), panel: res.currentStage, stages },
+    })
   } catch (error) {}
 }

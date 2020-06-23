@@ -7,31 +7,11 @@ import { Loader } from "01/components"
 import { Timeline } from "01/components/Timeline"
 import { Timer } from "01/components/Timer"
 import { useShowPanelField } from "./useShowPanelFiled"
-import { Select } from "01/components/Select"
-import { button } from "01/r_comp"
+import { Select, Perpetrator } from "01/components/Select"
+import { button, header } from "01/r_comp"
 import { Panel } from "./Panel"
 import { TasksProfileContext } from "./context"
 import { getTaskPage } from "./api"
-
-const styles = css`
-  div,
-  grid_block {
-    display: grid;
-    grid-gap: 16px;
-  }
-
-  grid_block {
-    grid-template-columns: 8fr 5fr;
-  }
-  name {
-    color: var(--main-80);
-  }
-  Timeline,
-  Timer {
-    color: var(--main-60);
-    margin-top: 8px;
-  }
-`
 
 function reducer(state, action) {
   const { type, data } = action
@@ -54,40 +34,16 @@ export const TaskProfile = () => {
     return () => cancel()
   }, [url])
 
-  // React.useEffect(() => {
-  //   config &&
-  //     (async function() {
-  //       const res = await axios(config)
-  //       console.log(res.url)
-  //       if (/(tasks[/]\d+[^/]|stage)/gi.test(res.url)) {
-  //         const { currentStage } = res
-  //         dispatch({ type: "page", payload: { ...res, panel: currentStage } })
-  //       }
-  //       if (/(users)/gi.test(res.url)) {
-  //         dispatch({ type: "success", payload: { users: res.items } })
-  //       }
-  //       if (/(contractors)/gi.test(res.url)) {
-  //         dispatch({ type: "success", payload: { contrs: res.items } })
-  //       }
-  //       console.log(res)
-  //     })()
-  // }, [config])
-
-  // const {
-  //   currentStage,
-  //   creationTime,
-  //   expectedCompletionTime,
-  //   closingTime,
-  //   name,
-  //   pushDisable = true,
-  // } = state
-  // const showPen = useShowPanelField(currentStage)
   const { header = {} } = state
-  return styled(styles, button)(
+  return styled(header, button)(
     <TasksProfileContext.Provider value={{ ...state, dispatch }}>
-      <header>
-        
+      <header as="div">
+        <h1>{header.title}</h1>
+        {header.name && <name>{header.name}</name>}
+        <Timeline showTitle {...header?.timeline} />
+        <Timer {...header.timer} />
       </header>
+      <Panel />
 
       {/* <Loader show={!name} size="48"> */}
       {/* <header as="div">
