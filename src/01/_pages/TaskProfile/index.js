@@ -11,6 +11,7 @@ import { Select } from "01/components/Select"
 import { button } from "01/r_comp"
 import { Panel } from "./Panel"
 import { TasksProfileContext } from "./context"
+import { getTaskPage } from "./api"
 
 const styles = css`
   div,
@@ -33,99 +34,91 @@ const styles = css`
 `
 
 function reducer(state, action) {
-  const { type, payload, config } = action
-  const { stageData = {}, pageURL } = state
+  const { type, data } = action
   switch (type) {
-    case "page":
-      return { ...payload, pageURL }
-    case "success":
-      return { ...state, ...payload }
-    case "get":
-      return { ...state, config }
-    case "add_stage_data":
-      return { ...state, stageData: { ...stageData, ...payload } }
-    // case "move_stage":
-    //   return {
-    //     ...state,
-    //     config: { url: pageURL + "/" + payload + "stage", data: stageData },
-    //   }
+    case "initial_page":
+      return data
+
     default:
-      console.error("page", type)
+      console.error("task id", type)
       return state
   }
 }
 
 export const TaskProfile = () => {
   const { url } = useRouteMatch()
-  const [{ config, ...state }, dispatch] = React.useReducer(reducer, {
+  const [state, dispatch] = React.useReducer(reducer, {
     config: { url },
     pageURL: url,
   })
 
-  React.useEffect(() => () => cancel(), [])
-
   React.useEffect(() => {
-    config &&
-      (async function() {
-        const res = await axios(config)
-        console.log(res.url)
-        if (/(tasks[/]\d+[^/]|stage)/gi.test(res.url)) {
-          const { currentStage } = res
-          dispatch({ type: "page", payload: { ...res, panel: currentStage } })
-        }
-        if (/(users)/gi.test(res.url)) {
-          dispatch({ type: "success", payload: { users: res.items } })
-        }
-        if (/(contractors)/gi.test(res.url)) {
-          dispatch({ type: "success", payload: { contrs: res.items } })
-        }
-        console.log(res)
-      })()
-  }, [config])
+    getTaskPage(url, dispatch)
+    return () => cancel()
+  }, [url])
 
-  const {
-    currentStage,
-    creationTime,
-    expectedCompletionTime,
-    closingTime,
-    name,
-    pushDisable = true,
-  } = state
+  // React.useEffect(() => {
+  //   config &&
+  //     (async function() {
+  //       const res = await axios(config)
+  //       console.log(res.url)
+  //       if (/(tasks[/]\d+[^/]|stage)/gi.test(res.url)) {
+  //         const { currentStage } = res
+  //         dispatch({ type: "page", payload: { ...res, panel: currentStage } })
+  //       }
+  //       if (/(users)/gi.test(res.url)) {
+  //         dispatch({ type: "success", payload: { users: res.items } })
+  //       }
+  //       if (/(contractors)/gi.test(res.url)) {
+  //         dispatch({ type: "success", payload: { contrs: res.items } })
+  //       }
+  //       console.log(res)
+  //     })()
+  // }, [config])
+
+  // const {
+  //   currentStage,
+  //   creationTime,
+  //   expectedCompletionTime,
+  //   closingTime,
+  //   name,
+  //   pushDisable = true,
+  // } = state
   // const showPen = useShowPanelField(currentStage)
 
   return styled(styles, button)(
     <TasksProfileContext.Provider value={{ ...state, dispatch }}>
-      <Loader show={!name} size="48">
-        <header as="div">
-          <h1>{currentStage ? currentStage.name : name}</h1>
-          {currentStage && <name>{name}</name>}
-          <Timeline
-            showTitle
-            {...{ creationTime, expectedCompletionTime, closingTime }}
-          />
-          <Timer
-            {...{
-              creationTime,
-              expectedCompletionTime,
-              closingTime,
-              currentStage,
-            }}
-          />
-        </header>
-        <Panel />
-        <div>doc</div>
+      {/* <Loader show={!name} size="48"> */}
+      {/* <header as="div">
+        <h1>{currentStage ? currentStage.name : name}</h1>
+        {currentStage && <name>{name}</name>}
+        <Timeline
+          showTitle
+          {...{ creationTime, expectedCompletionTime, closingTime }}
+        />
+        <Timer
+          {...{
+            creationTime,
+            expectedCompletionTime,
+            closingTime,
+            currentStage,
+          }}
+        />
+      </header>
+      <Panel />
+      <div>doc</div>
+      <div>
+        <h2>Комментарии к задаче</h2>
+      </div>
+      <grid_block>
         <div>
-          <h2>Комментарии к задаче</h2>
+          <h2>Подробная информация</h2>
         </div>
-        <grid_block>
-          <div>
-            <h2>Подробная информация</h2>
-          </div>
-          <div>
-            <h2>Этапы выполнения</h2>
-          </div>
-        </grid_block>
-      </Loader>
+        <div>
+          <h2>Этапы выполнения</h2>
+        </div>
+      </grid_block> */}
+      {/* </Loader> */}
     </TasksProfileContext.Provider>
   )
 }
