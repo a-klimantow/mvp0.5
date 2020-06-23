@@ -1,28 +1,30 @@
 import React from "react"
-import styled from "reshadow/macro"
+import styled, { css } from "reshadow/macro"
 
-import axios, { cancel } from "01/axios"
-import {
-  useRouteMatch,
-  useLocation,
-  NavLink,
-  Route,
-  useHistory,
-} from "react-router-dom"
+import { cancel } from "01/axios"
+import { useRouteMatch, Route, useHistory } from "react-router-dom"
 
 import { tabs } from "01/r_comp"
 import { Loader } from "01/components"
 import { Tabs } from "./Tabs"
+import { getInfo, getAparts, getDevices } from "./api"
+
+const styles = css`
+  header {
+    display: grid;
+    grid-template-rows: 48px 16px;
+    grid-gap: 8px;
+  }
+  city {
+    opacity: 0.8;
+  }
+`
 
 function reducer(state, action) {
-  const { type, config, payload } = action
+  const { type, data } = action
   switch (type) {
-    case "get":
-      console.log(config)
-      return { ...state, config }
     case "success":
-      return { ...state, ...payload }
-
+      return { ...state, ...data }
     default:
       console.error("objid", type)
       return state
@@ -30,94 +32,50 @@ function reducer(state, action) {
 }
 
 export const ObjectProfile = () => {
-  const { pathname } = useLocation()
+  const [state, dispatch] = React.useReducer(reducer, {})
+
   const { replace } = useHistory()
-  const { url, params } = useRouteMatch("/:page/:id")
-  const [{ config = null, ...state }, dispatch] = React.useReducer(reducer, {})
+  const { url, path, isExact } = useRouteMatch("/:page/:id")
+  const pageApart = useRouteMatch(path + "/apartments")
+  const pageDevice = useRouteMatch(path + "/devices")
+
   React.useEffect(() => () => typeof cancel === "function" && cancel(), [])
-  React.useEffect(() => {
-    config &&
-      (async () => {
-        const res = await axios(config)
-        if (/\d+$/.test(res.url)) {
-          dispatch({ type: "success", payload: res })
-        }
-        if (/(apart)/gi.test(res.url)) {
-          dispatch({ type: "success", payload: { aparts: res } })
-        }
-
-        if (/(tasks)/gi.test(res.url)) {
-          console.log("evente")
-          dispatch({ type: "success", payload: { events: res } })
-        }
-
-        console.log(res)
-      })()
-  }, [config])
 
   React.useEffect(() => {
-    if (/.*\d+$/.test(pathname) && !state.id) {
-      dispatch({
-        type: "get",
-        config: { url: url.replace(/\w+/, "housingstocks") },
-      })
+    if (isExact && !state.info) {
+      getInfo(url, dispatch)
     }
-  }, [pathname])
-
-  React.useEffect(() => {
-    if (/(apart)/gi.test(pathname)) {
-      const { street, number, city } = state
-      if ([street, number, city].every((i) => i)) {
-        !state.aparts &&
-          dispatch({
-            type: "get",
-            config: {
-              url: "apartments",
-              params: { street, city, HousingStockNumber: number },
-            },
-          })
-      } else {
+    if (pageDevice?.isExact && !state.devices) {
+      getDevices(pageDevice.url, dispatch)
+    }
+    if (pageApart?.isExact) {
+      const { city, street, number: HousingStockNumber, aparts } = state
+      if ([city, street, HousingStockNumber].some((i) => !i)) {
         replace(url)
+      } else {
+        !aparts && getAparts({ city, street, HousingStockNumber }, dispatch)
       }
     }
-  }, [pathname])
+  }, [isExact, url, state, pageDevice, pageApart, replace])
 
-  React.useEffect(() => {
-    if (/(devices)/gi.test(pathname)) {
-      console.log(url.replace(/\w+/, "housingstocks") + "/devices")
-      !state.devices &&
-        dispatch({
-          type: "get",
-          config: { url: url.replace(/\w+/, "housingstocks") + "/devices" },
-        })
-    }
-  }, [pathname])
+  const { city, title, aparts = {}, devices = [] } = state
 
-  React.useEffect(() => {
-    const { id, aparts, devices } = state
-    if ([id, aparts, devices].some((i) => i)) {
-      // !state.events && dispatch({ type: "get", config: { url: "tasks" } })
-    }
-  }, [state])
-
-  const linkProps = {
-    activeClassName: tabs.active,
-    replace: true,
-  }
-
-  const { street, number } = state
-
-  return styled(tabs)(
-    <Loader show={!street} size="32">
-      <h1>
-        {street}, {number}
-      </h1>
+  return styled(tabs, styles)(
+    <>
+      <header as="div">
+        <Loader show={!title} size="48">
+          <h1>{title}</h1>
+          <city>{city}</city>
+        </Loader>
+      </header>
       <Tabs />
       <Route path="/*/(\\d+)" exact>
         info
       </Route>
-      <Route path="/*/apartments">apartments</Route>
+      <Route path="/*/apartments">
+        {aparts.items?.map((a) => <div>{a.homeownerName}</div>)}
+      </Route>
       <Route path="/*/devices">apartments</Route>
-    </Loader>
+    </>
   )
 }

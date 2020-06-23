@@ -12,7 +12,13 @@ export const Tabs = () => {
     ["Квартиры", url + "/apartments"],
     ["ОДПУ", url + "/devices"],
   ].map((t, i) => (
-    <NavLink to={t[1]} key={t[1]} activeClassName={tabs.active} exact={i === 0}>
+    <NavLink
+      to={t[1]}
+      key={t[1]}
+      activeClassName={tabs.active}
+      replace
+      exact={i === 0}
+    >
       {t[0]}
     </NavLink>
   ))
