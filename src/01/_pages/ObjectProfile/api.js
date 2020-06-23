@@ -26,6 +26,13 @@ export const getDevices = async (url = "", dispatch = () => {}) => {
     const res = await axios.get(replaceURL(url))
     console.log(res)
 
-    dispatch({ type: "success", data: { title: createTitle(res) } })
+    dispatch({
+      type: "success",
+      data: {
+        title: createTitle(res.housingStock),
+        ...res,
+        city: res.housingStock.city,
+      },
+    })
   } catch (error) {}
 }

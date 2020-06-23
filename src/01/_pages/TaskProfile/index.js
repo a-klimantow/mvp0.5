@@ -2,7 +2,7 @@ import React from "react"
 import { useRouteMatch } from "react-router-dom"
 import styled, { css } from "reshadow/macro"
 
-import axios, { cancel } from "01/axios"
+import { cancel } from "01/axios"
 import { Loader } from "01/components"
 import { Timeline } from "01/components/Timeline"
 import { Timer } from "01/components/Timer"
@@ -47,11 +47,8 @@ function reducer(state, action) {
 
 export const TaskProfile = () => {
   const { url } = useRouteMatch()
-  const [state, dispatch] = React.useReducer(reducer, {
-    config: { url },
-    pageURL: url,
-  })
-
+  const [state, dispatch] = React.useReducer(reducer, {})
+  console.log(state)
   React.useEffect(() => {
     getTaskPage(url, dispatch)
     return () => cancel()
@@ -85,9 +82,13 @@ export const TaskProfile = () => {
   //   pushDisable = true,
   // } = state
   // const showPen = useShowPanelField(currentStage)
-
+  const { header = {} } = state
   return styled(styles, button)(
     <TasksProfileContext.Provider value={{ ...state, dispatch }}>
+      <header>
+        
+      </header>
+
       {/* <Loader show={!name} size="48"> */}
       {/* <header as="div">
         <h1>{currentStage ? currentStage.name : name}</h1>
