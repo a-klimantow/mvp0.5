@@ -1,13 +1,20 @@
-import React from "react"
-import styled from "reshadow/macro"
-import { Route, Switch, Redirect } from "react-router-dom"
+import React from 'react'
+import styled from 'reshadow/macro'
+import { Route, Switch, Redirect } from 'react-router-dom'
 
-import "01/css/index.css"
+import '01/css/index.css'
 
-import { useApp } from "./useApp"
-import { app } from "01/styles/app"
-import { Logotip, Menu } from "01/components"
-import { Tasks, Login, TaskProfile, Objects, ObjectProfile } from "01/_pages"
+import { useApp } from './useApp'
+import { app } from '01/styles/app'
+import { Logotip, Menu } from '01/components'
+import {
+  Tasks,
+  Login,
+  TaskProfile,
+  Objects,
+  ObjectProfile,
+  DeviceProfile,
+} from '01/_pages'
 
 export const App = () => {
   const AppProvider = useApp()
@@ -15,8 +22,8 @@ export const App = () => {
     <AppProvider>
       <Switch>
         <Route path="/login" component={Login} />
-        <Route path="/logout" render={() => "logout"} />
-        <Route path="/error/" render={() => "404"} />
+        <Route path="/logout" render={() => 'logout'} />
+        <Route path="/error/" render={() => '404'} />
         <Route path="/">
           <layout>
             <menu as="div">
@@ -33,11 +40,16 @@ export const App = () => {
                 <Route path="/tasks/(\\d+)" component={TaskProfile} />
                 <Route path="/objects/" component={Objects} exact />
                 <Route
+                  path="/objects/(\\d+)/devices/(\\d+)/(testimony|documents|changes)?"
+                  component={DeviceProfile}
+                  exact
+                />
+                <Route
                   path="/objects/(\\d+)/(apartments|devices)?"
                   component={ObjectProfile}
                   exact
                 />
-                <Route render={() => "no"} />
+                <Route render={() => 'no'} />
               </Switch>
             </main>
           </layout>
