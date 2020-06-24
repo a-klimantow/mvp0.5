@@ -1,1 +1,2 @@
-export * from "./useObjectInformation"
+export * from './useObjectInformation'
+export * from './useFetchPage'
