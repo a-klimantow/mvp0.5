@@ -23,7 +23,7 @@ export const Perpetrator = ({ getData = () => {}, ...props }) => {
       list={data.items ?? []}
       loading={data.loading}
       onClick={() => !data.items && setData({ loading: true })}
-      getSelectData={(id) => getData({ nextPerpetratorId: id[0] })}
+      getSelectData={(id) => getData({ nextPerpetratorId: id[0] ?? null })}
       {...props}
     />
   )

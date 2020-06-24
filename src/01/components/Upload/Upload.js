@@ -1,17 +1,20 @@
-import React from "react"
+import React, { useReducer } from "react"
 import styled, { css } from "reshadow/macro"
 import { Icon } from "01/components/Icon"
 import { Loader } from "01/components/Loader/Loader"
+import { useUp, useUpload } from "./useUpload"
 
 export const Upload = ({
   styles,
-  onChange = () => {},
-  onDelete = () => {},
-  name = null,
-  loading = false,
-  files = [],
   ...props
 }) => {
+  const {
+    name = null,
+    loading = false,
+    onChange = () => {},
+    onDelete = () => {},
+    files = [],
+  } = useUpload()
   return styled(styles)(
     <upload_block {...props}>
       <label>

@@ -26,10 +26,40 @@ export const getTaskPage = async (url = "", dispatch = () => {}) => {
   try {
     const res = await axios.get(url)
     sessionStorage.setItem("data", JSON.stringify(res))
-    const { currentStage, stages } = res
     dispatch({
       type: "initial_page",
-      data: { header: createHeader(res), panel: res.currentStage, stages },
+      data: {
+        ...res,
+        header: createHeader(res),
+        panel: res.currentStage,
+        stages: { list: res.stages },
+      },
+    })
+  } catch (error) {}
+}
+
+export const postMoveStage = async (
+  url = "",
+  move = "",
+  data = {},
+  dispatch = () => {}
+) => {
+  try {
+    const res = await axios.post(`${url}/${move}stage`, data)
+    if (res.successResponse === null)
+      return dispatch({
+        type: "success",
+        data: { isReplace: true, move: null },
+      })
+    dispatch({
+      type: "success",
+      data: {
+        ...res,
+        move: null,
+        header: createHeader(res),
+        panel: res.currentStage,
+        stages: { list: res.stages },
+      },
     })
   } catch (error) {}
 }

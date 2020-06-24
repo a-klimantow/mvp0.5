@@ -4,11 +4,12 @@ import styled, { css } from "reshadow/macro"
 import { cancel } from "01/axios"
 import { useRouteMatch, Route, useHistory } from "react-router-dom"
 
-import { tabs } from "01/r_comp"
+import { tabs, grid } from "01/r_comp"
 import { Loader } from "01/components"
 import { Tabs } from "./Tabs"
+import { Information } from "./Information"
 import { getInfo, getAparts, getDevices } from "./api"
-
+import { useObjectInformation } from "./hooks"
 const styles = css`
   header {
     display: grid;
@@ -59,8 +60,9 @@ export const ObjectProfile = () => {
   }, [isExact, url, state, pageDevice, pageApart, replace])
 
   const { city, title, aparts = {}, devices = [] } = state
+  const info = useObjectInformation(state)
 
-  return styled(tabs, styles)(
+  return styled(tabs, grid, styles)(
     <>
       <header as="div">
         <Loader show={!title} size="48">
@@ -69,13 +71,15 @@ export const ObjectProfile = () => {
         </Loader>
       </header>
       <Tabs />
-      <Route path="/*/(\\d+)" exact>
-        info
-      </Route>
-      <Route path="/*/apartments">
-        {aparts.items?.map((a) => <div>{a.homeownerName}</div>)}
-      </Route>
-      <Route path="/*/devices">apartments</Route>
+      <grid>
+        <Route path="/*/(\\d+)" exact>
+          <Information {...info} />
+        </Route>
+        <Route path="/*/apartments">
+          {aparts.items?.map((a) => <div>{a.homeownerName}</div>)}
+        </Route>
+        <Route path="/*/devices">apartments</Route>
+      </grid>
     </>
   )
 }
