@@ -1,6 +1,6 @@
 function formatTime(time = null) {
   if (!time) return {}
-  let timeStr = ''
+  let timeStr = ""
   const fail = time < 0
   const days = Math.abs(time) / 1000 / 60 / 60 / 24,
     hours = (days - (days >> 0)) * 24,
@@ -28,13 +28,13 @@ export function createTimeline({
   const percent = Math.abs(((current - start) / (deadline - start)) * 100)
   const color =
     percent < 30
-      ? 'var(--success)'
+      ? "var(--success)"
       : percent < 60
-      ? 'var(--warning)'
-      : 'var(--error)'
+      ? "var(--warning)"
+      : "var(--error)"
   const { timeStr, fail } = formatTime(deadline - current)
   return {
-    percent: percent > 100 ? '100%' : percent + '%',
+    percent: percent > 100 ? "100%" : percent + "%",
     color,
     before: new Date(deadline).toLocaleDateString(),
     timeStr,
@@ -55,7 +55,7 @@ export function createTimer({
         ...formatTime(new Date(ext) - Date.now()),
         before: new Date(ext).toLocaleDateString(),
       },
-      icon: 'timer',
+      icon: "timer",
     }
   }
 
@@ -65,7 +65,26 @@ export function createTimer({
   return {
     diff: formatTime(new Date(deadline) - new Date(start)),
     final: formatTime(new Date(start) - new Date(finish)),
-    icon: 'ok',
+    icon: "ok",
     stage: null,
+  }
+}
+
+export function createDevice(device) {
+  if (!device) return null
+  const { resource } = device
+  const cold = "var(--cold-water)"
+  const hot = "var(--hot-water)"
+  const def = "var(--main-100)"
+
+  switch (resource) {
+    case "ColdWaterSupply":
+      return { ...device, icon: "water", fill: cold }
+    case "HotWaterSupply":
+      return { ...device, icon: "water", fill: hot }
+    case "Heat":
+      return { ...device, icon: "heat", fill: def }
+    default:
+      return { ...device, icon: "device", fill: def }
   }
 }

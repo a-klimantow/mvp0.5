@@ -1,17 +1,17 @@
-import React from 'react'
-import styled from 'reshadow/macro'
-import { NavLink } from 'react-router-dom'
+import React from "react"
+import styled from "reshadow/macro"
+import { NavLink } from "react-router-dom"
 
 // import { Loader } from '01/components'
-import { tabs } from '01/r_comp'
+import { tabs } from "01/r_comp"
 // import { TasksItem } from '01/components/items'
-import { useTasks } from './useTasks'
-import { TasksList } from './components/TasksList'
+import { useTasks } from "./useTasks"
+import { TasksList } from "./components/TasksList"
 
 const tabItems = [
-  ['К исполнению', 'executing'],
-  ['Наблюдаемые', 'observing'],
-  ['Архив', 'archived'],
+  ["К исполнению", "executing"],
+  ["Наблюдаемые", "observing"],
+  ["Архив", "archived"],
 ]
 
 const Tabs = React.memo(({ total = [] }) =>
@@ -28,7 +28,6 @@ const Tabs = React.memo(({ total = [] }) =>
 
 export const Tasks = () => {
   const { items, executingTasksCount, observingTasksCount } = useTasks()
-  console.log(items)
   return (
     <>
       <h1>Задачи</h1>

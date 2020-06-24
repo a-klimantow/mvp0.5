@@ -1,4 +1,4 @@
-import { css } from 'reshadow/macro'
+import { css } from "reshadow/macro"
 
 export const time_line = css`
   time_line {
@@ -19,24 +19,6 @@ export const time_line = css`
       height: 100%;
       top: 0;
       left: 0;
-    }
-    & span {
-      margin: 0 4px;
-      &[|fail] {
-        color: var(--error);
-        &::before {
-          content: '-';
-        }
-      }
-    }
-
-    & time {
-      &::before {
-        content: '(до ';
-      }
-      &::after {
-        content: ')';
-      }
     }
   }
 `
