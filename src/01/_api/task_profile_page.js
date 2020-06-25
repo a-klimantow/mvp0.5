@@ -64,13 +64,19 @@ export async function moveStage(id = "", move = "", data = {}) {
         perpName: currentStage?.perpetrator.name,
       },
       stages: {
-        items: [],
-      },
-      stages: {
         items,
       },
       panelLoading: false,
       stageData: null,
     }
+  } catch (error) {}
+}
+
+export async function deleteDoc(id = "", docId = "") {
+  try {
+    const res = await axios.delete(`/tasks/${id}/documents/${docId}`)
+    const { url = "" } = res
+    const responseId = Number(url.match(/(\d*)$/)[0])
+    return responseId
   } catch (error) {}
 }

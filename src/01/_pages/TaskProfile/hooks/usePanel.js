@@ -7,7 +7,7 @@ export const usePanel = (
   React.useEffect(() => {
     if (!panelLoading) dispatch({ type: "reset" })
   }, [panelLoading])
-  console.log("panel", panel.actions)
+  // console.log("panel", panel.actions)
 
   const pushProps = {
     onClick() {
