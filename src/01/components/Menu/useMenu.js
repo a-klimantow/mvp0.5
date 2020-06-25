@@ -18,7 +18,7 @@ export function useMenu() {
       to: "/owners/",
       icon: "key",
       // perm: ["ManagingFirmAdministrator", "ManagingFirmOperator"],
-      perm: []
+      perm: [],
     },
     {
       name: "Настройки",
@@ -28,7 +28,7 @@ export function useMenu() {
     },
     {
       name: "Ввод показаний ",
-      to: "/penance/",
+      to: "/meters/",
       icon: "doc",
       perm: ["ManagingFirmOperator"],
     },

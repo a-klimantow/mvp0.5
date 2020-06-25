@@ -2,16 +2,20 @@ import React from "react"
 import styled, { use } from "reshadow/macro"
 import { useHistory } from "react-router-dom"
 
-import { Loader } from "01/components/Loader"
+import { Loader, Icon } from "01/components/Loader"
 import { information } from "01/r_comp"
 
-export const Information = ({ list = [], loading = true, ...props }) => {
+export const Information = ({
+  list = [],
+  device = true,
+  loading = true,
+  ...props
+}) => {
   const { push } = useHistory()
   return styled(information)`
     Loader {
       justify-self: center;
     }
-    
   `(
     <information {...props}>
       <h2>Подробная информация</h2>

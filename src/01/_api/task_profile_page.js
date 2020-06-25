@@ -4,6 +4,7 @@ import {
   createTimer,
   changeItemStage,
   createPanel,
+  createDevice,
 } from "./utils"
 
 export async function getTask(id) {
@@ -35,6 +36,7 @@ export async function getTask(id) {
       stages: {
         items,
       },
+      device: createDevice(res.device),
     }
   } catch (error) {}
 }

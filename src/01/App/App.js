@@ -1,12 +1,12 @@
-import React from 'react'
-import styled from 'reshadow/macro'
-import { Route, Switch, Redirect } from 'react-router-dom'
+import React from "react"
+import styled from "reshadow/macro"
+import { Route, Switch, Redirect } from "react-router-dom"
 
-import '01/css/index.css'
+import "01/css/index.css"
 
-import { useApp } from './useApp'
-import { app } from '01/styles/app'
-import { Logotip, Menu } from '01/components'
+import { useApp } from "./useApp"
+import { app } from "01/styles/app"
+import { Logotip, Menu } from "01/components"
 import {
   Tasks,
   Login,
@@ -14,7 +14,8 @@ import {
   Objects,
   ObjectProfile,
   DeviceProfile,
-} from '01/_pages'
+  MetersPage,
+} from "01/_pages"
 
 export const App = () => {
   const AppProvider = useApp()
@@ -22,8 +23,8 @@ export const App = () => {
     <AppProvider>
       <Switch>
         <Route path="/login" component={Login} />
-        <Route path="/logout" render={() => 'logout'} />
-        <Route path="/error/" render={() => '404'} />
+        <Route path="/logout" render={() => "logout"} />
+        <Route path="/error/" render={() => "404"} />
         <Route path="/">
           <layout>
             <menu as="div">
@@ -49,7 +50,12 @@ export const App = () => {
                   component={ObjectProfile}
                   exact
                 />
-                <Route render={() => 'no'} />
+                <Redirect from="/meters/" to="/meters/apartments" exact />
+                <Route
+                  path="/meters/(apartments|houses)"
+                  component={MetersPage}
+                />
+                <Route render={() => "no"} />
               </Switch>
             </main>
           </layout>
