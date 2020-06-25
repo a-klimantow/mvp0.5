@@ -2,15 +2,15 @@ import axios from "01/axios"
 import {
   createTimeline,
   createTimer,
-  createDevice,
   changeItemStage,
-  currentStage,
   createPanel,
 } from "./utils"
 
 export async function getTask(id) {
   try {
     const res = await axios.get("/tasks/" + id)
+    sessionStorage.setItem("data", JSON.stringify(res))
+
     const { currentStage, name, stages, userOperatingStatus } = res
     const items = stages.map((...rest) =>
       changeItemStage(...rest, userOperatingStatus === "Executor")

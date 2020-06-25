@@ -8,12 +8,14 @@ import { usePageFetch } from "./hooks/usePageFetch"
 import { usePanel } from "./hooks/usePanel"
 import { useStages } from "./hooks/useStages"
 import { useDocuments } from "./hooks/useDocuments"
+import { useInformation } from "./hooks/useInformation"
 
 import { Header } from "./components/Header"
 import { Panel } from "./components/Panel"
 import { Steps } from "./components/Steps"
 import { Stages } from "./components/Stages"
 import { Documents } from "./components/Documents"
+import { Information } from "./components/Information"
 
 function reducer(state, action) {
   const { type, data } = action
@@ -45,6 +47,8 @@ export const TaskProfile = () => {
   const panel = usePanel(state, dispatch)
   const stages = useStages(state, dispatch)
   const docs = useDocuments(state, dispatch)
+  const info = useInformation(state)
+
   return styled(s.grid)(
     <TasksProfileContext.Provider value={{ ...state, dispatch }}>
       <Header {...state.header} />
@@ -52,7 +56,7 @@ export const TaskProfile = () => {
       <Steps />
       <Documents {...docs} />
       <grid>
-        <div></div>
+        <Information {...info} />
         <Stages {...stages} />
       </grid>
     </TasksProfileContext.Provider>

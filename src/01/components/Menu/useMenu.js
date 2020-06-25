@@ -17,7 +17,8 @@ export function useMenu() {
       name: "Собственники",
       to: "/owners/",
       icon: "key",
-      perm: ["ManagingFirmAdministrator", "ManagingFirmOperator"],
+      // perm: ["ManagingFirmAdministrator", "ManagingFirmOperator"],
+      perm: []
     },
     {
       name: "Настройки",
