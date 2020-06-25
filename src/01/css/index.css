@@ -170,3 +170,7 @@ input[type="file"] {
   height: 0;
   position: absolute;
 }
+
+sup {
+  font-size: 8px;
+}
