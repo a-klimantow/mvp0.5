@@ -32,7 +32,7 @@ export const useUpload = (callback = () => {}) => {
     }
     callback({ documentsIds: fileList.map((i) => i.id) })
   }, [state])
-  console.log(state)
+  // console.log(state)
   return {
     button: {
       onChange(e) {

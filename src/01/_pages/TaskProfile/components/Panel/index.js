@@ -2,7 +2,7 @@ import React from "react"
 import styled, { css, use } from "reshadow/macro"
 
 import * as s from "01/r_comp"
-import { Perpetrator, Contractors } from "01/components/Select"
+import { Perpetrator, Contractors, NextStage } from "01/components/Select"
 import { Loader } from "01/components"
 import { UploadButton, useUpload, UploadList } from "01/components/Upload"
 
@@ -22,6 +22,15 @@ const styles = css`
       grid-template-areas: "ub ul push";
       grid-template-columns: auto 1fr auto;
     }
+    &[|tree] {
+      grid-template-areas: "p nst push";
+      grid-template-columns: 1fr 1fr auto;
+      align-items: end;
+    }
+    &[|four] {
+      grid-template-areas: "push .";
+      grid-template-columns: auto 1fr;
+    }
   }
 
   Perpetrator {
@@ -35,6 +44,9 @@ const styles = css`
   }
   UploadList {
     grid-area: ul;
+  }
+  NextStage {
+    grid-area: nst;
   }
 `
 
@@ -59,11 +71,26 @@ export const Panel = ({
       </panel>
     )
 
-  const { AddPerpetrator, EmailNotify, AddDocuments } = actions
+  const {
+    AddPerpetrator,
+    EmailNotify,
+    AddDocuments,
+    Switch,
+    Completion,
+    SwitchDevices,
+  } = actions
+  console.log(actions)
   const { emailNotify = {} } = state
 
   return styled(styles)(
-    <panel {...use({ one: AddPerpetrator && EmailNotify, two: AddDocuments })}>
+    <panel
+      {...use({
+        one: AddPerpetrator && EmailNotify,
+        two: AddDocuments,
+        tree: Switch && AddPerpetrator,
+        four: Completion,
+      })}
+    >
       {AddPerpetrator && (
         <Perpetrator getData={(data) => dispatch({ type: "add_data", data })} />
       )}
@@ -80,11 +107,14 @@ export const Panel = ({
         />
       )}
       {EmailNotify && <TemplateButton />}
-      {AddDocuments && (
+      {!SwitchDevices && AddDocuments && (
         <>
           <UploadButton {...upload.button} />
           <UploadList {...upload.list} />
         </>
+      )}
+      {Switch && (
+        <NextStage getData={(data) => dispatch({ type: "add_data", data })} />
       )}
       <PushButton {...pushProps} />
     </panel>

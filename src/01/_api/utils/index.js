@@ -58,17 +58,21 @@ export function createTimer({
         before: `(до ${new Date(ext).toLocaleDateString()})`,
       },
       text: "Время на этап:",
-      icon: "timer",
+      icon: { icon: "timer", fill: "var(--main-100)" },
     }
   }
 
   const start = creationTime,
     deadline = expectedCompletionTime,
     finish = closingTime
+
+  const diff = formatTime(new Date(deadline) - new Date(start)),
+    final = formatTime(new Date(start) - new Date(finish))
+
   return {
-    diff: formatTime(new Date(deadline) - new Date(start)),
-    final: formatTime(new Date(start) - new Date(finish)),
-    icon: "ok",
+    diff: { timeStr: !final.fail ? `(${diff.timeStr})` : `(-${diff.timeStr})` },
+    final,
+    icon: { icon: "ok", fill: "var(--success)" },
     stage: null,
     text: "Выполнено за:",
   }

@@ -7,7 +7,7 @@ export const usePanel = (
   React.useEffect(() => {
     if (!panelLoading) dispatch({ type: "reset" })
   }, [panelLoading])
-  console.log("panel", panel.actions)
+  // console.log("panel", panel.actions)
 
   const pushProps = {
     onClick() {
@@ -45,10 +45,12 @@ function dataReducer(state, action) {
 }
 
 function isDisabled(
-  { nextPerpetratorId, documentsIds = [] },
-  { AddPerpetrator, AddDocuments }
+  { nextPerpetratorId = null, documentsIds = [], nextStageId = null },
+  { AddPerpetrator, AddDocuments, Switch, Completion }
 ) {
+  if (Switch && AddPerpetrator) return !nextPerpetratorId || !nextStageId
   if (AddPerpetrator) return !nextPerpetratorId
   if (AddDocuments) return !documentsIds.length
+  if (Completion) return false
   return true
 }

@@ -39,7 +39,7 @@ const styles = css`
 `
 
 export const UploadList = ({ items = [], del = () => {}, ...props }) => {
-  console.log(items)
+  // console.log(items)
   return styled(styles)(
     <upload_list {...props}>
       {items.map(({ url, name, id, deleted = false }) => (

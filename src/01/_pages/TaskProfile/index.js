@@ -9,9 +9,12 @@ import * as s from "01/r_comp"
 import { usePageFetch } from "./hooks/usePageFetch"
 import { usePanel } from "./hooks/usePanel"
 import { useStages } from "./hooks/useStages"
+import { useDocuments } from "./hooks/useDocuments"
+
 import { Header } from "./components/Header"
 import { Panel } from "./components/Panel"
 import { Stages } from "./components/Stages"
+import { Documents } from "./components/Documents"
 
 function reducer(state, action) {
   const { type, data } = action
@@ -42,10 +45,12 @@ export const TaskProfile = () => {
   usePageFetch(state, dispatch)
   const panel = usePanel(state, dispatch)
   const stages = useStages(state, dispatch)
+  const docs = useDocuments(state, dispatch)
   return styled(s.grid)(
     <TasksProfileContext.Provider value={{ ...state, dispatch }}>
       <Header {...state.header} />
       <Panel {...panel} />
+      <Documents {...docs} />
       <grid>
         <div></div>
         <Stages {...stages} />
