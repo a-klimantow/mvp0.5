@@ -77,7 +77,9 @@ export const Panel = ({
     AddDocuments,
     Switch,
     Completion,
+    SwitchDevices,
   } = actions
+  console.log(actions)
   const { emailNotify = {} } = state
 
   return styled(styles)(
@@ -105,7 +107,7 @@ export const Panel = ({
         />
       )}
       {EmailNotify && <TemplateButton />}
-      {AddDocuments && (
+      {!SwitchDevices && AddDocuments && (
         <>
           <UploadButton {...upload.button} />
           <UploadList {...upload.list} />
