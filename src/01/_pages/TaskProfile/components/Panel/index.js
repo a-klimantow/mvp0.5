@@ -79,6 +79,7 @@ export const Panel = ({
     Switch,
     Completion,
     SwitchDevices,
+    SetNextStageDeadline,
   } = actions
   console.log(actions)
   const { emailNotify = {} } = state
@@ -89,7 +90,7 @@ export const Panel = ({
         {...use({
           one: AddPerpetrator && EmailNotify,
           two: AddDocuments,
-          tree: Switch && AddPerpetrator,
+          tree: (Switch && AddPerpetrator) || SetNextStageDeadline,
           four: Completion,
         })}
       >
