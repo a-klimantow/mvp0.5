@@ -1,9 +1,9 @@
-import React, { useReducer } from "react"
+import React from "react"
 import styled, { css, use } from "reshadow/macro"
-import { useStages } from "./useStages"
 
 import { button } from "01/r_comp"
 import { Icon } from "01/components/Icon"
+import { Loader } from "01/components"
 
 const styles = css`
   stage_item {
@@ -80,9 +80,7 @@ const styles = css`
   }
 `
 
-export const Stages = () => {
-  const { items, revertProps } = useStages()
-
+export const Stages = ({ items = [], revertProps = {}, panelLoading }) => {
   return styled(styles, button)(
     <section>
       <h2>Этапы задачи</h2>
@@ -98,8 +96,9 @@ export const Stages = () => {
               </>
             )}
             {canRevert && (
-              <button {...revertProps}>
+              <button {...revertProps} disabled={panelLoading ?? false}>
                 <span>Вернуть этап</span>
+                <Loader show={panelLoading ?? false} />
               </button>
             )}
           </stage_item>

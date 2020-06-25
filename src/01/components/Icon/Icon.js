@@ -17,7 +17,7 @@ export const Icon = ({ size = 16, icon = "", ...props }) =>
   )
 
 Icon.propTypes = {
-  icon: t.oneOf([...Object.keys(icons)].sort((a, b) => a.localeCompare(b)))
+  icon: t.oneOf([...Object.keys(icons).sort((a, b) => a.localeCompare(b))])
     .isRequired,
   size: t.string,
   fill: t.string,

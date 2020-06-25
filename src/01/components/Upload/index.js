@@ -1,2 +1,3 @@
-export { Upload } from "./Upload"
+export { UploadButton } from "./UploadButton"
 export { useUpload } from "./useUpload"
+export { UploadList } from "./UploadList"

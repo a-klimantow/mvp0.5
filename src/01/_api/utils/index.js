@@ -27,17 +27,19 @@ export function createTimeline({
 
   const percent = Math.abs(((current - start) / (deadline - start)) * 100)
   const color =
-    percent < 30
+    percent < 60
       ? "var(--success)"
-      : percent < 60
+      : percent < 90
       ? "var(--warning)"
       : "var(--error)"
   const { timeStr, fail } = formatTime(deadline - current)
   return {
-    percent: percent > 100 ? "100%" : percent + "%",
-    color,
-    before: new Date(deadline).toLocaleDateString(),
-    timeStr,
+    style: {
+      background: color,
+      width: percent > 100 ? "100%" : percent + "%",
+    },
+    before: `(до ${new Date(deadline).toLocaleDateString()})`,
+    timeStr: !fail ? timeStr : `-${timeStr}`,
     fail,
   }
 }
@@ -53,8 +55,9 @@ export function createTimer({
     return {
       stage: {
         ...formatTime(new Date(ext) - Date.now()),
-        before: new Date(ext).toLocaleDateString(),
+        before: `(до ${new Date(ext).toLocaleDateString()})`,
       },
+      text: "Время на этап:",
       icon: "timer",
     }
   }
@@ -67,6 +70,7 @@ export function createTimer({
     final: formatTime(new Date(start) - new Date(finish)),
     icon: "ok",
     stage: null,
+    text: "Выполнено за:",
   }
 }
 
@@ -87,4 +91,36 @@ export function createDevice(device) {
     default:
       return { ...device, icon: "device", fill: def }
   }
+}
+
+export function changeItemStage(item, i, arr, uos) {
+  const { status, type, closingTime, perpetrator } = item
+  const icon =
+    status === "Done"
+      ? "ok"
+      : type === "Switch"
+      ? "choice"
+      : type === "Final"
+      ? "finish"
+      : null
+  const canRevert = uos && arr[i + 1]?.status === "InProgress"
+  const info = closingTime
+    ? {
+        name: perpetrator.name,
+        time: new Date(closingTime).toLocaleString(),
+      }
+    : null
+  return {
+    ...item,
+    key: item.id,
+    icon,
+    canRevert,
+    info,
+  }
+}
+
+export function createPanel(props = null) {
+  if (!props) return []
+  const { actions = [] } = props
+  return actions.reduce((obj, act) => ({ ...obj, [act]: true }), {})
 }

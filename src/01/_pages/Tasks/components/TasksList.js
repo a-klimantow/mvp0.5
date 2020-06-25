@@ -45,9 +45,6 @@ const styles = css`
       &[|fail] {
         color: var(--error);
         opacity: 1;
-        &::before {
-          content: "-";
-        }
       }
     }
   }
@@ -109,29 +106,21 @@ export const TasksList = ({ items }) => {
           {timeline && (
             <time_line>
               <line_wrap>
-                <line
-                  as="span"
-                  style={{
-                    background: timeline.color,
-                    width: timeline.percent,
-                  }}
-                />
+                <line as="span" style={timeline.style} />
               </line_wrap>
               <span {...use({ fail: timeline.fail })}>{timeline.timeStr}</span>
-              <time>(до {timeline.before})</time>
+              <time>{timeline.before}</time>
             </time_line>
           )}
           {/* tree */}
           <row>
             <timer>
               <Icon icon={timer.icon} />
-              <timer_text as="span">
-                {timer.stage ? "Время на этап:" : "Выполненно за:"}
-              </timer_text>
+              <timer_text as="span">{timer.text}</timer_text>
               <span {...use({ fail: timer?.stage.fail })}>
                 {timer.stage.timeStr}
               </span>
-              <time>(до {timer.stage.before})</time>
+              <time>{timer.stage.before}</time>
             </timer>
             {showExecutor && (
               <executor>

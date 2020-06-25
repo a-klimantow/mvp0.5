@@ -40,6 +40,9 @@ export const input = css`
     }
     &[data-disabled] {
       cursor: not-allowed;
+      & input {
+        box-shadow: none;
+      }
       &::before {
         background: var(--main-4);
       }
