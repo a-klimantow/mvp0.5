@@ -43,13 +43,9 @@ export async function moveStage(id = "", move = "", data = {}) {
   try {
     const res = await axios.post(`/tasks/${id}/${move}stage`, data)
     const { currentStage, name, stages, userOperatingStatus } = res
-    if (res.successResponse === null) {
+    if (res.successResponse === null || currentStage === null) {
       return { isReplace: true }
     }
-    // return dispatch({
-    //   type: "success",
-    //   data: { isReplace: true, move: null },
-    // })
     const items = stages.map((...rest) =>
       changeItemStage(...rest, userOperatingStatus === "Executor")
     )

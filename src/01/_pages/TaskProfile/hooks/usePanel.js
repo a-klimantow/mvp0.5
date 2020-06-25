@@ -45,10 +45,12 @@ function dataReducer(state, action) {
 }
 
 function isDisabled(
-  { nextPerpetratorId, documentsIds = [] },
-  { AddPerpetrator, AddDocuments }
+  { nextPerpetratorId = null, documentsIds = [], nextStageId = null },
+  { AddPerpetrator, AddDocuments, Switch, Completion }
 ) {
+  if (Switch && AddPerpetrator) return !nextPerpetratorId || !nextStageId
   if (AddPerpetrator) return !nextPerpetratorId
   if (AddDocuments) return !documentsIds.length
+  if (Completion) return false
   return true
 }

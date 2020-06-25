@@ -12,6 +12,7 @@ import { useStages } from "./hooks/useStages"
 import { Header } from "./components/Header"
 import { Panel } from "./components/Panel"
 import { Stages } from "./components/Stages"
+import { Documents } from "./components/Documents"
 
 function reducer(state, action) {
   const { type, data } = action
@@ -46,6 +47,7 @@ export const TaskProfile = () => {
     <TasksProfileContext.Provider value={{ ...state, dispatch }}>
       <Header {...state.header} />
       <Panel {...panel} />
+      <Documents items={[1]} />
       <grid>
         <div></div>
         <Stages {...stages} />

@@ -80,6 +80,7 @@ const styles = css`
 
 export const TasksList = ({ items }) => {
   const { push } = useHistory()
+  console.log(items)
   return styled(styles, time_line)(
     items?.map(
       ({
@@ -115,12 +116,12 @@ export const TasksList = ({ items }) => {
           {/* tree */}
           <row>
             <timer>
-              <Icon icon={timer.icon} />
+              <Icon {...timer.icon} />
               <timer_text as="span">{timer.text}</timer_text>
-              <span {...use({ fail: timer?.stage.fail })}>
-                {timer.stage.timeStr}
+              <span {...use({ fail: timer?.stage?.fail ?? null })}>
+                {timer.stage?.timeStr ?? timer.final.timeStr}
               </span>
-              <time>{timer.stage.before}</time>
+              <time>{timer.stage?.before ?? timer.diff.timeStr}</time>
             </timer>
             {showExecutor && (
               <executor>

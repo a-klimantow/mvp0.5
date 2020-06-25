@@ -85,7 +85,7 @@ export const Header = React.memo(
         )}
         {timer && (
           <timer>
-            <Icon icon={timer.icon} />
+            <Icon {...timer.icon} />
             <timer_text as="span">{timer.text}</timer_text>
             <span>{timer.stage?.timeStr}</span>
             <time>{timer.stage?.before}</time>
