@@ -22,10 +22,15 @@ const styles = css`
   }
 `
 
-export const UploadButton = ({ loading = false, onChange, ...props }) => {
+export const UploadButton = ({
+  loading = false,
+  text = "Загрузить",
+  onChange,
+  ...props
+}) => {
   return styled(styles)(
     <upload as="label" {...props}>
-      Загрузить
+      {text}
       <Loader show={loading}>
         <Icon icon="upload" />
       </Loader>

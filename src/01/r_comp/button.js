@@ -15,6 +15,7 @@ export const button = css`
     color: var(--color-def);
     font-size: var(--fs);
     padding: 0 var(--padding);
+    display: grid;
     grid-auto-flow: column;
     grid-gap: 8px;
     font-weight: 600;

@@ -6,7 +6,6 @@ import { tabs } from "01/r_comp"
 
 export const Tabs = () => {
   const { url } = useRouteMatch("/:page/:id")
-  console.log(url)
   const tabItems = [
     ["Общая информация", url],
     ["Квартиры", url + "/apartments"],

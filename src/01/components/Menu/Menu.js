@@ -10,8 +10,8 @@ export const Menu = () => {
   const menuList = useMenu()
   return styled(style)(
     <nav>
-      {menuList.map(({ name, to, icon, company }) => (
-        <NavLink key={name} to={to} activeClassName={style.active}>
+      {menuList.map(({ name, to, icon, company }, i) => (
+        <NavLink key={i} to={to} activeClassName={style.active}>
           {icon && <Icon icon={icon} />}
           <span>{name}</span>
           {company && <span>{company}</span>}

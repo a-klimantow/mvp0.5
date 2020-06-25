@@ -1,13 +1,19 @@
 import React from "react"
+import { useHistory, useRouteMatch } from "react-router-dom"
 export const usePanel = (
   { panel = {}, panelLoading = false },
   pageDispatch
 ) => {
+  const { replace } = useHistory()
+  const { url } = useRouteMatch()
   const [state, dispatch] = React.useReducer(dataReducer, {})
   React.useEffect(() => {
     if (!panelLoading) dispatch({ type: "reset" })
   }, [panelLoading])
-  // console.log("panel", panel.actions)
+
+  React.useEffect(() => {
+    panel.actions?.SwitchDevices && replace(url + "/step1")
+  }, [panel.actions?.SwitchDevices])
 
   const pushProps = {
     onClick() {

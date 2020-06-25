@@ -3,8 +3,6 @@ import React from "react"
 import styled from "reshadow/macro"
 
 import { TasksProfileContext } from "./context"
-// import { Panel } from "./Panel"
-// import { Stages } from "./Stages"
 import * as s from "01/r_comp"
 import { usePageFetch } from "./hooks/usePageFetch"
 import { usePanel } from "./hooks/usePanel"
@@ -13,6 +11,7 @@ import { useDocuments } from "./hooks/useDocuments"
 
 import { Header } from "./components/Header"
 import { Panel } from "./components/Panel"
+import { Steps } from "./components/Steps"
 import { Stages } from "./components/Stages"
 import { Documents } from "./components/Documents"
 
@@ -50,6 +49,7 @@ export const TaskProfile = () => {
     <TasksProfileContext.Provider value={{ ...state, dispatch }}>
       <Header {...state.header} />
       <Panel {...panel} />
+      <Steps />
       <Documents {...docs} />
       <grid>
         <div></div>
