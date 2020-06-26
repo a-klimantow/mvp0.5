@@ -1,6 +1,7 @@
 import React from "react"
 import styled, { css } from "reshadow/macro"
 
+import * as style from "01/r_comp"
 import { Icon } from "01/components"
 
 const styles = css`
@@ -8,7 +9,7 @@ const styles = css`
   meter_device {
     padding: 8px;
     display: grid;
-    grid-template-columns: 2fr repeat(3, 1fr);
+    grid-template-columns: 2fr repeat(2, 1fr) minmax(max-content, auto);
     grid-column-gap: 16px;
     border-bottom: 1px solid var(--frame);
   }
@@ -18,10 +19,6 @@ const styles = css`
     background: var(--bg);
     align-items: center;
     color: var(--main-80);
-  }
-
-  div {
-    border: 1px solid red;
   }
 
   device_info {
@@ -88,10 +85,26 @@ const styles = css`
       opacity: 0.6;
     }
   }
+
+  div {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    grid-gap: 8px;
+    align-content: start;
+    align-items: center;
+    padding: 8px;
+    & button {
+      padding: 8px;
+    }
+    & span {
+      display: contents;
+      cursor: pointer;
+    }
+  }
 `
 
 export const MeterDevices = ({ items = [] }) => {
-  return styled(styles)(
+  return styled(styles, style.button)(
     <meters>
       <meter_header>Информация o приборe</meter_header>
       {items.map(
@@ -129,7 +142,15 @@ export const MeterDevices = ({ items = [] }) => {
                 <input />
               </row>
             </input_meter>
-            <div></div>
+            <div>
+              <span>
+                <Icon icon="list" />
+                История показаний
+              </span>
+              <button>
+                <Icon icon="menu" />
+              </button>
+            </div>
           </meter_device>
         )
       )}
