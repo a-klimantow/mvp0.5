@@ -40,11 +40,11 @@ export const App = () => {
                 />
                 <Route path="/tasks/(\\d+)" component={TaskProfile} />
                 <Route path="/objects/" component={Objects} exact />
-                <Route
+                {/* <Route
                   path="/objects/(\\d+)/devices/(\\d+)/(testimony|documents|changes)?"
                   component={DeviceProfile}
                   exact
-                />
+                /> */}
                 <Route
                   path="/objects/(\\d+)/(apartments|devices)?"
                   component={ObjectProfile}
@@ -55,7 +55,7 @@ export const App = () => {
                   path="/meters/(apartments|houses)"
                   component={MetersPage}
                 />
-                <Route render={() => "no"} />
+                <Redirect to="/tasks/" />
               </Switch>
             </main>
           </layout>

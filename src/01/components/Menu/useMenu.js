@@ -24,7 +24,8 @@ export function useMenu() {
       name: "Настройки",
       to: "/settings/",
       icon: "setting",
-      perm: ["ManagingFirmAdministrator"],
+      perm: [],
+      // perm: ["ManagingFirmAdministrator"],
     },
     {
       name: "Ввод показаний ",

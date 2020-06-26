@@ -11,9 +11,9 @@ export const usePanel = (
     if (!panelLoading) dispatch({ type: "reset" })
   }, [panelLoading])
 
-  React.useEffect(() => {
-    panel.actions?.SwitchDevices && replace(url + "/step1")
-  }, [panel.actions?.SwitchDevices])
+  // React.useEffect(() => {
+  //   panel.actions?.SwitchDevices && replace(url + "/step1")
+  // }, [panel.actions?.SwitchDevices])
 
   const pushProps = {
     onClick() {

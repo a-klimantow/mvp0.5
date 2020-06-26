@@ -85,45 +85,43 @@ export const Panel = ({
   const { emailNotify = {} } = state
 
   return styled(styles)(
-    <Route path="/tasks/(\\d+)" exact>
-      <panel
-        {...use({
-          one: AddPerpetrator && EmailNotify,
-          two: AddDocuments,
-          tree: (Switch && AddPerpetrator) || SetNextStageDeadline,
-          four: Completion,
-        })}
-      >
-        {AddPerpetrator && (
-          <Perpetrator
-            getData={(data) => dispatch({ type: "add_data", data })}
-          />
-        )}
-        {EmailNotify && <Contractors />}
-        {EmailNotify && (
-          <Textarea
-            value={emailNotify.message ?? ""}
-            onChange={(e) =>
-              dispatch({
-                type: "email_notify",
-                data: { message: e.target.value },
-              })
-            }
-          />
-        )}
-        {EmailNotify && <TemplateButton />}
-        {!SwitchDevices && AddDocuments && (
-          <>
-            <UploadButton {...upload.button} />
-            <UploadList {...upload.list} />
-          </>
-        )}
-        {Switch && (
-          <NextStage getData={(data) => dispatch({ type: "add_data", data })} />
-        )}
-        <PushButton {...pushProps} />
-      </panel>
-    </Route>
+    // <Route path="/tasks/(\\d+)" exact>
+    <panel
+      {...use({
+        one: AddPerpetrator && EmailNotify,
+        two: AddDocuments,
+        tree: (Switch && AddPerpetrator) || SetNextStageDeadline,
+        four: Completion,
+      })}
+    >
+      {AddPerpetrator && (
+        <Perpetrator getData={(data) => dispatch({ type: "add_data", data })} />
+      )}
+      {EmailNotify && <Contractors />}
+      {EmailNotify && (
+        <Textarea
+          value={emailNotify.message ?? ""}
+          onChange={(e) =>
+            dispatch({
+              type: "email_notify",
+              data: { message: e.target.value },
+            })
+          }
+        />
+      )}
+      {EmailNotify && <TemplateButton />}
+      {AddDocuments && (
+        <>
+          <UploadButton {...upload.button} />
+          <UploadList {...upload.list} />
+        </>
+      )}
+      {Switch && (
+        <NextStage getData={(data) => dispatch({ type: "add_data", data })} />
+      )}
+      <PushButton {...pushProps} />
+    </panel>
+    // </Route>
   )
 }
 

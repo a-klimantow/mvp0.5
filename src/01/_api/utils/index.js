@@ -84,6 +84,7 @@ export function createDevice(device) {
   const cold = "var(--cold-water)"
   const hot = "var(--hot-water)"
   const def = "var(--main-100)"
+  const elect = "var(--electro)"
 
   switch (resource) {
     case "ColdWaterSupply":
@@ -92,6 +93,8 @@ export function createDevice(device) {
       return { ...device, icon: "water", fill: hot }
     case "Heat":
       return { ...device, icon: "heat", fill: def }
+    case "Electricity":
+      return { ...device, icon: "electro", fill: elect }
     default:
       return { ...device, icon: "device", fill: def }
   }
