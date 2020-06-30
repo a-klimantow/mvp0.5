@@ -9,7 +9,7 @@ export const useFetch = (setInfo, setMeters) => {
     ;(async () => {
       const [info, meters] = await axios.all([getInfo(id), getMeters(id)])
       setInfo(info)
-      // console.log(meters)
+      setMeters(meters)
     })()
-  }, [id, setInfo])
+  }, [id, setInfo, setMeters])
 }

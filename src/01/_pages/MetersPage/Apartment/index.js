@@ -7,7 +7,7 @@ import { Meters } from "./Meters"
 
 export const Apartment = () => {
   const { info, meters } = useApartment()
-  console.log(meters)
+  console.log("meters", meters)
   return (
     <>
       <h2>{info.title}</h2>
