@@ -37,6 +37,7 @@ export const getMeters = async (apartmentId = "") => {
       }
       const current = {
         values: createCurrentMeter(item),
+
         type,
         isElectro,
       }
@@ -74,4 +75,16 @@ const createPrevMeter = ({ rateType, previousReadings = null }) => {
   } else {
     return []
   }
+}
+
+export const checkMerters = async (data) => {
+  console.log(data)
+  try {
+    const res = await axios({
+      url: "IndividualDeviceReadings/create",
+      method: "post",
+      data,
+    })
+    console.log(res)
+  } catch (error) {}
 }

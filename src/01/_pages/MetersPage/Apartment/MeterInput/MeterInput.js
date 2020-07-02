@@ -1,5 +1,6 @@
 import React from "react"
 import styled, { css, use } from "reshadow/macro"
+import { checkMerters } from "../../api"
 
 const styles = css`
   meter_wrap {
@@ -54,13 +55,29 @@ const styles = css`
   }
 `
 
-export const MeterInput = React.memo(({ values: v = [], type, isElectro }) => {
+export const MeterInput = ({ values: v = [], type, id, isElectro }) => {
   const [values, setValues] = React.useState(v)
+  const [status, setStatus] = React.useState(null)
+  const [start, setStart] = React.useState(false)
 
   const changeValue = (e, idx) => {
     const newValue = e.target.value
     setValues(values.map((value, i) => (i === idx ? newValue : value)))
   }
+  React.useEffect(() => {
+    if (start) {
+      const dataValues = Object.fromEntries(
+        values.map((v, i) => [`value${i + 1}`, +v])
+      )
+      console.log(dataValues)
+      checkMerters({
+        isForsed: true,
+        deviceId: id,
+        ...dataValues,
+        readingDate: new Date().toISOString(),
+      })
+    }
+  }, [start])
 
   return styled(styles)(
     <meter_wrap>
@@ -68,13 +85,14 @@ export const MeterInput = React.memo(({ values: v = [], type, isElectro }) => {
         <meter_input key={i}>
           <tarif>Тариф {i + 1}</tarif>
           <input
+            type="number"
             value={value}
             onChange={(e) => changeValue(e, i)}
-            onBlur={(e) => console.log(i === values.length - 1)}
+            onBlur={() => setStart(i === values.length - 1)}
           />
           <type {...use({ water: !isElectro })}>{type}</type>
         </meter_input>
       ))}
     </meter_wrap>
   )
-})
+}

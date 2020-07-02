@@ -50,8 +50,8 @@ export const Meters = ({ items = [] }) => {
         <React.Fragment key={id}>
           <meters_item>
             <DeviceInfo {...item} />
-            <MeterInput {...current} />
             <MeterInput {...prev} />
+            <MeterInput {...current} id={id} />
             <div></div>
           </meters_item>
           <hr />
