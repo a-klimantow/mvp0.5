@@ -1,6 +1,7 @@
 import React from "react"
 import { Route, useRouteMatch } from "react-router-dom"
-import { Apartment } from "./Apartment"
+import { ApartmentId } from "./apartment_id"
+import { Apatments } from "./apartments"
 
 export const MetersPage = () => {
   const { path } = useRouteMatch("/meters/")
@@ -9,7 +10,8 @@ export const MetersPage = () => {
   return (
     <>
       <h1>Ввод показаний</h1>
-      <Route path={`${path}apartments/(\\d+)`} component={Apartment} exact />
+      <Route path={`${path}apartments`} component={Apatments} exact />
+      <Route path={`${path}apartments/(\\d+)`} component={ApartmentId} exact />
     </>
   )
 }

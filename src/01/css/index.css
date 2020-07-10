@@ -101,6 +101,7 @@ button,
 a {
   font: inherit;
   color: inherit;
+  font-size: 14px;
 }
 
 /* border */
@@ -138,8 +139,14 @@ ul {
 }
 
 a {
+  border: var(--border);
   text-decoration: none;
   cursor: pointer;
+}
+
+a:hover {
+  box-shadow: var(--show-shadow, var(--shadow));
+  color: var(--primary-100);
 }
 
 /* disabled */
@@ -170,7 +177,10 @@ input[type="file"] {
   height: 0;
   position: absolute;
 }
-
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
 sup {
   font-size: 8px;
 }
