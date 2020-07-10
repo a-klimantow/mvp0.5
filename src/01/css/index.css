@@ -177,10 +177,22 @@ input[type="file"] {
   height: 0;
   position: absolute;
 }
+<<<<<<< HEAD
+=======
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+>>>>>>> f24988745b080e0bd0b396a9ec5596f8dc08e0be
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> f24988745b080e0bd0b396a9ec5596f8dc08e0be
 sup {
   font-size: 8px;
 }

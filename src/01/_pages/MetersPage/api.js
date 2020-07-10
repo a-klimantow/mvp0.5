@@ -1,26 +1,11 @@
 import axios from "01/axios"
 import { getDeviceIconProps, check } from "_utils"
 
-export const getInfo = (id = "") =>
-  axios.get(`Apartments/${id}`).then((res) => ({
-    title: createHeader(res),
-    owners: createOwners(res),
-  }))
-
-const createHeader = ({ housingStock, apartmentNumber = "" }) => {
-  const { number, street } = housingStock
-  return `${street}, ${number}, кв.${apartmentNumber}`
-}
-
-const createOwners = ({ homeowners = [] }) => {
-  return homeowners.flatMap(
-    ({ firstName, personalAccountNumber, phoneNumber }) => [
-      ["Собственник", firstName],
-      ["Лицевой счет", personalAccountNumber],
-      ["Телефон", phoneNumber],
-    ]
-  )
-}
+export const getInfo = (id = "") => axios.get(`Apartments/${id}`)
+// .then((res) => ({
+//   title: createHeader(res),
+//   owners: createOwners(res),
+// }))
 
 export const getMeters = async (apartmentId = "") => {
   const res = await axios.get("MeteringDevices", { params: { apartmentId } })
@@ -37,6 +22,7 @@ export const getMeters = async (apartmentId = "") => {
       }
       const current = {
         values: createCurrentMeter(item),
+
         type,
         isElectro,
       }
@@ -74,4 +60,16 @@ const createPrevMeter = ({ rateType, previousReadings = null }) => {
   } else {
     return []
   }
+}
+
+export const checkMerters = async (data) => {
+  console.log(data)
+  try {
+    const res = await axios({
+      url: "IndividualDeviceReadings/create",
+      method: "post",
+      data,
+    })
+    console.log(res)
+  } catch (error) {}
 }

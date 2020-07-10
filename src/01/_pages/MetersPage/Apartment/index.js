@@ -1,22 +1,22 @@
 import React from "react"
-import styled, { use } from "reshadow/macro"
 
-import { useApartment } from "./useApartment"
+import {
+  useGETApatrmentState,
+  useApartmentTitle,
+  useApartmentInfo,
+} from "01/pages_hooks/meters"
 import { WrapInfo } from "./WrapInfo"
-import { Meters } from "./Meters"
 
 export const Apartment = () => {
-  const { info, meters } = useApartment()
-  console.log("meters", meters)
+  const { apartment, devices } = useGETApatrmentState()
+  const title = useApartmentTitle(apartment)
+  const info = useApartmentInfo(apartment)
+
   return (
     <>
-      <h2>{info.title}</h2>
-      <WrapInfo>
-        {info.owners.map((i) => (
-          <div key={i[0]}>{i[0]}</div>
-        ))}
-      </WrapInfo>
-      <Meters {...meters} />
+      {title}
+      <WrapInfo>{info}</WrapInfo>
+      {/* <Meters {...meters} /> */}
     </>
   )
 }
