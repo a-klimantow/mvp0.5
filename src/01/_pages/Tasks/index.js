@@ -32,7 +32,7 @@ export const Tasks = () => {
     <>
       <h1>Задачи</h1>
       <Tabs total={[executingTasksCount, observingTasksCount]} />
-      {/* <TasksList items={items} /> */}
+      <TasksList items={items} />
     </>
   )
 }

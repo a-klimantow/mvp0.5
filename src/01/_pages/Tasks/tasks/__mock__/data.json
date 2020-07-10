@@ -1,0 +1,256 @@
+{
+  "successResponse": {
+    "executingTasksCount": 6,
+    "observingTasksCount": 0,
+    "totalItems": 6,
+    "pageNumber": 1,
+    "pageSize": 500,
+    "totalPages": 1,
+    "hasPreviousPage": false,
+    "hasNextPage": false,
+    "nextPageNumber": 1,
+    "previousPageNumber": 1,
+    "items": [
+      {
+        "id": 1338412,
+        "name": "Проверка ИПУ",
+        "meteringDevice": null,
+        "currentStage": {
+          "id": 1338419,
+          "number": 0,
+          "name": "Назначить контролера на проверку",
+          "perpetrator": {
+            "id": 1334568,
+            "email": "2.2@mail.ru",
+            "name": "Оператор УК А.",
+            "cellphone": null,
+            "executingTaskCount": 1
+          },
+          "status": "InProgress",
+          "actions": ["AddPerpetrator", "SetNextStageDeadline"],
+          "allowedDocumentTypes": null,
+          "closingTime": null,
+          "startingTime": "2020-06-16T11:29:56.569896",
+          "expectedCompletionTime": "2020-06-19T08:29:56.495691"
+        },
+        "creationTime": "2020-06-16T11:29:56.495691",
+        "expectedCompletionTime": "2020-06-19T11:29:56.569425",
+        "closingTime": null,
+        "address": {
+          "city": "Нижнекамск",
+          "street": "Фикрята Табеева",
+          "housingStockNumber": "21",
+          "apartmentNumber": "39"
+        },
+        "perpetrator": {
+          "id": 1334568,
+          "email": "2.2@mail.ru",
+          "name": "Оператор УК А.",
+          "cellphone": null,
+          "executingTaskCount": 1
+        },
+        "isResponsible": true
+      },
+      {
+        "id": 1338420,
+        "name": "Проверка ИПУ",
+        "meteringDevice": null,
+        "currentStage": {
+          "id": 1338427,
+          "number": 0,
+          "name": "Назначить контролера на проверку",
+          "perpetrator": {
+            "id": 1334568,
+            "email": "2.2@mail.ru",
+            "name": "Оператор УК А.",
+            "cellphone": null,
+            "executingTaskCount": 1
+          },
+          "status": "InProgress",
+          "actions": ["AddPerpetrator", "SetNextStageDeadline"],
+          "allowedDocumentTypes": null,
+          "closingTime": null,
+          "startingTime": "2020-06-16T11:29:57.708561",
+          "expectedCompletionTime": "2020-06-19T08:29:57.633039"
+        },
+        "creationTime": "2020-06-16T11:29:57.633039",
+        "expectedCompletionTime": "2020-06-19T11:29:57.706449",
+        "closingTime": null,
+        "address": {
+          "city": "Нижнекамск",
+          "street": "Рифката Гайнуллина",
+          "housingStockNumber": "16",
+          "apartmentNumber": "71"
+        },
+        "perpetrator": {
+          "id": 1334568,
+          "email": "2.2@mail.ru",
+          "name": "Оператор УК А.",
+          "cellphone": null,
+          "executingTaskCount": 1
+        },
+        "isResponsible": true
+      },
+      {
+        "id": 1338428,
+        "name": "Проверка ИПУ",
+        "meteringDevice": null,
+        "currentStage": {
+          "id": 1338435,
+          "number": 0,
+          "name": "Назначить контролера на проверку",
+          "perpetrator": {
+            "id": 1334568,
+            "email": "2.2@mail.ru",
+            "name": "Оператор УК А.",
+            "cellphone": null,
+            "executingTaskCount": 1
+          },
+          "status": "InProgress",
+          "actions": ["AddPerpetrator", "SetNextStageDeadline"],
+          "allowedDocumentTypes": null,
+          "closingTime": null,
+          "startingTime": "2020-06-16T11:29:58.878142",
+          "expectedCompletionTime": "2020-06-19T08:29:58.806543"
+        },
+        "creationTime": "2020-06-16T11:29:58.806543",
+        "expectedCompletionTime": "2020-06-19T11:29:58.877641",
+        "closingTime": null,
+        "address": {
+          "city": "Нижнекамск",
+          "street": "Бызова",
+          "housingStockNumber": "11",
+          "apartmentNumber": "87"
+        },
+        "perpetrator": {
+          "id": 1334568,
+          "email": "2.2@mail.ru",
+          "name": "Оператор УК А.",
+          "cellphone": null,
+          "executingTaskCount": 1
+        },
+        "isResponsible": true
+      },
+      {
+        "id": 1338436,
+        "name": "Проверка ИПУ",
+        "meteringDevice": null,
+        "currentStage": {
+          "id": 1338443,
+          "number": 0,
+          "name": "Назначить контролера на проверку",
+          "perpetrator": {
+            "id": 1334568,
+            "email": "2.2@mail.ru",
+            "name": "Оператор УК А.",
+            "cellphone": null,
+            "executingTaskCount": 1
+          },
+          "status": "InProgress",
+          "actions": ["AddPerpetrator", "SetNextStageDeadline"],
+          "allowedDocumentTypes": null,
+          "closingTime": null,
+          "startingTime": "2020-06-16T11:29:59.920865",
+          "expectedCompletionTime": "2020-06-19T08:29:59.851498"
+        },
+        "creationTime": "2020-06-16T11:29:59.851498",
+        "expectedCompletionTime": "2020-06-19T11:29:59.920429",
+        "closingTime": null,
+        "address": {
+          "city": "Нижнекамск",
+          "street": "Мира",
+          "housingStockNumber": "119",
+          "apartmentNumber": "104"
+        },
+        "perpetrator": {
+          "id": 1334568,
+          "email": "2.2@mail.ru",
+          "name": "Оператор УК А.",
+          "cellphone": null,
+          "executingTaskCount": 1
+        },
+        "isResponsible": true
+      },
+      {
+        "id": 1338444,
+        "name": "Проверка ИПУ",
+        "meteringDevice": null,
+        "currentStage": {
+          "id": 1338451,
+          "number": 0,
+          "name": "Назначить контролера на проверку",
+          "perpetrator": {
+            "id": 1334568,
+            "email": "2.2@mail.ru",
+            "name": "Оператор УК А.",
+            "cellphone": null,
+            "executingTaskCount": 1
+          },
+          "status": "InProgress",
+          "actions": ["AddPerpetrator", "SetNextStageDeadline"],
+          "allowedDocumentTypes": null,
+          "closingTime": null,
+          "startingTime": "2020-06-16T11:30:00.959043",
+          "expectedCompletionTime": "2020-06-19T08:30:00.899149"
+        },
+        "creationTime": "2020-06-16T11:30:00.899149",
+        "expectedCompletionTime": "2020-06-19T11:30:00.958651",
+        "closingTime": null,
+        "address": {
+          "city": "Нижнекамск",
+          "street": "Фикрята Табеева",
+          "housingStockNumber": "17",
+          "apartmentNumber": "228"
+        },
+        "perpetrator": {
+          "id": 1334568,
+          "email": "2.2@mail.ru",
+          "name": "Оператор УК А.",
+          "cellphone": null,
+          "executingTaskCount": 1
+        },
+        "isResponsible": true
+      },
+      {
+        "id": 1347543,
+        "name": "Проверка ИПУ",
+        "meteringDevice": null,
+        "currentStage": {
+          "id": 1347544,
+          "number": 0,
+          "name": "Назначить контролера на проверку",
+          "perpetrator": {
+            "id": 1334568,
+            "email": "2.2@mail.ru",
+            "name": "Оператор УК А.",
+            "cellphone": null,
+            "executingTaskCount": 1
+          },
+          "status": "InProgress",
+          "actions": ["AddPerpetrator", "SetNextStageDeadline"],
+          "allowedDocumentTypes": null,
+          "closingTime": null,
+          "startingTime": "2020-07-10T00:50:21.262232",
+          "expectedCompletionTime": "2020-07-13T00:50:20.551256"
+        },
+        "creationTime": "2020-07-10T03:50:20.551256",
+        "expectedCompletionTime": "2020-07-13T03:50:21.190391",
+        "closingTime": null,
+        "address": {
+          "city": "Нижнекамск",
+          "street": "Мира",
+          "housingStockNumber": "95",
+          "apartmentNumber": "1"
+        },
+        "perpetrator": {
+          "id": 1334568,
+          "email": "2.2@mail.ru",
+          "name": "Оператор УК А.",
+          "cellphone": null,
+          "executingTaskCount": 1
+        },
+        "isResponsible": true
+      }
+    ]
+  }
+}

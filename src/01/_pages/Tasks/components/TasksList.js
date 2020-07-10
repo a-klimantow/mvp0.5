@@ -90,7 +90,7 @@ export const TasksList = ({ items }) => {
         currentStage,
         name,
         device,
-        address,
+        address: { city, street, housingStockNumber, apartmentNumber } = {},
         calendar,
         perpetrator,
         showExecutor,
@@ -141,7 +141,7 @@ export const TasksList = ({ items }) => {
             )}
             <addr>
               <Icon icon="map" />
-              {address}
+              {city}, {street}, {housingStockNumber}, кв.{apartmentNumber}
             </addr>
             <num>
               <Icon icon="number" />
